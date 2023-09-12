@@ -10,15 +10,15 @@
       <div>
           <div class="d-flex flex-column">
           <p class="name-label mx-3">Name</p>
-          <input type="text" class="custom-input custom-input:focus mx-3 p-2" value="{{data.name}}" >
+          <input  type="text" class="custom-input custom-input:focus mx-3 p-2" [(ngModel)]="data[0]" >
           <p class="name-label mx-3 my-1">Version</p>
-          <input type="text" class="custom-input custom-input:focus mx-3 p-2" value="{{data.version}}" >
+          <input type="text" class="custom-input custom-input:focus mx-3 p-2"  [(ngModel)]="data[1]" >
           </div>
           <div class="my-3">
-          <input id="checkbox" type="checkbox" class="mx-3 check-size" checked="{{data.enable}}">
+          <input id="checkbox" type="checkbox" class="mx-3 check-size" >
           <label for="checkbox" >Enabled</label>
          </div>
-          <button class="submit-button mx-3" type="button">SUBMIT</button>
+          <button (click)="onEditDeviceType()"  class="submit-button mx-3" type="button">Update Device</button>
       </div>
     </mat-card-content>
     

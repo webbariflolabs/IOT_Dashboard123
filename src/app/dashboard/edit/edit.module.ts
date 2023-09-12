@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { EditComponent } from './edit.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [EditComponent], 
@@ -13,7 +14,8 @@ import { EditComponent } from './edit.component';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule
 ],
 })
 export class EditModule {}

@@ -1,23 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminCreateNewDeviceComponent } from '../admin-create-new-device/admin-create-new-device.component';
 import { DeviceEditComponent } from '../device-edit/device-edit.component';
+import { AuthenticationService } from '../authentication.service';
+import { DeleteDeviceTypeComponent } from '../delete-device-type/delete-device-type.component';
 @Component({
   selector: 'app-admin-device-types',
   templateUrl: './admin-device-types.component.html',
   styleUrls: ['./admin-device-types.component.css']
 })
-export class AdminDeviceTypesComponent {
+export class AdminDeviceTypesComponent implements OnInit {
   events: string[] = [];
-  opened: boolean = false;
+  opened: boolean = true;
   shouldRun: boolean = true;
   accountId: string[] = [];
   accountName: string[] = [];
   admin:string[] = [];
  
 
-  constructor(private router: Router, public dialog : MatDialog ) {
+  constructor(private router: Router, public dialog : MatDialog, private auth: AuthenticationService ) {
     // this.loginform-this.formBuilder.group
   }
 
@@ -55,7 +57,7 @@ export class AdminDeviceTypesComponent {
   }
 
 
-  onAddUser(): void {
+  onAddDeviceType(): void {
     const dialogRef = this.dialog.open(AdminCreateNewDeviceComponent, {
       width: '400px',
       
@@ -66,10 +68,10 @@ export class AdminDeviceTypesComponent {
     
 }
 
-onEditDevice():void{
+onEditDevice(devices:any):void{
   const dialogRef = this.dialog.open(DeviceEditComponent, {
     width: '400px',
-    
+    data: devices
   });
 
   dialogRef.afterClosed().subscribe(result => {      
@@ -80,6 +82,34 @@ onEditDevice():void{
 onAssignedCntrls():void{
   this.router.navigate(['./device-assign-controls'])
 
+}
+
+devicedetails:any=[];
+
+userStoreData:any;
+userNameProfile:any;
+
+ ngOnInit(): void {
+   
+this.userStoreData=localStorage.getItem('userData')
+const userDataObject = JSON.parse(this.userStoreData);
+this.userNameProfile=userDataObject.userName
+    this.auth.onGetDeviceTypes().subscribe(response=>
+    {console.log(response),
+    this.devicedetails = response},
+    error=>
+    console.log(error) )
+}
+
+
+onDeleteDevice(device:any){
+  const dialogRef = this.dialog.open(DeleteDeviceTypeComponent, {
+    width: '400px',
+    data: device
+  });
+
+  dialogRef.afterClosed().subscribe(result => {      
+  });
 }
 
 }

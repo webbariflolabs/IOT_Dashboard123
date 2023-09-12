@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -62,6 +63,19 @@ import { UserNewDeviceComponent } from './user-new-device/user-new-device.compon
 import { DeviceAssignControlsComponent } from './device-assign-controls/device-assign-controls.component';
 import { DeviceStatsComponent } from './device-stats/device-stats.component';
 import { UserDeleteComponent } from './user-delete/user-delete.component';
+import { Edit5Component } from './action/edit5/edit5/edit5.component';
+import { UserAccountDeleteComponent } from './user-account-delete/user-account-delete.component';
+import { UserDeviceDeleteComponent } from './user-device-delete/user-device-delete.component';
+import { GeneralAccountCreateComponent } from './general-account-create/general-account-create.component';
+import { GeneralAccountEditComponent } from './general-account-edit/general-account-edit.component';
+import { GeneralAccountDeleteComponent } from './general-account-delete/general-account-delete.component';
+import { GeneralNewDeviceComponent } from './general-new-device/general-new-device.component';
+import { DeleteDeviceTypeComponent } from './delete-device-type/delete-device-type.component';
+
+import { GeneralUsersComponent } from './general-users/general-users.component';
+import { MqttDeviceComponent } from './mqtt-device/mqtt-device.component';
+import { DeleteAssignControlsComponent } from './delete-assign-controls/delete-assign-controls.component';
+
 
 
 
@@ -92,8 +106,17 @@ import { UserDeleteComponent } from './user-delete/user-delete.component';
     DeviceAssignControlsComponent,
     DeviceStatsComponent,
     UserDeleteComponent,
-    
-
+    Edit5Component,
+    UserAccountDeleteComponent,
+    UserDeviceDeleteComponent,
+    GeneralAccountCreateComponent,
+    GeneralAccountEditComponent,
+    GeneralAccountDeleteComponent,
+    GeneralNewDeviceComponent,
+    GeneralUsersComponent,
+    MqttDeviceComponent,
+    DeleteDeviceTypeComponent,
+    DeleteAssignControlsComponent
     // DashboardComponent,
    
   ],

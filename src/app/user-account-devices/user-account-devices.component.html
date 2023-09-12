@@ -13,13 +13,15 @@
       </div>
       </div>
         <div class="d-flex flex-row">
-          <button class="name-icon mx-3" [matMenuTriggerFor]="menu">BN</button>
+          <button class="name-icon mx-3" [matMenuTriggerFor]="menu">{{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile| uppercase).split(' ')[1][0]}}</button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item>Profile</button>
             <button mat-menu-item (click)="onLogout()">Logout</button>
           </mat-menu>
           
-          <button class="username" [matMenuTriggerFor]="menu">Biswajit Nayak</button>
+          <button class="username" [matMenuTriggerFor]="menu">
+
+            {{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile.split(' ')[0].slice(1))+' '+(userNameProfile| uppercase).split(' ')[1][0]+(userNameProfile.split(' ')[1].slice(1))}} </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item>Profile</button>
             <button mat-menu-item (click)="onLogout1()">Logout</button>
@@ -58,7 +60,7 @@
             <button class="btn btn-primary" (click)="openDialog7()">New Device</button>
             <hr>
            <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6" *ngFor = "let device of devicedetails.result" >
               <mat-card>   
                 <div class="device-content" >
                   <div class="d-flex flex-column">
@@ -67,64 +69,46 @@
                 </div>
                    
                     <div class="my-3 mx-2">
-                  <button class="btn btn-warning mx-1"><i class="bi bi-pencil-square mx-1" (click)="onClick7()"></i></button>
-                                    <button class="btn btn-danger mx-2"><i class="bi bi-trash"></i></button>
-                                    <button class="btn btn-primary mx-2"><i class="bi bi-grid-fill" ></i></button>
+                  <button class="btn btn-warning mx-1" (click)="onEditDevice(device)"><i class="bi bi-pencil-square mx-1" ></i></button>
+                                    <button (click)="onDeleteDevice(device[0])" class="btn btn-danger mx-2"><i class="bi bi-trash"></i></button>
+                                    <button  class="btn btn-primary mx-2"><i class="bi bi-grid-fill" ></i></button>
                   </div>
               </div>
                 <hr>
                 <mat-card-content>
-                    <span>Device Id</span>
-                    <hr>
-                    <span>Device Name</span>
-                    <hr>
-                    <span>Device Type</span>
-                    <hr>
-                    <span>
-                      <button class="btn success-color disabled">CONTROLS</button>
-                      <button class="btn stats-color mx-3"(click)="onClick8()">STATS</button>
-                    </span>
-                </mat-card-content>
-              </mat-card>
-            </div>
-            <div class="col-lg-6">
-              <mat-card>   
-                <div class="device-content" >
-                  <div class="d-flex flex-column">
-                  <p class="device-head mx-3 my-2">Device</p>
-                  <button class="btn off-button my-1 mx-4"><i class="bi bi-square-fill square"></i> OFF</button>
-                </div>
-                   
-                    <div class="my-3 mx-2">
-                  <button class="btn btn-warning mx-1"><i class="bi bi-pencil-square mx-1" (click)="onClick7()"></i></button>
-                                    <button class="btn btn-danger mx-2"><i class="bi bi-trash"></i></button>
-                                    <button class="btn btn-primary mx-2"><i class="bi bi-grid-fill" ></i></button>
+                  <div class="d-flex flex-row justify-content-between">
+                    <span>Device Id </span>
+                    <span>{{device[0]}}</span>
                   </div>
-              </div>
-                <hr>
-                <mat-card-content>
-                    <span>Device Id</span>
                     <hr>
+                    <div class="d-flex flex-row justify-content-between">
                     <span>Device Name</span>
+                    <span>{{device[1]}}</span>
+                  </div>
                     <hr>
+                    <div class="d-flex flex-row justify-content-between">
                     <span>Device Type</span>
+                    <span>{{device[2]}}</span>
+                  </div>
                     <hr>
                     <span>
-                      <button class="btn success-color disabled">CONTROLS</button>
-                      <button class="btn stats-color mx-3">STATS</button>
+                      <button class="btn success-color">CONTROLS</button>
+                      <button class="btn stats-color mx-3"(click)="onClick8(device[0])">STATS</button>
                     </span>
                 </mat-card-content>
               </mat-card>
             </div>
-           </div>
-          </mat-sidenav-content>
+
   
-       </mat-sidenav-container>
-       <nav class="navbar fixed-bottom footer">
+       
+
+      </div>
+      </mat-sidenav-content>
+      </mat-sidenav-container>
+      <nav class="navbar fixed-bottom footer">
         <div class="container-fluid">
           <a class="navbar-brand mx-3"><h1 class="footer-heading"><span><i class="bi bi-c-circle copyright"></i> </span><span class="year"> 2021-2022</span> Bariflo Labs Limited. All rights reserved.</h1></a>
         </div>
       </nav>
-   
-   </body>
-  
+
+  </body>

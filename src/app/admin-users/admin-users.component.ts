@@ -6,6 +6,7 @@ import { EditUserComponent } from '../edit-user/edit-user.component';
 import { Dialog } from '@angular/cdk/dialog';
 import { AuthenticationService } from '../authentication.service';
 import { UserDeleteComponent } from '../user-delete/user-delete.component';
+import { DataSharingService } from '../data-sharing.service';
 
 
 @Component({
@@ -15,10 +16,10 @@ import { UserDeleteComponent } from '../user-delete/user-delete.component';
 })
 export class AdminUsersComponent implements OnInit {
   events: string[] = [];
-  opened: boolean = false;
+  opened: boolean = true;
 
 
-  constructor(public dialog: MatDialog, private router: Router, private auth: AuthenticationService) {
+  constructor(public dialog: MatDialog, private router: Router, private auth: AuthenticationService, private dataSharingService: DataSharingService) {
     // this.loginform-this.formBuilder.group
   }
 
@@ -29,10 +30,20 @@ export class AdminUsersComponent implements OnInit {
       
     });
 
-     dialogRef.afterClosed().subscribe(result => {
-       console.log('The dialog was closed')
+    //  dialogRef.afterClosed().subscribe(result => {
+    //    console.log('The dialog was closed')
       
+    // });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'submitted') {
+        // Reload the current route to refresh the page
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['./admin-users']);
+      }
     });
+    
    
   }
   
@@ -47,9 +58,10 @@ export class AdminUsersComponent implements OnInit {
 
   }
   
-  onDeleteUser():void{
+  onDeleteUser(mobileno:any):void{
     const dialogRef = this.dialog.open(UserDeleteComponent,{
-      width:'300px'
+      width:'300px',
+      data: mobileno
     })
   
     dialogRef.afterClosed().subscribe(result=>{
@@ -85,17 +97,30 @@ export class AdminUsersComponent implements OnInit {
     return this.subMenuStates[subMenuKey] || false;
   }
 
-  onPermissions():void{
+  onPermissions(mobino:any):void{
     this.router.navigate(['./user-permissions']);
+    this.dataSharingService.setmob(mobino);
   }
 
- onAccounts():void{
+ onAccounts(mob:any):void{
   this.router.navigate(['./user-accounts'])
+  this.dataSharingService.setData(mob);
+  localStorage.setItem('mobno',JSON.stringify(mob))
+  
  }
 
 userData:any =[]
+userStoreData:any;
+userNameProfile:any;
 
  ngOnInit(): void {
+   
+this.userStoreData=localStorage.getItem('userData')
+const userDataObject = JSON.parse(this.userStoreData);
+this.userNameProfile=userDataObject.userName
+ 
+
+
   this.auth.getData().subscribe((response)=>{this.userData = response
   console.log(this.userData) }
   ,

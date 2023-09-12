@@ -47,7 +47,7 @@ body{
 
   .footer{
     background-color: rgb(239, 246, 249);
-    
+    height: 40px;
   }
   
   
@@ -247,4 +247,14 @@ body{
 
 .refresh{
   font-weight: bold;
+}
+
+.page-height{
+  min-height: 100vh;
+}
+
+.download-button{
+
+  color: white;
+  border-radius:3px;
 }

@@ -33,18 +33,17 @@
                     Action
                   </td>
               </tr>
-              <tr>
+              <tr *ngFor="let eachlebel of showListlabel; index as i">
                 <td>
-                  <input placeholder="Label" class="p-2 back-color1" >
-                  
+                  <input placeholder="Label" class="p-2 back-color1" name="eachlebel.labelname" [(ngModel)]="labelvalue"   >
                 </td>
                
                 <td>
-                    <input placeholder="Color" class="p-2 back-color1" >
+                    <input placeholder="Color" class="p-2 back-color1"  [(ngModel)]="labelcolor">
                   
                 </td>
                 <td>
-                    <button class="btn action-button"><i class="bi bi-clipboard-plus-fill icon-color"></i></button>
+                    <button class="btn action-button" (click)="deleteLabel(i)"><i class="bi bi-clipboard-plus-fill icon-color"></i></button>
                 </td>
             </tr>
             
@@ -61,16 +60,27 @@
       </tr>
       <tr>
         <td colspan="2">
-         <button class="btn custom-button">ADD</button>
+         <button class="btn custom-button" (click)="addforlabel()">ADD</button>
         </td>        
     </tr>
 
         </tbody>
 
           </table>
-    <button type="submit" class="btn custom-button disable" disabled>Submit</button>
+    <button  class="btn custom-button"   [disabled]='!labelvalue.length || !labelcolor.length'  (click)="onSubmitLable()">Submit</button>
 
 </mat-dialog-content>
 <mat-dialog-actions>
  <!-- <button mat-button mat-dialog-close>Close</button>-->
   <!-- You can also add additional buttons here --></mat-dialog-actions>
+
+
+
+
+
+
+
+
+
+
+

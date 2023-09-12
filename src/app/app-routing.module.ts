@@ -22,7 +22,13 @@ import { UserNewDeviceComponent } from './user-new-device/user-new-device.compon
 import { DeviceAssignControlsComponent } from './device-assign-controls/device-assign-controls.component';
 import { DeviceStatsComponent } from './device-stats/device-stats.component';
 
+import { GeneralUsersComponent } from './general-users/general-users.component';
+import { MqttDeviceComponent } from './mqtt-device/mqtt-device.component';
+
+
+
 const routes: Routes = [
+  {path:"", redirectTo:'/login', pathMatch:"full"},
   {path:'login',component:LoginComponent},
   {path:'dashboard',component:DashboardComponent},
   {
@@ -47,7 +53,9 @@ const routes: Routes = [
   {path: 'user-account-devices', component: UserAccountDevicesComponent},
   {path: 'user-new-device', component:UserNewDeviceComponent},
   {path: 'device-assign-controls', component:DeviceAssignControlsComponent},
-  {path: 'device-stats', component:DeviceStatsComponent}
+  {path: 'device-stats', component:DeviceStatsComponent},
+  {path: 'general-users', component:GeneralUsersComponent},
+  {path: 'mqtt-device', component:MqttDeviceComponent}
   
   
 ]

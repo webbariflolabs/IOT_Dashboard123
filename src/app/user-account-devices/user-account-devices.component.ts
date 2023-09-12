@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { CardComponent } from '../dashboard/card/card/card.component';
+import { UserNewDeviceComponent } from '../user-new-device/user-new-device.component';
 import { EditComponent } from '../dashboard/edit/edit.component';
+import { DataSharingService } from '../data-sharing.service';
+import { AuthenticationService } from '../authentication.service';
+import { Edit5Component } from '../action/edit5/edit5/edit5.component';
+import { UserDeviceDeleteComponent } from '../user-device-delete/user-device-delete.component';
 
 
 @Component({
@@ -10,23 +14,22 @@ import { EditComponent } from '../dashboard/edit/edit.component';
   templateUrl: './user-account-devices.component.html',
   styleUrls: ['./user-account-devices.component.css']
 })
-export class UserAccountDevicesComponent {
+export class UserAccountDevicesComponent implements OnInit{
   events: string[] = [];
-  opened: boolean = false;
+  opened: boolean = true;
 
 
   subMenuStates: { [key: string]: boolean } = {};
 
 
-  accountId: string[] = [];
-  accountName: string[] = [];
+  accountid:any;
+ 
 
-  constructor(public dialog: MatDialog, private router: Router) {}
+  constructor(private auth: AuthenticationService ,public dialog: MatDialog, private router: Router, private dataSharingService: DataSharingService) {}
 
   openDialog7(): void {
-   /* const dialogRef = this.dialog.open(CardComponent, {
-      width: '250px',
-      data: { accountId: this.accountId, accountName: this.accountName },
+    const dialogRef = this.dialog.open(UserNewDeviceComponent, {
+      width: '400px'
       
     });
 
@@ -34,12 +37,9 @@ export class UserAccountDevicesComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed')
-      this.accountId = result;
-      this.accountName = result;
-      
-    });*/
+    });
 
-    this.router.navigate(['./user-new-device'])
+    // this.router.navigate(['./user-new-device'])
 
     
     
@@ -48,14 +48,13 @@ export class UserAccountDevicesComponent {
   openDialog8(): void {
     const dialogRef = this.dialog.open(EditComponent, {
       width: '250px',
-      data: { accountId: this.accountId, accountName: this.accountName },
+      
       
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed')
-      this.accountId = result;
-      this.accountName = result;
+     
       
     });
 
@@ -73,22 +72,22 @@ export class UserAccountDevicesComponent {
     this.router.navigate(['/login'])
 
   }
-  openDialog10(): void {
-    const dialogRef = this.dialog.open(CardComponent, {
-      width: '250px',
-      data: { accountId: this.accountId, accountName: this.accountName },
+  // openDialog10(): void {
+  //   const dialogRef = this.dialog.open(CardComponent, {
+  //     width: '250px',
+  //     data: { accountId: this.accountId, accountName: this.accountName },
       
-    });
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed')
-      this.accountId = result;
-      this.accountName = result;
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed')
+  //     this.accountId = result;
+  //     this.accountName = result;
       
-    });
+  //   });
 
     
-  }
+  // }
 
 
 
@@ -103,14 +102,86 @@ export class UserAccountDevicesComponent {
   }
 
 
-  onClick7(): void {
-    this.router.navigate(['./edit5']);
+  onEditDevice(devicedetails:any): void {
+    const dialogRef = this.dialog.open(Edit5Component,{
+      width: '400px',
+      data:devicedetails
+    })
+
+    dialogRef.afterOpened().subscribe(result=>
+      console.log('dialog closed'))
+   
   }
 
-  onClick8(): void {
+  onClick8(deviceid:any): void {
     this.router.navigate(['./device-stats']);
+    this.dataSharingService.sendAccountId(deviceid)
   }
 
+  
+// onCheck(){
+//   this.router.navigate(['./mqtt-device'])
+//   console.log("heelo")
+// }
+  
+  devicedetails:any=[]
+
+ 
+ onDeleteDevice(deviceid:any){
+  const dialogRef = this.dialog.open(UserDeviceDeleteComponent,{
+    width: '400px',
+    data: deviceid
+  })
+
+  dialogRef.afterOpened().subscribe(result=>
+    console.log('dialog closed'))
+ 
+
+ }
+ userStoreData:any;
+ userNameProfile:any;
+
+ deviceId:any;
+
+  ngOnInit(): void {
+
+this.userStoreData=localStorage.getItem('userData')
+const userDataObject = JSON.parse(this.userStoreData);
+this.userNameProfile=userDataObject.userName
+    const savedaccount  = localStorage.getItem('accountId');
+    if (savedaccount){
+      const getaccountid = JSON.parse(savedaccount);
+      this.auth.onFetchDevices(getaccountid).subscribe(response=>{
+        console.log(response)
+        this.devicedetails = response
+
+      }
+        ,
+        (error) =>
+        console.log(error))
+  }
+
+  else{
+    this.accountid = this.dataSharingService.getAccountId();
+    this.auth.onFetchDevices(this.accountid).subscribe(response=>{
+      console.log(response)
+      this.devicedetails = response
+
+    }
+      ,
+      (error) =>
+      console.log(error))
+
+  }
+
+
+
+    }
+
+
+      
+     
+  
 
 
 }

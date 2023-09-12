@@ -1,5 +1,5 @@
 import { Component, Inject} from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA , MatDialogRef} from '@angular/material/dialog';
 import { AuthenticationService } from '../authentication.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class EditUserComponent {
   first: string="";
   last: string="";
   errorMsg: string="";
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private auth:AuthenticationService) { 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private auth:AuthenticationService, private dialogRef : MatDialogRef<EditUserComponent>) { 
     this.first = data[0].split(' ')[0];
     this.last = data[0].split(' ')[1];
     
@@ -30,9 +30,10 @@ export class EditUserComponent {
       console.log(response),
       error=>
       console.log(error))
+      this.dialogRef.close();
     }
     else{
-      this.errorMsg = "* Please Enter all Fields";
+      this.errorMsg = "*Please Enter all Fields";
     }
 
   }

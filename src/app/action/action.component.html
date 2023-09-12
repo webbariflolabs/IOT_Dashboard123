@@ -12,13 +12,16 @@
     </div>
     </div>
       <div class="d-flex flex-row">
-        <button mat-button [matMenuTriggerFor]="menu"><div class="name-icon">BN</div></button>
+        <button mat-button [matMenuTriggerFor]="menu"><div class="name-icon">
+          {{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile| uppercase).split(' ')[1][0]}}</div></button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>Profile</button>
           <button mat-menu-item (click)="onLogout()">Logout</button>
         </mat-menu>
         
-        <button mat-button [matMenuTriggerFor]="menu"><h1 class="username">Biswajit Nayak</h1></button>
+        <button mat-button [matMenuTriggerFor]="menu"><h1 class="username">
+
+          {{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile.split(' ')[0].slice(1))+' '+(userNameProfile| uppercase).split(' ')[1][0]+(userNameProfile.split(' ')[1].slice(1))}}  </h1></button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>Profile</button>
           <button mat-menu-item (click)="onLogout1()">Logout</button>
@@ -34,29 +37,29 @@
                   <a mat-list-item href="dashboard"><i class="bi bi-house-fill icon-size"></i> Accounts</a>
                 </mat-list-item>
                 <hr class="my-0">
-                <mat-list-item>
+                <!-- <mat-list-item>
                   <a mat-list-item href="newdevices"><i class="bi bi-plus-square-fill"></i> New Devices</a>
-                </mat-list-item>
+                </mat-list-item> -->
                 <hr class="my-0">
                 <mat-list-item>
-                  <a mat-list-item href="users"><i class="bi bi-people-fill"></i> Users</a>
+                  <a mat-list-item href="general-users"><i class="bi bi-people-fill"></i> Users</a>
                 </mat-list-item>
                 <hr class="my-0">
-                <mat-list-item class="mx-3" (click)="toggleSubMenu('submenu1')">
+                <!-- <mat-list-item class="mx-3" (click)="toggleSubMenu('submenu1')">
                   <span><i class="bi bi-gear-fill"></i> Settings</span>
                   
                 </mat-list-item>
                 <mat-list-item *ngIf="isSubMenuOpen('submenu1')">
                   <a mat-list-item href="settings">Device Types</a>
                  
-                </mat-list-item>
+                </mat-list-item> -->
               </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
-          <button class="btn btn-primary" (click)="openDialog7()">New Device</button>
+          <button [disabled]= "!permission.devicecreate" class="btn btn-primary" (click)="openDialog7()" >New Device</button>
           <hr>
          <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-6" *ngFor="let device of devicedetails.result">
             <mat-card>   
               <div class="device-content" >
                 <div class="d-flex flex-column">
@@ -65,18 +68,27 @@
               </div>
                  
                   <div class="my-3 mx-2">
-                <button class="btn btn-warning mx-1"><i class="bi bi-pencil-square mx-1" (click)="onClick7()"></i></button>
-                                  <button class="btn btn-danger mx-2"><i class="bi bi-trash"></i></button>
+                <button [disabled]="!permission.deviceedit" (click)="onClick7(device)" class="btn btn-warning mx-1"><i class="bi bi-pencil-square mx-1" ></i></button>
+                                  <button [disabled]="!permission.devicedelete" (click)="onDelete(device[0])" class="btn btn-danger mx-2"><i class="bi bi-trash"></i></button>
                                   <button class="btn btn-primary mx-2"><i class="bi bi-grid-fill" ></i></button>
                 </div>
             </div>
               <hr>
               <mat-card-content>
-                  <span>Device Id</span>
+                <div class="d-flex flex-row justify-content-between">
+                  <span>Device Id </span>
+                  <span>{{device[0]}}</span>
+                </div>
                   <hr>
-                  <span>Device Name</span>
+                  <div class="d-flex flex-row justify-content-between">
+                    <span>Device Name</span>
+                    <span>{{device[1]}}</span>
+                  </div>
                   <hr>
-                  <span>Device Type</span>
+                  <div class="d-flex flex-row justify-content-between">
+                    <span>Device Type</span>
+                    <span>{{device[2]}}</span>
+                  </div>
                   <hr>
                   <span>
                     <button class="btn success-color disabled">CONTROLS</button>
@@ -85,35 +97,7 @@
               </mat-card-content>
             </mat-card>
           </div>
-          <div class="col-lg-6">
-            <mat-card>   
-              <div class="device-content" >
-                <div class="d-flex flex-column">
-                <p class="device-head mx-3 my-2">Device</p>
-                <button class="btn off-button my-1 mx-4"><i class="bi bi-square-fill square"></i> OFF</button>
-              </div>
-                 
-                  <div class="my-3 mx-2">
-                <button class="btn btn-warning mx-1"><i class="bi bi-pencil-square mx-1" (click)="onClick7()"></i></button>
-                                  <button class="btn btn-danger mx-2"><i class="bi bi-trash"></i></button>
-                                  <button class="btn btn-primary mx-2"><i class="bi bi-grid-fill" ></i></button>
-                </div>
-            </div>
-              <hr>
-              <mat-card-content>
-                  <span>Device Id</span>
-                  <hr>
-                  <span>Device Name</span>
-                  <hr>
-                  <span>Device Type</span>
-                  <hr>
-                  <span>
-                    <button class="btn success-color disabled">CONTROLS</button>
-                    <button class="btn stats-color mx-3">STATS</button>
-                  </span>
-              </mat-card-content>
-            </mat-card>
-          </div>
+          
          </div>
         </mat-sidenav-content>
 

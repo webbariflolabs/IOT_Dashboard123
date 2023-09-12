@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../authentication.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-new-user',
@@ -15,7 +16,7 @@ export class AddNewUserComponent {
   userData = {mobileno: "",firstname:"", lastname:"", email:"", usertype:"", password:''}
   errorMsg :string = ""
 
-  constructor(private auth:AuthenticationService){
+  constructor(private auth:AuthenticationService, private dialogRef: MatDialogRef<AddNewUserComponent>, private router: Router){
 
   }
 
@@ -28,10 +29,12 @@ export class AddNewUserComponent {
         error => 
         console.log(error)
         )
+        this.dialogRef.close('submitted');
+      
     }
     else{
       this.errorMsg = "* Please Enter all Fields Data"
     }
-    
+
   }
 }

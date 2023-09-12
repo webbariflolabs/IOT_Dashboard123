@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { AuthenticationService } from '../authentication.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-delete',
@@ -7,7 +10,28 @@ import { Component } from '@angular/core';
 })
 export class UserDeleteComponent {
 
+  deletedataUser:any;
+  constructor(@Inject(MAT_DIALOG_DATA)  public data:any,private auth:AuthenticationService,private dialogRef:MatDialogRef<UserDeleteComponent>) { 
+      console.log(data)
+      this.deletedataUser=data
+  }
 
+
+  confirmUserDelete(){
+    console.log(this.deletedataUser)
+    this.auth.DeleteUser(this.deletedataUser).subscribe(
+
+      (res)=>
+      {console.log(res)
+      },
+      err=>console.log(err)
+    )
+    this.dialogRef.close();
+  }
+
+  closeUserDelete(){
+    this.dialogRef.close();
+  }
   
 
 }

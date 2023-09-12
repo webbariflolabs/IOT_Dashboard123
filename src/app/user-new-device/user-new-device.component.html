@@ -1,4 +1,4 @@
-
+<!-- 
 <body class="main-container">
     <mat-toolbar class="mb-0 d-flex flex-row justify-content-between" >
       <div class="d-flex flex-row">
@@ -35,7 +35,7 @@
                 <a mat-list-item href="dashboard"><i class="bi bi-house-fill icon-size"></i> Accounts</a>
               </mat-list-item>
               <hr class="my-0">-->
-              <mat-list-item>
+              <!-- <mat-list-item>
                 <a mat-list-item href="admin-users"><i class="bi bi-people-fill"></i> Users</a>
               </mat-list-item>
               <hr class="my-0">
@@ -53,25 +53,25 @@
                
               </mat-list-item>
             </mat-nav-list>
-           </mat-sidenav>
-           <mat-sidenav-content>
+           </mat-sidenav> -->
+           
             <div>
               <mat-card class="card-width">   
                 <mat-card-header class="device-heading">
                   New Device
                 </mat-card-header>
-                <hr >
-                <!--<p class="name-label mx-3">Serial Number</p>
-                <input type="text" class="custom-input custom-input:focus mx-3 p-2" placeholder="Serial Number" >-->
-                <p class="name-label mx-3 my-3">Device Name</p>
-                <input type="text" class="custom-input custom-input:focus mx-3 p-2" placeholder="Device Name" >
-                <p class="name-label mx-3 my-3">Device Type</p>
-                <select class="custom-input custom-input:focus mx-3 p-2 drop-width">
+                <hr>
+                <!-- <p class="name-label mx-3 my-1">Device Title</p>
+                <input type="text" class="custom-input custom-input:focus mx-3 p-2" placeholder="Device Title" > -->
+                <p class="name-label mx-3 my-1">Device Name</p>
+                <input [(ngModel)]="devicename" name="devicename" type="text" class="custom-input custom-input:focus mx-3 p-2" placeholder="Device Name" >
+                <p class="name-label mx-3 my-2">Device Type</p>
+                <select [(ngModel)]="selectdevice"  class="custom-input custom-input:focus mx-3 p-2 drop-width">
                     <option value="" selected disabled>
                         Select Device Type
                     </option>
-                    <option value="Areation 1">Areation 1</option>
-                    <option value="controls 2">controls 2</option>
+                    <option *ngFor="let device of devicedetails.results" [value]="device[0]" >{{device[0]}}</option>
+                    <!-- <option value="controls 2">controls 2</option>
                     <option value="Areation 3">Areation 3</option>
                     <option value="Sensor M 1 1">Sensor M 1 1</option>
                     <option value="Mobility 1">Mobility 1</option>
@@ -101,21 +101,21 @@
                     <option value="JSW Single 2.1 ">JSW Single 2.1</option>
                     <option value="Sensor 1">Sensor 1</option>
                     <option value="Monitoring_sensor 1">Monitoring_sensor 1</option>
-                    <option value="Lora Data 1">Lora Data 1</option>
+                    <option value="Lora Data 1">Lora Data 1</option> -->
                 </select>
                 <div class="d-flex flex-row">
-                <button class="btn save-button mx-3 my-3">SUBMIT</button>
-                <button class="btn save-button color-change mx-4 my-3" (click)="OnAction()" >CANCEL</button>
+                <button (click)="onAddDevice()" class="btn save-button mx-3 my-3">Add Device</button>
+                <!-- <button class="btn save-button color-change mx-4 my-3" (click)="OnAction()" >CANCEL</button> -->
                 </div>
+                <p class="error mx-3">{{errorMsg}}</p>
                 </mat-card>
             </div>
-          </mat-sidenav-content>
-       </mat-sidenav-container>
-       <nav class="navbar fixed-bottom footer">
+       
+       <!-- <nav class="navbar fixed-bottom footer">
         <div class="container-fluid">
           <a class="navbar-brand mx-3"><h1 class="footer-heading"><span><i class="bi bi-c-circle copyright"></i> </span><span class="year"> 2021-2022</span> Bariflo Labs Limited. All rights reserved.</h1></a>
         </div>
       </nav>
    
-   </body>
+   </body> -->
   

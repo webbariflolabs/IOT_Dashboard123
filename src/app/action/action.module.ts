@@ -10,6 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Edit5Component } from './edit5/edit5/edit5.component';
 import { StatComponent } from './statistics/stat/stat.component';
 
+
 @NgModule({
     declarations: [ Edit5Component,], // CardComponent is declared here //ActionComponent,
     imports: [CommonModule,

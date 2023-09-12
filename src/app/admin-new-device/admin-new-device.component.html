@@ -12,13 +12,15 @@
       </div>
       </div>
         <div class="d-flex flex-row">
-          <button class="name-icon mx-3" [matMenuTriggerFor]="menu">BN</button>
+          <button class="name-icon mx-3" [matMenuTriggerFor]="menu">{{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile| uppercase).split(' ')[1][0]}}</button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item>Profile</button>
             <button mat-menu-item (click)="onLogout()">Logout</button>
           </mat-menu>
           
-          <button class="username" [matMenuTriggerFor]="menu">Biswajit Nayak</button>
+          <button class="username" [matMenuTriggerFor]="menu">
+
+            {{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile.split(' ')[0].slice(1))+' '+(userNameProfile| uppercase).split(' ')[1][0]+(userNameProfile.split(' ')[1].slice(1))}}</button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item>Profile</button>
             <button mat-menu-item (click)="onLogout1()">Logout</button>

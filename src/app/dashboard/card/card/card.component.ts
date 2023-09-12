@@ -1,6 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { DataSharingService } from 'src/app/data-sharing.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
@@ -8,21 +11,63 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent {
+export class CardComponent implements OnInit {
     accountid:string="";
-    accountname:string="";
+    accountname:any;
     newAccount!: FormGroup;
     accountdata:any;
+    mobileno : string="";
+    accountdetails :any=[];
+    errorMsg ="";
 
-  constructor(private http:HttpClient,private formBuilder:FormBuilder){
+  constructor(private formBuilder:FormBuilder,private auth: AuthenticationService, private dataSharingService : DataSharingService, private dialogRef: MatDialogRef<CardComponent>){
   
+
+
   }
    
-  onSubmit():void{
-    this.http.post("http://192.168.0.113/admin",this.newAccount.value).subscribe(
-      (res)=>{this.accountdata=res},
-      (err)=>{console.log('res')}
-    )
-  }
+  onSubmit(){
+    this.errorMsg= "";
+    
+    console.log(this.accountname)
+    if (this.accountname !== undefined){
+
+      const savedmob = localStorage.getItem('mobno');
+      
+      if (savedmob){
+        const getmobno = JSON.parse(savedmob)
+        this.accountdetails = {usermobno: getmobno, accountname: this.accountname}
+        this.auth.onSubmitAccountCreate(this.accountdetails).subscribe(response =>
+        console.log(response),
+        error => 
+        console.log(error)
+        )
+        this.dialogRef.close();
+      
+      
+      }
+
+      else{this.mobileno =this.dataSharingService.getMobile();
+        this.accountdetails = {usermobno: this.mobileno, accountname: this.accountname}
+        this.auth.onSubmitAccountCreate(this.accountdetails).subscribe(response =>
+          console.log(response),
+          error => 
+          console.log(error)
+          )
+          this.dialogRef.close();}
+      
+      
+      
+    }
+    else{
+      this.errorMsg = "*Please Enter the value"
+    }
+
+    
+}
+
+ngOnInit(): void {
+    
+}
 
 }

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { DataSharingService } from '../data-sharing.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   headers:any;
   errorMsg:boolean= false;
 
-  constructor(private router:Router,private snackBar: MatSnackBar, private formBuilder: FormBuilder,private authService: AuthenticationService, private http:HttpClient){
+  constructor(private router:Router,private snackBar: MatSnackBar, private formBuilder: FormBuilder,private authService: AuthenticationService, private http:HttpClient, private dataSharingService: DataSharingService){
       this.loginForm=this.formBuilder.group({
         mobileno:['',[Validators.required]],
         password:['',[Validators.required]]
@@ -54,12 +55,31 @@ export class LoginComponent implements OnInit {
                               .subscribe(response => {
                                 console.log(response)
                                 // Handle successful login and navigation
-                                if (response === "Login Successful For Admin"){
+                                if (response.message === "Login Successful For Admin"){
+                                  localStorage.setItem('logMob',JSON.stringify(mobileno))
+                                  this.dataSharingService.loginSetMob(mobileno)
                                   console.log(response);
                                   this.router.navigate(['./admin-users'])
                                   this.errorMsg = false;
+                                  const userName = response.username
+                                  const UserDataSet = {userName}
+                                  localStorage.setItem('userData',JSON.stringify(UserDataSet))
+
+                                }
+                                else if (response.message==="Login Successful For General User"){
+                                  this.router.navigate(['./dashboard'])
+                                  this.errorMsg = false;
+                                  console.log(this.loginForm.value)
+                                  this.dataSharingService.setData(mobileno)
+                                  const userName=response.username
+                                  const UserDataSet={mobileno,userName}
+                                  localStorage.setItem('userData',JSON.stringify(UserDataSet))
+                                  
                                 }
                                 else{
+                                  // localStorage.setItem('logMob',JSON.stringify(mobileno))
+                                  // this.dataSharingService.loginSetMob(mobileno)
+                                  // this.router.navigate(['./dashboard'])
                                   this.router.navigate(['./login'])
                                   this.errorMsg = true;
                                 }

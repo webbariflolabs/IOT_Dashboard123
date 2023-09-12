@@ -13,13 +13,14 @@
       </div>
       </div>
         <div class="d-flex flex-row">
-          <button class="name-icon mx-3" [matMenuTriggerFor]="menu">BN</button>
+          <button class="name-icon mx-3" [matMenuTriggerFor]="menu">          {{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile| uppercase).split(' ')[1][0]}}</button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item>Profile</button>
             <button mat-menu-item (click)="onLogout()">Logout</button>
           </mat-menu>
           
-          <button class="username" [matMenuTriggerFor]="menu">Biswajit Nayak</button>
+          <button class="username" [matMenuTriggerFor]="menu">
+            {{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile.split(' ')[0].slice(1))+' '+(userNameProfile| uppercase).split(' ')[1][0]+(userNameProfile.split(' ')[1].slice(1))}} </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item>Profile</button>
             <button mat-menu-item (click)="onLogout1()">Logout</button>
@@ -75,69 +76,72 @@
                       Assigned Permission
                     </mat-card-header>
                     <hr>
-                    <mat-card-content>
+                    <mat-card-content >
                         <span class="example-list-section">
-                            <mat-checkbox class="example-margin"  >USER_ADD</mat-checkbox>
+                            <mat-checkbox class="example-margin" [(ngModel)]="permission.usercreate" >USER_ADD</mat-checkbox>
                           </span>
                           <hr>
                           <span class="example-list-section">
-                            <mat-checkbox class="example-margin"  >USER_EDIT</mat-checkbox>
+                            <mat-checkbox class="example-margin" [(ngModel)]="permission.useredit"  >USER_EDIT</mat-checkbox>
                         </span>
                         <hr>
                         <span class="example-list-section">
-                            <mat-checkbox class="example-margin"  >USER_DELETE</mat-checkbox>
+                            <mat-checkbox class="example-margin" [(ngModel)]="permission.userdelete"  >USER_DELETE</mat-checkbox>
                         </span>
                         <hr>
                         <span class="example-list-section">
-                            <mat-checkbox class="example-margin"  >USER_VIEW</mat-checkbox>
+                            <mat-checkbox class="example-margin" [(ngModel)]="permission.userview"   >USER_VIEW</mat-checkbox>
                         </span>
                         <hr>
                         <span class="example-list-section">
-                            <mat-checkbox class="example-margin" >ACCOUNT_ADD</mat-checkbox>
+                            <mat-checkbox class="example-margin" [(ngModel)]="permission.accountcreate" >ACCOUNT_ADD</mat-checkbox>
                         </span>
                         <hr>
                         <span class="example-list-section">
-                            <mat-checkbox class="example-margin" >ACCOUNT_EDIT</mat-checkbox>
+                            <mat-checkbox class="example-margin"[(ngModel)]="permission.accountedit"  >ACCOUNT_EDIT</mat-checkbox>
                         </span>
                         <hr>
                         
                        
                           <span class="example-list-section">
-                            <mat-checkbox class="example-margin" >ACCOUNT_VIEW</mat-checkbox>
+                            <mat-checkbox class="example-margin" [(ngModel)]="permission.accountview"  >ACCOUNT_VIEW</mat-checkbox>
                         </span>
                         <hr>
                         <span class="example-list-section">
-                            <mat-checkbox class="example-margin"  >ACCOUNT_DELETE</mat-checkbox>
+                            <mat-checkbox class="example-margin" [(ngModel)]="permission.accountdelete"   >ACCOUNT_DELETE</mat-checkbox>
                         </span>
                         <hr>
                         <span class="example-list-section">
-                            <mat-checkbox class="example-margin"  >DEVICE_ADD</mat-checkbox>
+                            <mat-checkbox class="example-margin" [(ngModel)]="permission.devicecreate"  >DEVICE_ADD</mat-checkbox>
                         </span>
                         <hr>
                         <span class="example-list-section">
-                            <mat-checkbox class="example-margin">DEVICE_EDIT</mat-checkbox>
+                            <mat-checkbox class="example-margin"[(ngModel)]="permission.deviceedit" >DEVICE_EDIT</mat-checkbox>
                         </span>
                         <hr>
                         <span class="example-list-section">
-                            <mat-checkbox class="example-margin"  >DEVICE_VIEW</mat-checkbox>
+                            <mat-checkbox class="example-margin"[(ngModel)]="permission.deviceview"   >DEVICE_VIEW</mat-checkbox>
                         </span>
                         <hr>
-                       <!-- <span class="example-list-section">
-                            <mat-checkbox class="example-margin" >DEVICE_DELETE</mat-checkbox>
-                        </span>
-                        <hr>
-                        <span class="example-list-section">
-                            <mat-checkbox class="example-margin"  >DEVICE_INSTRUCTION</mat-checkbox>
+                       <span class="example-list-section">
+                            <mat-checkbox class="example-margin" [(ngModel)]="permission.devicedelete" >DEVICE_DELETE</mat-checkbox>
                         </span>
                         <hr>
                         <span class="example-list-section">
-                            <mat-checkbox class="example-margin" >SETTINGS</mat-checkbox>
-                        </span>-->
-                        <button mat-raised-button color="primary">save</button>
+                            <mat-checkbox class="example-margin"[(ngModel)]="permission.deviceinstruction"   >DEVICE_INSTRUCTION</mat-checkbox>
+                        </span>
+                        <hr>
+                        <span class="example-list-section">
+                            <mat-checkbox class="example-margin" [(ngModel)]="permission.setting" >SETTINGS</mat-checkbox>
+                        </span>
+                       
                     </mat-card-content>
+                    
                 </mat-card>
+                <button (click)="onSave()" class="btn btn-primary pb-4 save-button my-2">save</button>
              </div>
             </div>
+           
             <nav class="navbar fixed-bottom footer">
                 <div class="container-fluid">
                   <a class="navbar-brand mx-3"><h1 class="footer-heading"><span><i class="bi bi-c-circle copyright"></i> </span><span class="year"> 2021-2022</span> Bariflo Labs Limited. All rights reserved.</h1></a>

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject,OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
   templateUrl: './admin-new-device.component.html',
   styleUrls: ['./admin-new-device.component.css']
 })
-export class AdminNewDeviceComponent {
+export class AdminNewDeviceComponent implements OnInit{
   events: string[] = [];
-  opened: boolean = false;
+  opened: boolean = true;
   shouldRun: boolean = true;
   accountId: string[] = [];
   accountName: string[] = [];
@@ -52,8 +52,15 @@ export class AdminNewDeviceComponent {
 
 
   }
-
-
+  userStoreData:any;
+  userNameProfile:any;
+  
+   ngOnInit(): void {
+       
+  this.userStoreData=localStorage.getItem('userData')
+  const userDataObject = JSON.parse(this.userStoreData);
+  this.userNameProfile=userDataObject.userName
+ }
 
     
     
