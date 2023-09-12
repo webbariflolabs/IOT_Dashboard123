@@ -21,6 +21,7 @@ export class AdminCreateNewDeviceComponent {
       error=>
       console.log(error)
       );
+      window.location.reload();
       this.dialogRef.close()
   }
   

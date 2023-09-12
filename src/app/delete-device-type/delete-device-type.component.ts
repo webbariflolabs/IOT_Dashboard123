@@ -29,6 +29,7 @@ export class DeleteDeviceTypeComponent {
       },
       err=>console.log(err)
     )
+    window.location.reload()
     this.dialogRef.close();
   }
 

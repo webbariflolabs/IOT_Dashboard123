@@ -44,7 +44,9 @@ export class GeneralAccountCreateComponent {
         console.log(response),
         error => 
         console.log(error)
+
         )
+        window.location.reload()
         this.dialogRef.close();
       
       
@@ -57,6 +59,7 @@ export class GeneralAccountCreateComponent {
           error => 
           console.log(error)
           )
+          window.location.reload()
           this.dialogRef.close();}
       
       

@@ -42,6 +42,7 @@ export class CardComponent implements OnInit {
         error => 
         console.log(error)
         )
+        window.location.reload();
         this.dialogRef.close();
       
       

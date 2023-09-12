@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../authentication.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-add-new-user',
   templateUrl: './add-new-user.component.html',
@@ -29,7 +30,8 @@ export class AddNewUserComponent {
         error => 
         console.log(error)
         )
-        this.dialogRef.close('submitted');
+        window.location.reload();
+        this.dialogRef.close();
       
     }
     else{

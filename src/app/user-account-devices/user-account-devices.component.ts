@@ -115,7 +115,8 @@ export class UserAccountDevicesComponent implements OnInit{
 
   onClick8(deviceid:any): void {
     this.router.navigate(['./device-stats']);
-    this.dataSharingService.sendAccountId(deviceid)
+    this.dataSharingService.sendAccountId(deviceid);
+    localStorage.setItem('setdeviceId', JSON.stringify(deviceid) )
   }
 
   

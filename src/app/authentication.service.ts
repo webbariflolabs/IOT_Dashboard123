@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UrlSegment } from '@angular/router';
+  //4.188.244.11
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthenticationService {
 
   login(mobileno: string, password: string) {
     const body = { mobileno, password };
-    return this.http.post<any>('http://4.188.244.11/login/', body);  //4.188.244.11
+    return this.http.post<any>('http://4.188.244.11/login/', body); 
   }
 
   onSubmitAddUser(userDetails:any){

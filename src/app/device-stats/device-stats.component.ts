@@ -32,6 +32,8 @@ export class DeviceStatsComponent implements OnInit, OnDestroy,AfterViewInit{
     window.onload=()=>{
       console.log('LOADED')
     }
+    
+
   }
 
   updateInterval=20;
@@ -67,6 +69,8 @@ dataList:any=[]
   
    ngOnInit(): void {
        
+  
+  // Initialize the chart
   this.userStoreData=localStorage.getItem('userData')
   const userDataObject = JSON.parse(this.userStoreData);
   this.userNameProfile=userDataObject.userName
@@ -82,8 +86,6 @@ dataList:any=[]
     this.updateChartData(this.jsonData.CPU_TEMPERATURE, 4, this.jsonData.Time,'Temperature','green');
     this.updateChartData(this.jsonData.DO, 5, this.jsonData.Time,'DO','violet');
   });
-
-  // Initialize the chart
 
   
     

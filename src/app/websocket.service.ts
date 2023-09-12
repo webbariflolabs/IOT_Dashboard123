@@ -88,7 +88,12 @@ import { DataSharingService } from './data-sharing.service';
 @Injectable({
   providedIn: 'root',
 })
+
+
+
 export class WebsocketService {
+  getdeviceid:any; 
+  storeid:any;
   private socket: WebSocket;
   private jsonDataSubject = new Subject<any>();
   public jsonData$ = this.jsonDataSubject.asObservable();
@@ -96,33 +101,73 @@ export class WebsocketService {
 
   constructor(private dataSharingService:DataSharingService) {
     const deviceId = this.dataSharingService.getAccountId()
-    console.log(deviceId)
-    this.socket = new WebSocket(`ws://4.188.244.11:8000/ws/sc/${deviceId}/`); // Replace with your WebSocket server URLws://20.244.51.20:8000/ws/sc/5107813318934759040/
-    this.socket.onopen = (event) => {
-      console.log('WebSocket is open');
-    };
+      this.getdeviceid = localStorage.getItem('setdeviceId')
+    
+      this.storeid = JSON.parse(this.getdeviceid)
+    if (undefined === deviceId){
+    
+      this.getdeviceid = localStorage.getItem('setdeviceId')
+    
+      this.storeid = JSON.parse(this.getdeviceid)
+      console.log('local',this.storeid)
+      this.socket = new WebSocket(`ws://4.188.244.11:8000/ws/sc/${this.storeid}/`);
+      this.socket.onopen = (event) => {
+        console.log('WebSocket is open');
+      };
+  
+      this.socket.onmessage = (event) => {
+        console.log('Received message:', event.data);
+        console.log('object:',event)
+        // Parse the received JSON data
+        try {
+          const jsonData = JSON.parse(event.data);
+          console.log('JSON Data', jsonData);
+  
+          // Store the latest data
+          this.latestData = jsonData;
+  
+          // Emit the data to subscribers
+          this.jsonDataSubject.next(jsonData);
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
+        }
+      };
+  
+      this.socket.onclose = (event) => {
+        console.log('WebSocket is closed');
+      };
+      
+    }
+    else{
+      console.log(deviceId)
+        this.socket = new WebSocket(`ws://4.188.244.11:8000/ws/sc/${deviceId}/`); // Replace with your WebSocket server URLws://20.244.51.20:8000/ws/sc/5107813318934759040/
+        this.socket.onopen = (event) => {
+          console.log('WebSocket is open');
+        };
+    
+        this.socket.onmessage = (event) => {
+          console.log('Received message:', event.data);
+          console.log('object:',event)
+          // Parse the received JSON data
+          try {
+            const jsonData = JSON.parse(event.data);
+            console.log('JSON Data', jsonData);
+    
+            // Store the latest data
+            this.latestData = jsonData;
+    
+            // Emit the data to subscribers
+            this.jsonDataSubject.next(jsonData);
+          } catch (error) {
+            console.error('Error parsing JSON:', error);
+          }
+        };
+    
+        this.socket.onclose = (event) => {
+          console.log('WebSocket is closed');
+        };}
 
-    this.socket.onmessage = (event) => {
-      console.log('Received message:', event.data);
-      console.log('object:',event)
-      // Parse the received JSON data
-      try {
-        const jsonData = JSON.parse(event.data);
-        console.log('JSON Data', jsonData);
-
-        // Store the latest data
-        this.latestData = jsonData;
-
-        // Emit the data to subscribers
-        this.jsonDataSubject.next(jsonData);
-      } catch (error) {
-        console.error('Error parsing JSON:', error);
-      }
-    };
-
-    this.socket.onclose = (event) => {
-      console.log('WebSocket is closed');
-    };
+    
   }
 
   sendMessage(message: string) {

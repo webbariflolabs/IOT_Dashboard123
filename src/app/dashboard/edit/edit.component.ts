@@ -24,7 +24,8 @@ export class EditComponent {
         console.log(response),
         error=>
         console.log(error))
-        this.dialogRef.close()
+        window.location.reload();
+        this.dialogRef.close();
     }
     else{
       this.errorMsg ="*Please Enter the value"

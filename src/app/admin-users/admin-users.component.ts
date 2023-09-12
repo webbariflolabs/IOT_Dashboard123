@@ -35,14 +35,6 @@ export class AdminUsersComponent implements OnInit {
       
     // });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'submitted') {
-        // Reload the current route to refresh the page
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate(['./admin-users']);
-      }
-    });
     
    
   }

@@ -27,7 +27,7 @@ export class DeviceEditComponent {
     console.log(response),
     error=>
     console.log(error))
-
+    window.location.reload()
 
   }
 

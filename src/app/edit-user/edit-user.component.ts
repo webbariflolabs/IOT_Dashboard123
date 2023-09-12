@@ -30,6 +30,7 @@ export class EditUserComponent {
       console.log(response),
       error=>
       console.log(error))
+      window.location.reload()
       this.dialogRef.close();
     }
     else{

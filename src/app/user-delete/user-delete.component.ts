@@ -26,6 +26,7 @@ export class UserDeleteComponent {
       },
       err=>console.log(err)
     )
+    window.location.reload()
     this.dialogRef.close();
   }
 

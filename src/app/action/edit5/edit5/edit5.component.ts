@@ -27,6 +27,7 @@ export class Edit5Component implements OnInit {
       console.log(response),
       error => 
       console.log(error))
+      window.location.reload()
       this.dialogRef.close()
     }
 
