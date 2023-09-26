@@ -24,7 +24,14 @@ import { DeviceStatsComponent } from './device-stats/device-stats.component';
 
 import { GeneralUsersComponent } from './general-users/general-users.component';
 import { MqttDeviceComponent } from './mqtt-device/mqtt-device.component';
-
+import { GeneralUserStatsComponent } from './general-user-stats/general-user-stats.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { UsersCheckComponent } from './users-check/users-check.component';
+import { SuperAdminComponent } from './super-admin/super-admin.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginPasswordComponent } from './login-password/login-password.component';
+import { ForgotCheckComponent } from './forgot-check/forgot-check.component';
 
 
 const routes: Routes = [
@@ -55,8 +62,15 @@ const routes: Routes = [
   {path: 'device-assign-controls', component:DeviceAssignControlsComponent},
   {path: 'device-stats', component:DeviceStatsComponent},
   {path: 'general-users', component:GeneralUsersComponent},
-  {path: 'mqtt-device', component:MqttDeviceComponent}
-  
+  {path: 'mqtt-device', component:MqttDeviceComponent},
+  {path: 'general-user-stats', component:GeneralUserStatsComponent},
+  {path: 'register-page', component: RegisterPageComponent},
+  {path:'profile-page', component: ProfilePageComponent},
+  {path:'users-check', component:UsersCheckComponent},
+  {path:'super-admin', component:SuperAdminComponent},
+  {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'login-password', component: LoginPasswordComponent},
+  {path: 'forgot-check', component:ForgotCheckComponent}
   
 ]
 @NgModule({

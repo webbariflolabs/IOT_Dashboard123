@@ -90,3 +90,10 @@ body{
     width: 60px;
  
   }
+
+  
+.home-button{
+  background-color: transparent;
+  border-width: 0px;
+}
+

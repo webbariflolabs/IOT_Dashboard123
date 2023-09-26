@@ -141,7 +141,7 @@
 
 
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -151,6 +151,10 @@ import { DialogContent2Component } from '../dialog-content2/dialog-content2.comp
 import { DialogContent3Component } from '../dialog-content3/dialog-content3.component';
 import { DataSharingService } from '../data-sharing.service';
 import { DeleteAssignControlsComponent } from '../delete-assign-controls/delete-assign-controls.component';
+import { AuthenticationService } from '../authentication.service';
+import { DeviceButtonComponent } from '../device-button/device-button.component';
+import { DeviceGraphComponent } from '../device-graph/device-graph.component';
+import { DeviceSliderComponent } from '../device-slider/device-slider.component';
 
 export interface Task {
   name: string;
@@ -158,6 +162,35 @@ export interface Task {
   color: ThemePalette;
   subtasks?: Task[];
 }
+type ButtonControlType = {
+  display_name: string;
+  virtual_pin: number;
+  // Other properties specific to buttons
+};
+
+type SliderControlType = {
+  display_name: string;
+  virtual_pin: number;
+  max_value: number;
+  min_value: number;
+  step_value: number;
+  // Other properties specific to sliders
+};
+
+type GraphControlType = {
+  display_name: string;
+  label_name: string;
+  label_color: string;
+  // Other properties specific to sliders
+};
+
+
+// Define a type for items that can be either a button or a slider
+type ItemType = {
+  button?: ButtonControlType;
+  slider?: SliderControlType;
+  graph?: GraphControlType;
+};
 
 
 @Component({
@@ -165,7 +198,7 @@ export interface Task {
   templateUrl: './device-assign-controls.component.html',
   styleUrls: ['./device-assign-controls.component.css']
 })
-export class DeviceAssignControlsComponent {
+export class DeviceAssignControlsComponent implements OnInit {
   events: string[] = [];
   opened: boolean = true;
   shouldRun: boolean = true;
@@ -177,8 +210,11 @@ export class DeviceAssignControlsComponent {
   showListcontrol:any[]=[]
   linebutton:string='Line Graph'
   labelbutton:string='Label'
+  
 
-  constructor(private router: Router, public dialog : MatDialog,private ts:DataSharingService ) {
+   
+
+  constructor(private router: Router, public dialog : MatDialog,private ts:DataSharingService, private dataSharingService:DataSharingService, private auth: AuthenticationService ) {
     // this.loginform-this.formBuilder.group
   }
 
@@ -193,105 +229,126 @@ export class DeviceAssignControlsComponent {
     
   };
 
-  
- 
+  // Assuming your type definition for `item` looks something like this:
 
 
-openDialogEdit(Editcontrolvalue:any):void{
-  if(Editcontrolvalue==='Line Graph'){
-    const dialogRef = this.dialog.open(DialogContent1Component, {
-      width: '600px', // Set the desired width
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed:', result);
-  
-  
-    });
 
-  }else if(Editcontrolvalue==='Slider Input'){
-    const dialogRef = this.dialog.open(DialogContentComponent, {
-      width: '600px', // Set the desired width
-    });
+// openDialogEdit(Editcontrolvalue:any):void{
+//   if(Editcontrolvalue==='Line Graph'){
+//     const dialogRef = this.dialog.open(DialogContent1Component, {
+//       width: '600px', // Set the desired width
+//     });
   
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed:', result);
+//     dialogRef.afterClosed().subscribe(result => {
+//       console.log('Dialog closed:', result);
   
   
-    });
-  }else if(Editcontrolvalue==='Label'){
-    const dialogRef = this.dialog.open(DialogContent2Component, {
-      width: '600px', // Set the desired width
-    });
+//     });
+
+//   }else if(Editcontrolvalue==='Slider Input'){
+//     const dialogRef = this.dialog.open(DialogContentComponent, {
+//       width: '600px', // Set the desired width
+//     });
   
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed:', result);
+//     dialogRef.afterClosed().subscribe(result => {
+//       console.log('Dialog closed:', result);
+  
+  
+//     });
+//   }else if(Editcontrolvalue==='Label'){
+//     const dialogRef = this.dialog.open(DialogContent2Component, {
+//       width: '600px', // Set the desired width
+//     });
+  
+//     dialogRef.afterClosed().subscribe(result => {
+//       console.log('Dialog closed:', result);
     
   
-    });
-  }else if(Editcontrolvalue==='On Off Button'){
-    const dialogRef = this.dialog.open(DialogContent3Component, {
-      width: '600px', // Set the desired width
-    });
+//     });
+//   }else if(Editcontrolvalue==='On Off Button'){
+//     const dialogRef = this.dialog.open(DialogContent3Component, {
+//       width: '600px', // Set the desired width
+//     });
   
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed:', result);
+//     dialogRef.afterClosed().subscribe(result => {
+//       console.log('Dialog closed:', result);
   
   
-    });
+//     });
+//   }
+
+
+
+
+
+
+// }
+
+// onofbuttonAdd(): void {
+
+  
+//   this.ts.addControlAssign(this.onofbutton)
+  
+// }
+// sliderInputAdd(){
+//   this.ts.addControlAssign(this.sliderInputbutton)
+   
+// }
+
+// labelAdd(){
+//   this.ts.addControlAssign(this.labelbutton)
+
+// }
+
+// linegraphAdd(){
+//   this.ts.addControlAssign(this.linebutton)
+
+// }
+getKey(item: ItemType): 'button' | 'slider' | 'graph' | undefined {
+  if (item.button) {
+    return 'button';
+  } else if (item.slider) {
+    return 'slider';
+  } 
+  else if (item.graph) {
+    return 'graph';
+  } else {
+    return undefined;
   }
-
-
-
-
-
-
 }
+// getKey(item: ItemType): 'button' | 'slider' | undefined {
+//   return Object.keys(item)[0]; // Extract the first key of the object
+// }
+
 
 onofbuttonAdd(): void {
+  const dialogRef = this.dialog.open(DialogContent3Component, {
+    width: '700px', // Set the desired width
+    data: this.dataSharingService.getDeviceType()
+  });
 
-  
-  this.ts.addControlAssign(this.onofbutton)
-  
-}
-sliderInputAdd(){
-  this.ts.addControlAssign(this.sliderInputbutton)
-   
-}
-
-labelAdd(){
-  this.ts.addControlAssign(this.labelbutton)
-
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('Dialog closed:', result)
+  });
 }
 
-linegraphAdd(){
-  this.ts.addControlAssign(this.linebutton)
+sliderInputAdd(): void {
+  const dialogRef = this.dialog.open(DialogContentComponent, {
+    width: '500px', // Set the desired width
+    data: this.dataSharingService.getDeviceType()
+  });
 
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('Dialog closed:', result);
+  });
 }
 
-openDialog1(): void {
+
+linegraphAdd(): void {
   const dialogRef = this.dialog.open(DialogContent1Component, {
     width: '700px', // Set the desired width
-  });
+    data: this.dataSharingService.getDeviceType()
 
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('Dialog closed:', result);
-  });
-}
-
-openDialog2(): void {
-  const dialogRef = this.dialog.open(DialogContent2Component, {
-    width: '500px', // Set the desired width
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('Dialog closed:', result);
-  });
-}
-
-openDialog3(): void {
-  const dialogRef = this.dialog.open(DialogContent3Component, {
-    width: '500px', // Set the desired width
   });
 
   dialogRef.afterClosed().subscribe(result => {
@@ -303,10 +360,67 @@ saveconfigcontrol(){
   localStorage.setItem('controlList',JSON.stringify(this.showListcontrol))
 }
 
-  
+
+
+onOffButton(data:any): void {
+  const dialogRef = this.dialog.open(DeviceButtonComponent, {
+    width: '700px', // Set the desired width
+    data: data
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('Dialog closed:', result)
+  });
+}
+
+onslider(data:any): void {
+  const dialogRef = this.dialog.open(DeviceSliderComponent, {
+    width: '500px', // Set the desired width
+    data: data
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('Dialog closed:', result);
+  });
+}
+
+
+onLinegraph(data:any): void {
+  const dialogRef = this.dialog.open(DeviceGraphComponent, {
+    width: '700px', // Set the desired width
+    data: data
+
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('Dialog closed:', result);
+  });
+}
+
+
+
+
  
 
-  
+onDialogEdit(item:any){
+
+  switch (Object.keys(item)[0]) {
+    case 'button':
+      this.onOffButton(item[Object.keys(item)[0]])
+      
+      break;
+    case 'slider':
+      this.onslider(item[Object.keys(item)[0]])
+      break;
+      case 'graph':
+        this.onLinegraph(item[Object.keys(item)[0]])
+      break;
+    default:
+      // Handle unknown types or provide a default action
+      break;
+  }
+
+}
 
 
   // ():void{
@@ -315,7 +429,9 @@ saveconfigcontrol(){
 
   
   
- 
+  onclickHome(){
+    this.router.navigate(['./admin-users'])
+  }
 
   toggleSubMenu(subMenuKey: string): void {
     this.subMenuStates[subMenuKey] = !this.subMenuStates[subMenuKey];
@@ -341,7 +457,7 @@ saveconfigcontrol(){
   }
   userStoreData:any;
   userNameProfile:any;
-  
+  controlsData: ItemType[] = [];
    ngOnInit(): void {
      
   this.userStoreData=localStorage.getItem('userData')
@@ -361,6 +477,10 @@ saveconfigcontrol(){
     // } else {
     //   this.showListcontrol = this.ts.listcontrol; 
     // }
+    const devicetype=   this.dataSharingService.getDeviceType()
+    this.auth.onAssignedControlsView(devicetype.type_name,devicetype.type_ver).subscribe(response=>
+      {console.log(response), this.controlsData = response}, error=>
+      console.log(error))
 
   }
 
@@ -369,17 +489,17 @@ saveconfigcontrol(){
   // }
 
   
-  removecontrol(index:number):void{
-    const dialogRef = this.dialog.open(DeleteAssignControlsComponent,{
-      width:'300px',
-      data:index
-    })
+  // removecontrol(index:number):void{
+  //   const dialogRef = this.dialog.open(DeleteAssignControlsComponent,{
+  //     width:'300px',
+  //     data:index
+  //   })
   
-    dialogRef.afterClosed().subscribe(result=>{
-      console.log("dialog is closed")
-    })
+  //   dialogRef.afterClosed().subscribe(result=>{
+  //     console.log("dialog is closed")
+  //   })
       
-   }
+  //  }
 
 
 }

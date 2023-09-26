@@ -66,10 +66,13 @@ dataList:any=[]
 
   userStoreData:any;
   userNameProfile:any;
-  
+  shouldRefresh: boolean = true;
+    // this.initChart();
+    
+
    ngOnInit(): void {
        
-  
+ 
   // Initialize the chart
   this.userStoreData=localStorage.getItem('userData')
   const userDataObject = JSON.parse(this.userStoreData);
@@ -88,13 +91,12 @@ dataList:any=[]
   });
 
   
-    
-  // this.initChart();
-
+ 
 
  }
 
  ngAfterViewInit(): void {
+
   // Initialize Chart instances after the view is initialized
   this.canvasElements.forEach((canvasElement, index) => {
     const chart = new Chart(canvasElement.nativeElement, {

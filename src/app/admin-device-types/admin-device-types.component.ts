@@ -5,6 +5,7 @@ import { AdminCreateNewDeviceComponent } from '../admin-create-new-device/admin-
 import { DeviceEditComponent } from '../device-edit/device-edit.component';
 import { AuthenticationService } from '../authentication.service';
 import { DeleteDeviceTypeComponent } from '../delete-device-type/delete-device-type.component';
+import { DataSharingService } from '../data-sharing.service';
 @Component({
   selector: 'app-admin-device-types',
   templateUrl: './admin-device-types.component.html',
@@ -19,7 +20,7 @@ export class AdminDeviceTypesComponent implements OnInit {
   admin:string[] = [];
  
 
-  constructor(private router: Router, public dialog : MatDialog, private auth: AuthenticationService ) {
+  constructor(private router: Router, public dialog : MatDialog, private auth: AuthenticationService, private dataSharingService: DataSharingService ) {
     // this.loginform-this.formBuilder.group
   }
 
@@ -79,15 +80,21 @@ onEditDevice(devices:any):void{
 }
 
 
-onAssignedCntrls():void{
+onAssignedCntrls(device:any){
   this.router.navigate(['./device-assign-controls'])
-
+  const deviceType = {type_name: device[0],type_ver: device[1]}
+  this.dataSharingService.setDeviceType(deviceType);
+  localStorage.setItem('localDevice', JSON.stringify(deviceType))
 }
 
 devicedetails:any=[];
 
 userStoreData:any;
 userNameProfile:any;
+pageSize: number = 10; // Number of items per page
+currentPage: number = 1; // Current page
+totalPages: number = 1; // Total number of pages
+
 
  ngOnInit(): void {
    
@@ -96,7 +103,8 @@ const userDataObject = JSON.parse(this.userStoreData);
 this.userNameProfile=userDataObject.userName
     this.auth.onGetDeviceTypes().subscribe(response=>
     {console.log(response),
-    this.devicedetails = response},
+    this.devicedetails = response
+    this.totalPages = Math.ceil(this.devicedetails.results.length / this.pageSize);},
     error=>
     console.log(error) )
 }
@@ -111,5 +119,29 @@ onDeleteDevice(device:any){
   dialogRef.afterClosed().subscribe(result => {      
   });
 }
+setPage(pageNumber: number) {
+  if (pageNumber >= 1 && pageNumber <= this.totalPages) {
+    this.currentPage = pageNumber;
+  }
+}
+
+// Function to go to the next page
+nextPage() {
+  this.setPage(this.currentPage + 1);
+}
+
+// Function to go to the previous page
+prevPage() {
+  this.setPage(this.currentPage - 1);
+}
+getCurrentPageData(): any{
+  const startIndex = (this.currentPage - 1) * this.pageSize;
+  const endIndex = startIndex + this.pageSize;
+  if (this.devicedetails.results!== undefined){
+  return this.devicedetails.results.slice(startIndex, endIndex);
+
+  }
+}
+
 
 }

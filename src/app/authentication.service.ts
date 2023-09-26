@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UrlSegment } from '@angular/router';
-  //4.188.244.11
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root'   
 })
-export class AuthenticationService {
+export class AuthenticationService {   
   constructor(private http: HttpClient) {}
 
   login(mobileno: string, password: string) {
     const body = { mobileno, password };
+    console.log(body)
     return this.http.post<any>('http://4.188.244.11/login/', body); 
   }
 
@@ -120,6 +121,28 @@ onEditDeviceDetails(devicedetails:any){
 DeleteDevicetype(devicedelete:any){
   console.log(devicedelete)
   return this.http.post('http://4.188.244.11/devicetype_delete/', devicedelete)
+}
+
+
+onDeviceSlider(devicedetails:any){
+  console.log(devicedetails)
+  return this.http.post<any>('http://4.188.244.11/slider_control/', devicedetails)
+}
+
+onDeviceLineGraph(devicedetails:any){
+  console.log(devicedetails)
+  return this.http.post<any>('http://4.188.244.11/graph_control/', devicedetails)
+}
+
+onDeviceOnOff(buttondetails:any){
+  console.log(buttondetails)
+  return this.http.post<any>('http://4.188.244.11/on_off_control/', buttondetails)
+}
+
+onAssignedControlsView(type_name:any,type_ver:any){
+console.log(type_name)
+console.log(type_ver)
+return this.http.get<any>(`http://4.188.244.11/controls_view/${type_name}/${type_ver}/`)
 }
 
 

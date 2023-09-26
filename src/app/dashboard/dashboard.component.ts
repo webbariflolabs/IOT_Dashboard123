@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit{
   accountId: string[] = [];
   accountName: string[] = [];
   admin:string[] = [];
- 
+
 
   constructor(public dialog: MatDialog, private router: Router,private http:HttpClient,private dataSharingService: DataSharingService, private auth: AuthenticationService) {
     // this.loginform-this.formBuilder.group
@@ -138,7 +138,9 @@ export class DashboardComponent implements OnInit{
   userNameProfile:any;
 
 
-
+  pageSize: number = 10; // Number of items per page
+  currentPage: number = 1; // Current page
+  totalPages: number = 1; // Total number of pages
 
 
 
@@ -195,6 +197,7 @@ export class DashboardComponent implements OnInit{
       this.auth.onGetAccounts(mob_no).subscribe(response=>
         {console.log(response),
           this.getAccounts = response
+          this.totalPages = Math.ceil(this.getAccounts.items.length / this.pageSize);
         },
         error =>
         console.log(error))
@@ -243,6 +246,7 @@ export class DashboardComponent implements OnInit{
       this.auth.onGetAccounts(mob_no).subscribe(response=>
         {console.log(response),
           this.getAccounts = response
+          this.totalPages = Math.ceil(this.getAccounts.items.length / this.pageSize);
         },
         error =>
         console.log(error))}
@@ -263,7 +267,27 @@ export class DashboardComponent implements OnInit{
     
 
   }
+  setPage(pageNumber: number) {
+    if (pageNumber >= 1 && pageNumber <= this.totalPages) {
+      this.currentPage = pageNumber;
+    }
+  }
 
+  // Function to go to the next page
+  nextPage() {
+    this.setPage(this.currentPage + 1);
+  }
+
+  // Function to go to the previous page
+  prevPage() {
+    this.setPage(this.currentPage - 1);
+  }
+  getCurrentPageData(): any {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    if (this.getAccounts.items!== undefined){ return this.getAccounts.items.slice(startIndex, endIndex);}
+   
+  }
  
 }
 

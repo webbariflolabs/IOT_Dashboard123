@@ -11,7 +11,7 @@
                      </td>
                     
                      <td>
-                      <input type="text" class="p-2 color color:focus" value="Line Graph" >
+                      <input type="text" [(ngModel)]="graph_dis_name" class="p-2 color color:focus" value="Line Graph" >
                        
                      </td>
                      <td>
@@ -29,28 +29,28 @@
                     Color
                     
                   </td>
-                  <td class="headings">
+                  <!-- <td class="headings">
                     Action
-                  </td>
+                  </td> -->
               </tr>
-              <tr *ngFor="let eachlebel of showListlabel; index as i">
+              <tr >
                 <td>
-                  <input placeholder="Label" class="p-2 back-color1" name="eachlebel.labelname" [(ngModel)]="labelvalue"   >
+                  <input placeholder="Label" class="p-2 back-color1"  [(ngModel)]="graph_label"   >
                 </td>
                
                 <td>
-                    <input placeholder="Color" class="p-2 back-color1"  [(ngModel)]="labelcolor">
+                    <input placeholder="Color" class="p-2 back-color1"  [(ngModel)]="graph_color">
                   
                 </td>
-                <td>
+                <!-- <td>
                     <button class="btn action-button" (click)="deleteLabel(i)"><i class="bi bi-clipboard-plus-fill icon-color"></i></button>
-                </td>
+                </td> -->
             </tr>
             
           
         <tr class="row-height">
           <td colspan="2">
-           <input type="checkbox" class="checkbox-height" id="allowuser">    
+           <input type="checkbox" [(ngModel)]="graph_allow_user" class="checkbox-height" id="allowuser">    
            <label class="mx-2" for ="allowuser">Allow User Access</label>        
           </td>
           <td rowspan="2">
@@ -58,16 +58,16 @@
           </td>
           
       </tr>
-      <tr>
+      <!-- <tr>
         <td colspan="2">
          <button class="btn custom-button" (click)="addforlabel()">ADD</button>
         </td>        
-    </tr>
+    </tr> -->
 
         </tbody>
 
           </table>
-    <button  class="btn custom-button"   [disabled]='!labelvalue.length || !labelcolor.length'  (click)="onSubmitLable()">Submit</button>
+    <button  class="btn custom-button"    (click)="onLineGraph()">Submit</button>
 
 </mat-dialog-content>
 <mat-dialog-actions>

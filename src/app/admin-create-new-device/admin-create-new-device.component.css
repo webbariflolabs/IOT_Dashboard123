@@ -6,6 +6,12 @@
     font-weight: 500;
     margin: 0px;
   }
+  
+.cross{
+  color: red;
+  font-size: 30px;
+  
+}
 
   .no-new{
     height: 40px;

@@ -9,7 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -21,7 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatButtonModule
+    MatButtonModule, 
+    FormsModule
   ]
 })
 export class LoginModule { }

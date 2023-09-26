@@ -47,6 +47,8 @@ ngOnInit(): void {
     error=>
     console.log(error) )
 }
-
+onClose(){
+  this.dialogRef.close()
+}
 
 }

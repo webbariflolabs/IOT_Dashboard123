@@ -26,6 +26,7 @@ export class GeneralAccountEditComponent {
         console.log(response),
         error=>
         console.log(error))
+        window.location.reload()
         this.dialogRef.close()
     }
     else{
@@ -35,6 +36,10 @@ export class GeneralAccountEditComponent {
     
 
 }
+onClose(){
+  this.dialogRef.close()
+}
+
 }
 
 

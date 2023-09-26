@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit,Input} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserNewDeviceComponent } from '../user-new-device/user-new-device.component';
@@ -7,6 +7,7 @@ import { DataSharingService } from '../data-sharing.service';
 import { AuthenticationService } from '../authentication.service';
 import { Edit5Component } from '../action/edit5/edit5/edit5.component';
 import { UserDeviceDeleteComponent } from '../user-device-delete/user-device-delete.component';
+import { AssignControlsComponent } from '../assign-controls/assign-controls.component';
 
 
 @Component({
@@ -15,9 +16,28 @@ import { UserDeviceDeleteComponent } from '../user-device-delete/user-device-del
   styleUrls: ['./user-account-devices.component.css']
 })
 export class UserAccountDevicesComponent implements OnInit{
+
+  devicedetails:any=[]
   events: string[] = [];
   opened: boolean = true;
+  onOff=false;
 
+  // addDevice() {
+  //   const newDevice = {
+  //     id: this.generateUniqueId(), // You can implement your own unique ID generation logic
+     
+  //     onOff: false // Default status is OFF
+  //   };
+  //   console.log(newDevice)
+
+  //   this.devicedetails.result.push(newDevice);
+  // }
+
+  // private generateUniqueId() {
+  //   // Implement your own logic to generate a unique ID here
+  //   // This is just a placeholder
+  //   return Math.floor(Math.random() * 1000);
+  // }
 
   subMenuStates: { [key: string]: boolean } = {};
 
@@ -117,6 +137,11 @@ export class UserAccountDevicesComponent implements OnInit{
     this.router.navigate(['./device-stats']);
     this.dataSharingService.sendAccountId(deviceid);
     localStorage.setItem('setdeviceId', JSON.stringify(deviceid) )
+
+      // Redirect to the desired page
+      setTimeout(() => {
+        location.reload();
+      }, 100)
   }
 
   
@@ -125,7 +150,7 @@ export class UserAccountDevicesComponent implements OnInit{
 //   console.log("heelo")
 // }
   
-  devicedetails:any=[]
+ 
 
  
  onDeleteDevice(deviceid:any){
@@ -141,11 +166,15 @@ export class UserAccountDevicesComponent implements OnInit{
  }
  userStoreData:any;
  userNameProfile:any;
-
+ cardStates: boolean[] = [];
  deviceId:any;
 
   ngOnInit(): void {
 
+ 
+    // Initialize the toggle state for each card
+    this.cardStates = new Array(this.devicedetails.length).fill(false);
+ 
 this.userStoreData=localStorage.getItem('userData')
 const userDataObject = JSON.parse(this.userStoreData);
 this.userNameProfile=userDataObject.userName
@@ -179,10 +208,22 @@ this.userNameProfile=userDataObject.userName
 
     }
 
-
-      
+    onClickControls(){
+      const dialogRef = this.dialog.open(AssignControlsComponent,{
+        width: '800px',
+        height: '400px',
+      })
+    
+      dialogRef.afterOpened().subscribe(result=>
+        console.log('dialog closed'))
      
-  
+    }
+
+    onButtonChange(index: number): void {
+      // Toggle the state of the card at the given index
+      this.cardStates[index] = !this.cardStates[index];
+      console.log(this.cardStates)
+    }
 
 
 }

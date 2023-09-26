@@ -27,6 +27,7 @@ export class GeneralAccountDeleteComponent {
       },
       err=>console.log(err)
     )
+    window.location.reload()
     this.dialogRef.close();
   }
 

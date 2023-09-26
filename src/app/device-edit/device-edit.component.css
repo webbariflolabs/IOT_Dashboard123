@@ -39,6 +39,12 @@
     
 }
 
+.cross{
+  color: red;
+  font-size: 30px;
+  
+}
+
 .custom-input{
     border: 2px solid rgb(204, 206, 210); /* Default border color */
     transition: border-color 0.3s;

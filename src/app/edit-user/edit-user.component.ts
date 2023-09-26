@@ -16,6 +16,10 @@ export class EditUserComponent {
     this.last = data[0].split(' ')[1];
     
   }
+  
+  onClose(){
+    this.dialogRef.close()
+  }
 
   
   onEditDetails():void{
@@ -38,5 +42,6 @@ export class EditUserComponent {
     }
 
   }
+
 
 }

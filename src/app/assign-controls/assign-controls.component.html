@@ -1,0 +1,26 @@
+
+<h1 class="mt-2 mx-3 mb-2 controls">Device-Controls</h1>
+<hr>
+
+  <div class="d-flex flex-row">
+  <div class="box">
+    <h2>ON-OFF Button</h2>
+    <hr>
+    <p><label class="switch">
+        <input type="checkbox" [(ngModel)]="isToggleOn">
+        <span class="slider round"></span>
+      </label></p>
+  </div>
+  <div class="box">
+    <h2>Slider Input
+    </h2>
+    <hr>
+    <div><span class="mx-4">{{minValue}}</span><span class="mx-4">{{ maxValue }}</span>
+        <input type="range" [(ngModel)]="sliderValue" (input)="onSliderInput()"
+               [min]="minValue" [max]="maxValue" [step]="stepValue" class="blue-slider">
+               <span class="ml-3">{{ sliderValue }}</span>
+      </div>
+  
+
+  </div>
+</div>

@@ -65,23 +65,29 @@ export class UserNewDeviceComponent implements OnInit{
 //   this.router.navigate(['./user-account-devices']);
 // }
 errorMsg ="";
+showError=false;
 
-onAddDevice(){
+async onAddDevice(){
   this.errorMsg =""
+  this.showError=false;
   if (this.devicename !== "" && this.selectdevice !== ""){
-
-    const savedaccountid = localStorage.getItem('accountId')
+    try{const savedaccountid = localStorage.getItem('accountId')
 
     if (savedaccountid){
       const getaccount = JSON.parse(savedaccountid)
 
       const deviceDetails = {accountid:getaccount, devicename: this.devicename,devicetype: this.selectdevice}
-  this.auth.onAddNewDevice(deviceDetails).subscribe(response=>
-    console.log(response),
-    error=>
-    console.log(error))
-    window.location.reload();
-    this.dialogRef.close();
+      const response = await this.auth.onAddNewDevice(deviceDetails).toPromise();
+      if (response.error === "Device name already exists for this account") {
+        this.showError = true;
+      }
+
+      console.log(response);
+
+      if (!this.showError) {
+        window.location.reload()
+        this.dialogRef.close();
+      }
 
     }
 
@@ -96,13 +102,21 @@ onAddDevice(){
       this.dialogRef.close();
     }
 
+}
+catch (error) {
+  console.log(error);
+}
 
+    
 
 
 
   }
   else{
     this.errorMsg = "*Please Enter all fields values"
+  }
+  if (this.showError) {
+    this.errorMsg = "*Device already Exists! Choose another Name";
   }
   
 }
@@ -114,6 +128,9 @@ ngOnInit(): void {
     this.devicedetails = response},
     error=>
     console.log(error) )
+}
+onClose(){
+  this.dialogRef.close()
 }
 
 }

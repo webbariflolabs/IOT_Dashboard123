@@ -1,4 +1,7 @@
-<h2 mat-dialog-title>User Details</h2>
+<div class="d-flex flex-row justify-content-between">
+    <h2 mat-dialog-title>User Details</h2>
+    <i class="bi bi-file-excel-fill cross mt-2 mx-2" (click)="onClose()"></i>
+</div>
 <hr/>
 <mat-dialog-content>
 
@@ -31,7 +34,7 @@
     <select  [(ngModel)]="userData.usertype" name="usertype" class="input-style input-style:focus mx-3 drop-down-width">
         <option value="" disabled>Select User Type
         </option>
-        <option  value="admin"  >Account Admin</option>
+        <!-- <option  value="admin"  >Account Admin</option> -->
         <option  value ="general"  >Account User</option>
     </select>
 </div>

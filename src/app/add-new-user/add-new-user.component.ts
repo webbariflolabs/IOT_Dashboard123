@@ -39,4 +39,8 @@ export class AddNewUserComponent {
     }
 
   }
+  onClose(){
+    this.dialogRef.close()
+  }
+
 }

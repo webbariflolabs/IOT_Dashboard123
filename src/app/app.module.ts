@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -75,9 +76,26 @@ import { DeleteDeviceTypeComponent } from './delete-device-type/delete-device-ty
 import { GeneralUsersComponent } from './general-users/general-users.component';
 import { MqttDeviceComponent } from './mqtt-device/mqtt-device.component';
 import { DeleteAssignControlsComponent } from './delete-assign-controls/delete-assign-controls.component';
+import { NoviewDeleteComponent } from './noview-delete/noview-delete.component';
+import { NoviewPermissionComponent } from './noview-permission/noview-permission.component';
+import { NoviewAccountComponent } from './noview-account/noview-account.component';
+import { AssignControlsComponent } from './assign-controls/assign-controls.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { GeneralUserStatsComponent } from './general-user-stats/general-user-stats.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { UsersCheckComponent } from './users-check/users-check.component';
+import { SuperAdminComponent } from './super-admin/super-admin.component';
+import { CreateAdminComponent } from './create-admin/create-admin.component';
+import { DeviceGraphComponent } from './device-graph/device-graph.component';
+import { DeviceSliderComponent } from './device-slider/device-slider.component';
+import { DeviceButtonComponent } from './device-button/device-button.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
-
-
+import { LoginPasswordComponent } from './login-password/login-password.component';
+import { ForgotCheckComponent } from './forgot-check/forgot-check.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +134,23 @@ import { DeleteAssignControlsComponent } from './delete-assign-controls/delete-a
     GeneralUsersComponent,
     MqttDeviceComponent,
     DeleteDeviceTypeComponent,
-    DeleteAssignControlsComponent
+    DeleteAssignControlsComponent,
+    NoviewDeleteComponent,
+    NoviewPermissionComponent,
+    NoviewAccountComponent,
+    AssignControlsComponent,
+    GeneralUserStatsComponent,
+    RegisterPageComponent,
+    ProfilePageComponent,
+    UsersCheckComponent,
+    SuperAdminComponent,
+    CreateAdminComponent,
+    DeviceGraphComponent,
+    DeviceSliderComponent,
+    DeviceButtonComponent,
+    ForgotPasswordComponent,
+    LoginPasswordComponent,
+    ForgotCheckComponent
     // DashboardComponent,
    
   ],
@@ -153,7 +187,11 @@ import { DeleteAssignControlsComponent } from './delete-assign-controls/delete-a
     Edit4Module,
     StatModule,
     NgChartsModule,
-
+    NgxPaginationModule,
+    MatSliderModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

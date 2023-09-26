@@ -6,15 +6,17 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { DataSharingService } from '../data-sharing.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
+
 })
 export class LoginComponent implements OnInit {
   loginForm:FormGroup;
-  mobileno: string='';
-  password: string='';
+  mobileno: any;
+  password: any;
   hero: any;
   users:any;
   headers:any;
@@ -43,6 +45,22 @@ export class LoginComponent implements OnInit {
   // return this.headers;
   // }
 
+  value: string = 'hello';
+
+  updateValue(newValue: string): void {
+    this.value = newValue;
+  }
+
+  onBlur(): void {
+    this.value = 'Noooo';
+  }
+
+  onMobileNext(){
+    console.log(this.mobileno);
+    this.router.navigate(['./login-password'])
+    this.dataSharingService.onSendLogMob(this.mobileno);
+  }
+
   onSubmit(){
          /* console.log(this.getcsrf());
           this.http.post("http://192.168.0.113:8000/login/",this.loginForm.value,{headers:this.headers}).subscribe(
@@ -67,6 +85,7 @@ export class LoginComponent implements OnInit {
 
                                 }
                                 else if (response.message==="Login Successful For General User"){
+                                  localStorage.setItem('logMob',JSON.stringify(mobileno))
                                   this.router.navigate(['./dashboard'])
                                   this.errorMsg = false;
                                   console.log(this.loginForm.value)

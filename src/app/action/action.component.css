@@ -17,13 +17,18 @@ body{
     width:250px;
   }
   .bar1, .bar2, .bar3 {
-    width: 30px;
-    height: 4px;
-    background-color: #333;
+    width: 20px;
+    height: 2px;
+    background-color: #9a9c9c;
     margin: 2px 0;
     transition: 0.4s;
   }
 
+
+
+.top-heading{
+    font-size: 30px;
+  }
   .icon-size{
     color: black;
   }

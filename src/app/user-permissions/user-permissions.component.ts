@@ -56,6 +56,13 @@ export class UserPermissionsComponent implements OnInit {
   onPermissions():void{
     this.router.navigate(['./user-permissions']);
   }
+  
+
+
+
+onclickHome(){
+  this.router.navigate(['./admin-users'])
+}
 
   onSave(){
     const getmobile = this.dataSharingService.getmob();

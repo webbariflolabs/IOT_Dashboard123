@@ -7,20 +7,19 @@
           <div class="bar3"></div>
         </div>
         <div class="d-flex flex-row">
-        <img src="./assets/img/Asset1.png" class="justify-content-center align-items-center mx-2" style="width: 50px; height: 50px;">
-        <h1 class="mb-0 mt-2">Bariflo Labs</h1>
+        <h1 class="mb-0 mt-2 mx-1 top-heading">Bariflo Labs</h1>
       </div>
       </div>
         <div class="d-flex flex-row">
           <button class="name-icon mx-3" [matMenuTriggerFor]="menu">{{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile| uppercase).split(' ')[1][0]}}</button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>Profile</button>
+            <!-- <button mat-menu-item>Profile</button> -->
             <button mat-menu-item (click)="onLogout()">Logout</button>
           </mat-menu>
           
           <button class="username" [matMenuTriggerFor]="menu">{{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile.split(' ')[0].slice(1))+' '+(userNameProfile| uppercase).split(' ')[1][0]+(userNameProfile.split(' ')[1].slice(1))}} </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>Profile</button>
+            <!-- <button mat-menu-item>Profile</button> -->
             <button mat-menu-item (click)="onLogout1()">Logout</button>
           </mat-menu>
         </div>
@@ -33,15 +32,20 @@
              <!-- <mat-list-item>
                 <a mat-list-item href="dashboard"><i class="bi bi-house-fill icon-size"></i> Accounts</a>
               </mat-list-item>
-              <hr class="my-0">-->
+              <hr class="my-0"> -->
+              <hr class="my-0">
               <mat-list-item>
                 <a mat-list-item href="admin-users"><i class="bi bi-people-fill"></i> Users</a>
               </mat-list-item>
               <hr class="my-0">
               <mat-list-item>
-                <a mat-list-item href="admin-new-device"><i class="bi bi-plus-square-fill"></i> New Devices</a>
+                <a mat-list-item href="users-check"><i class="bi bi-person-check check-size"></i> Users Check</a>
               </mat-list-item>
               <hr class="my-0">
+              <!-- <mat-list-item>
+                <a mat-list-item href="admin-new-device"><i class="bi bi-plus-square-fill"></i> New Devices</a>
+              </mat-list-item>
+              <hr class="my-0"> -->
               
              
               <mat-list-item class="mx-3" (click)="toggleSubMenu('submenu1')">
@@ -75,7 +79,7 @@
                             </tr>
                          </thead>
                          <tbody>
-                             <tr *ngFor="let device of devicedetails.results">
+                             <tr *ngFor="let device of getCurrentPageData()">
                                  <td>
                                    {{device[0]}}
                                  </td>
@@ -88,7 +92,7 @@
                                  <td>
                                    <button class="btn btn-warning mx-1" (click)="onEditDevice(device)" ><i class="bi bi-pencil-square" ></i></button>
                                    <button (click)="onDeleteDevice(device)" class="btn btn-danger mx-1"><i class="bi bi-trash"></i></button>
-                                   <button class="btn btn-primary mx-1" (click)="onAssignedCntrls()" disabled><i class="bi bi-grid-fill"></i></button>
+                                   <button class="btn btn-primary mx-1" (click)="onAssignedCntrls(device)" ><i class="bi bi-grid-fill"></i></button>
                                  </td>
                                  
                              </tr>
@@ -98,6 +102,9 @@
                     </div>
                 </mat-card-content>
               </mat-card>
+              <button class="btn btn-primary custom-button mt-1 mx-2 p-1" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+              <span class="my-5">Page {{ currentPage }} of {{ totalPages }}</span>
+              <button class="btn btn-success custom-button mt-1 mx-2 p-1" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
             </div>
           </mat-sidenav-content>
 
@@ -107,9 +114,13 @@
 
          
        <nav class="navbar fixed-bottom footer">
-        <div class="container-fluid">
-          <a class="navbar-brand mx-3"><h1 class="footer-heading"><span><i class="bi bi-c-circle copyright"></i> </span><span class="year"> 2021-2022</span> Bariflo Labs Limited. All rights reserved.</h1></a>
-        </div>
+      
+<div class="container-fluid d-flex flex-row justify-content-between">
+  <a class="navbar-brand mx-3"><h1 class="footer-heading"><span><i class="bi bi-c-circle copyright"></i> </span><span class="year"> 2021-2022</span> Bariflo Labs Limited. All rights reserved.</h1></a>
+  <img src="./assets/img/Asset1.png" class="justify-content-center align-items-center mx-2" style="width: 40px; height: 40px;">
+</div>
+
+
       </nav>
     
    </body>

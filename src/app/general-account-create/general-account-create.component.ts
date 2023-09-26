@@ -28,26 +28,30 @@ export class GeneralAccountCreateComponent {
 
 
   }
-   
-  onSubmit(){
-    this.errorMsg= "";
-    
-    console.log(this.accountname)
+   showError=false;
+  async  onSubmit(){
+    this.errorMsg = "";
+  console.log(this.accountname);
+  this.showError = false;
     if (this.accountname !== undefined){
-
-      const savedmob = localStorage.getItem('logMob');
+      try{const savedmob = localStorage.getItem('logMob');
       
       if (savedmob){
         const getmobno = JSON.parse(savedmob)
         this.accountdetails = {usermobno: getmobno, accountname: this.accountname}
-        this.auth.onSubmitAccountCreate(this.accountdetails).subscribe(response =>
-        console.log(response),
-        error => 
-        console.log(error)
+        const response = await this.auth.onSubmitAccountCreate(this.accountdetails).toPromise();
 
-        )
-        window.location.reload()
-        this.dialogRef.close();
+
+        if (response.error === "Account already exists") {
+          this.showError = true;
+        }
+  
+        console.log(response);
+  
+        if (!this.showError) {
+          window.location.reload()
+          this.dialogRef.close();
+        }
       
       
       }
@@ -61,6 +65,11 @@ export class GeneralAccountCreateComponent {
           )
           window.location.reload()
           this.dialogRef.close();}
+
+
+      }catch (error) {
+        console.log(error);
+      }
       
       
       
@@ -68,8 +77,17 @@ export class GeneralAccountCreateComponent {
     else{
       this.errorMsg = "*Please Enter the value"
     }
+    if (this.showError) {
+      this.errorMsg = "*Account already Exists! Choose another Name";
+    }
 
 }
+
+onClose(){
+  this.dialogRef.close()
+}
+
+
 
 
 }

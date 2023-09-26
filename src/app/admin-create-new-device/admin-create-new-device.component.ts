@@ -24,5 +24,8 @@ export class AdminCreateNewDeviceComponent {
       window.location.reload();
       this.dialogRef.close()
   }
-  
+  onClose(){
+    this.dialogRef.close()
+  }
+
 }

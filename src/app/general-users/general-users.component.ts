@@ -7,6 +7,8 @@ import { Dialog } from '@angular/cdk/dialog';
 import { AuthenticationService } from '../authentication.service';
 import { UserDeleteComponent } from '../user-delete/user-delete.component';
 import { DataSharingService } from '../data-sharing.service';
+import { NoviewAccountComponent } from '../noview-account/noview-account.component';
+import { NoviewDeleteComponent } from '../noview-delete/noview-delete.component';
 
 
 @Component({
@@ -19,6 +21,9 @@ import { DataSharingService } from '../data-sharing.service';
   export class GeneralUsersComponent implements OnInit {
   events: string[] = [];
   opened: boolean = true;
+  pageSize: number = 10; // Number of items per page
+  currentPage: number = 1; // Current page
+  totalPages: number = 1; // Total number of pages
 
   permission= {usercreate: false,
     useredit: false,
@@ -64,15 +69,27 @@ import { DataSharingService } from '../data-sharing.service';
 
   }
   
-  onDeleteUser(mobileno:any):void{
-    const dialogRef = this.dialog.open(UserDeleteComponent,{
-      width:'300px',
-      data: mobileno
-    })
-  
-    dialogRef.afterClosed().subscribe(result=>{
-      console.log("dialog is closed")
-    })
+  onDeleteUser(mobileno:any, usertype:any):void{
+    if (usertype === "admin"){
+      const dialogRef = this.dialog.open(NoviewDeleteComponent,{
+        width:'300px',
+        height:'100px',
+      })
+    
+      dialogRef.afterClosed().subscribe(result=>{
+        console.log("dialog is closed")
+      })
+    }
+    else{
+      const dialogRef = this.dialog.open(UserDeleteComponent,{
+        width:'300px',
+        data: mobileno
+      })
+    
+      dialogRef.afterClosed().subscribe(result=>{
+        console.log("dialog is closed")
+      })
+    }
       
    }
 
@@ -170,7 +187,8 @@ this.userNameProfile=userDataObject.userName
      if (this.permission.userview === true){
       
   this.auth.getData().subscribe((response)=>{this.userData = response
-    console.log(this.userData) }
+    console.log(this.userData) 
+    this.totalPages = Math.ceil(this.userData.items.length / this.pageSize);}
     ,
   
     error =>
@@ -215,7 +233,8 @@ this.userNameProfile=userDataObject.userName
    console.log(this.permission);
    if (this.permission.userview === true){
     this.auth.getData().subscribe((response)=>{this.userData = response
-      console.log(this.userData) }
+      console.log(this.userData)
+      this.totalPages = Math.ceil(this.userData.items.length / this.pageSize); }
       ,
     
       error =>
@@ -237,8 +256,29 @@ this.userNameProfile=userDataObject.userName
 
     }
 
-
+    setPage(pageNumber: number) {
+      if (pageNumber >= 1 && pageNumber <= this.totalPages) {
+        this.currentPage = pageNumber;
+      }
+    }
   
+    // Function to go to the next page
+    nextPage() {
+      this.setPage(this.currentPage + 1);
+    }
+  
+    // Function to go to the previous page
+    prevPage() {
+      this.setPage(this.currentPage - 1);
+    }
+    getCurrentPageData(){
+      const startIndex = (this.currentPage - 1) * this.pageSize;
+      const endIndex = startIndex + this.pageSize;
+      if (this.userData.items !== undefined){
+      return this.userData.items.slice(startIndex, endIndex);
+
+      }
+    }
 
 }
 

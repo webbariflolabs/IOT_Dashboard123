@@ -11,8 +11,11 @@ export class DataSharingService {
   private logmob:any;
   private logaccountid:any;
   private devicename: any;
+
+  private checkmob:any;
   // private deviceId : any;
   private deviceId:any;
+  private devicetype:any;
 
   setData(data: any) {
     this.sharedData = data;
@@ -123,6 +126,22 @@ addId=2
 
   getDeviceId(){
     return this.deviceId
+  }
+
+  setDeviceType(devicetype:any){
+    this.devicetype = devicetype;
+  }
+
+  getDeviceType(){
+    return this.devicetype;
+  }
+
+  onSendLogMob(mobno:any){
+    this.checkmob = mobno;
+  }
+
+  getLogMob(){
+    return this.checkmob;
   }
 
 }

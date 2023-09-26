@@ -110,6 +110,21 @@ mobileno ="";
 accountsData:any=[];
 userStoreData:any;
 userNameProfile:any;
+pageSize: number = 10; // Number of items per page
+currentPage: number = 1; // Current page
+totalPages: number = 1; // Total number of pages
+
+
+
+getCurrentPageData(): any {
+  const startIndex = (this.currentPage - 1) * this.pageSize;
+  const endIndex = startIndex + this.pageSize;
+  
+ if (this.accountsData.items!== undefined){
+  return this.accountsData.items.slice(startIndex, endIndex);
+}
+ 
+}
 
  ngOnInit(): void {
      
@@ -126,7 +141,9 @@ this.userNameProfile=userDataObject.userName
 
     this.auth.onGetAccounts(mobData).subscribe(response=>
       {console.log(response), 
-      this.accountsData = response}
+      this.accountsData = response
+      this.totalPages = Math.ceil(this.accountsData.items.length / this.pageSize)
+    }
        
       ,
       error=>console.log(error))
@@ -144,14 +161,30 @@ else{
     const mobData = {mobileno: this.mobileno}
     this.auth.onGetAccounts(mobData).subscribe(response=>
       {console.log(response), 
-      this.accountsData = response}
+      this.accountsData = response
+      this.totalPages = Math.ceil(this.accountsData.items.length / this.pageSize)
+      }
        
       ,
       error=>console.log(error))
   }
   
 }
+setPage(pageNumber: number) {
+  if (pageNumber >= 1 && pageNumber <= this.totalPages) {
+    this.currentPage = pageNumber;
+  }
+}
 
+// Function to go to the next page  
+nextPage() {
+  this.setPage(this.currentPage + 1);
+}
+
+// Function to go to the previous page
+prevPage() {
+  this.setPage(this.currentPage - 1);
+}
 
 
 }

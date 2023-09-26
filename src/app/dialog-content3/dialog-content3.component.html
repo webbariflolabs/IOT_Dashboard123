@@ -10,7 +10,7 @@
                     </td>
                    
                     <td>
-                     <input type="text" class="p-2 color color:focus" value="On Off Button" >
+                     <input type="text" [(ngModel)]="btn_dis_name" class="p-2 color color:focus" value="On Off Button" >
                       
                     </td>
                  <tr>
@@ -19,7 +19,7 @@
                      </td>
                     
                      <td>
-                      <input class="p-2 back-color1" placeholder="Virtual Pin" >
+                      <input class="p-2 back-color1" [(ngModel)]="btn_pin" placeholder="Virtual Pin" >
                        
                      </td>
                  </tr>
@@ -29,21 +29,21 @@
           
         <tr class="row-height">
           <td colspan="2">
-           <input type="checkbox" class="checkbox-height" id="allowuser">    
+           <input type="checkbox" [(ngModel)]="alw_usr"  class="checkbox-height" id="allowuser">    
            <label class="mx-2" for ="allowuser">Allow User Access</label>        
           </td>
           
       </tr>
-      <tr>
+      <!-- <tr>
         <td colspan="2">
          <button class="btn custom-button">ADD</button>
         </td>        
-    </tr>
+    </tr> -->
 
         </tbody>
 
           </table>
-    <button type="submit" class="btn custom-button disable" disabled>Submit</button>
+    <button type="submit" (click)="onOnOff()" class="btn custom-button disable">Submit</button>
 
 </mat-dialog-content>
 <mat-dialog-actions>

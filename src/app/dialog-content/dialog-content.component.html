@@ -10,7 +10,7 @@
                      </td>
                     
                      <td>
-                      <input type="text" class="p-2 color color:focus" value="Slider Input" >
+                      <input [(ngModel)]="slider_dis_name" type="text" class="p-2 color color:focus" value="Slider Input" >
                        
                      </td>
                      
@@ -22,7 +22,7 @@
                   </td>
                  
                   <td>
-                    <input type="text"  class="p-2 color color:focus" value="4" >
+                    <input type="text" [(ngModel)]="slider_pin" class="p-2 color color:focus" value="4" >
                     
                   </td>
                   
@@ -34,7 +34,7 @@
                 </td>
                
                 <td>
-                  <input type="text"  class="p-2 color color:focus" value="0" >
+                  <input type="text" [(ngModel)]="slider_min"  class="p-2 color color:focus" value="0" >
                   
                 </td>
                 
@@ -46,7 +46,7 @@
               </td>
              
               <td>
-                <input type="text"  class="p-2 color color:focus" value="10" >
+                <input type="text" [(ngModel)]="slider_max"   class="p-2 color color:focus" value="10" >
                 
               </td>
               
@@ -58,29 +58,29 @@
             </td>
            
             <td>
-              <input type="text" class="p-2 color color:focus" value="1" >
+              <input type="text" [(ngModel)]="slider_step_value"  class="p-2 color color:focus" value="1" >
               
             </td>
             
         </tr>
         <tr>
           <td colspan="2"  class="row-height">
-           <input type="checkbox" id="allowuser" class="check-size" checked>    
+           <input type="checkbox" [(ngModel)]="slider_allow_user" id="allowuser" class="check-size" checked>    
            <label class="mx-2" for ="allowuser">Allow User Access</label>        
           </td>
           
           
       </tr>
-      <tr>
+      <!-- <tr>
         <td colspan="2">
          <button class="btn custom-button">ADD</button>
         </td>        
-    </tr>
+    </tr> -->
 
         </tbody>
 
           </table>
-    <button type="submit" class="btn custom-button">Submit</button>
+    <button type="submit" (click)="onSlider()" class="btn custom-button">Submit</button>
 
 </mat-dialog-content>
 <mat-dialog-actions>

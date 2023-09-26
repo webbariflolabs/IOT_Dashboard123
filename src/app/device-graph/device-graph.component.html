@@ -1,0 +1,86 @@
+
+<h2 mat-dialog-title>Line Graph</h2>
+<hr/>
+<mat-dialog-content>
+          <table class="table table-bordered table-striped table-hover">
+             <tbody>
+                 <tr>
+                     <td>
+                      Display Name
+                       
+                     </td>
+                    
+                     <td>
+                      <input type="text" [(ngModel)]="displayname" class="p-2 color color:focus" value="Line Graph" >
+                       
+                     </td>
+                     <td>
+
+                     </td>
+                     
+                 </tr>
+                 <tr>
+                  <td class="headings">
+                    Label
+                    
+                  </td>
+                 
+                  <td class="headings">
+                    Color
+                    
+                  </td>
+                  <!-- <td class="headings">
+                    Action
+                  </td> -->
+              </tr>
+              <tr >
+                <td>
+                  <input placeholder="Label" class="p-2 back-color1"  [(ngModel)]="labelname"   >
+                </td>
+               
+                <td>
+                    <input placeholder="Color" class="p-2 back-color1"  [(ngModel)]="labelcolor">
+                  
+                </td>
+                <!-- <td>
+                    <button class="btn action-button" (click)="deleteLabel(i)"><i class="bi bi-clipboard-plus-fill icon-color"></i></button>
+                </td> -->
+            </tr>
+            
+          
+        <tr class="row-height">
+          <td colspan="2">
+           <input type="checkbox" [(ngModel)]="allow_user" class="checkbox-height" id="allowuser">    
+           <label class="mx-2" for ="allowuser">Allow User Access</label>        
+          </td>
+          <td rowspan="2">
+
+          </td>
+          
+      </tr>
+      <!-- <tr>
+        <td colspan="2">
+         <button class="btn custom-button" (click)="addforlabel()">ADD</button>
+        </td>        
+    </tr> -->
+
+        </tbody>
+
+          </table>
+    <button  class="btn custom-button"    (click)="onLineGraph()">Submit</button>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+ <!-- <button mat-button mat-dialog-close>Close</button>-->
+  <!-- You can also add additional buttons here --></mat-dialog-actions>
+
+
+
+
+
+
+
+
+
+
+

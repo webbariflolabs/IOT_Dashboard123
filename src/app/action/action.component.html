@@ -7,15 +7,14 @@
         <div class="bar3"></div>
       </div>
       <div class="d-flex flex-row">
-      <img src="./assets/img/Asset1.png" class="justify-content-center align-items-center mx-2" style="width: 50px; height: 50px;">
-      <h1 class="mb-0 mt-2">Bariflo Labs</h1>
+      <h1 class="mb-0 mt-2 mx-1 top-heading">Bariflo Labs</h1>
     </div>
     </div>
       <div class="d-flex flex-row">
         <button mat-button [matMenuTriggerFor]="menu"><div class="name-icon">
           {{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile| uppercase).split(' ')[1][0]}}</div></button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>Profile</button>
+          <!-- <button mat-menu-item>Profile</button> -->
           <button mat-menu-item (click)="onLogout()">Logout</button>
         </mat-menu>
         
@@ -23,7 +22,7 @@
 
           {{(userNameProfile | uppercase).split(' ')[0][0]+(userNameProfile.split(' ')[0].slice(1))+' '+(userNameProfile| uppercase).split(' ')[1][0]+(userNameProfile.split(' ')[1].slice(1))}}  </h1></button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>Profile</button>
+          <!-- <button mat-menu-item>Profile</button> -->
           <button mat-menu-item (click)="onLogout1()">Logout</button>
         </mat-menu>
       </div>
@@ -37,14 +36,14 @@
                   <a mat-list-item href="dashboard"><i class="bi bi-house-fill icon-size"></i> Accounts</a>
                 </mat-list-item>
                 <hr class="my-0">
-                <!-- <mat-list-item>
-                  <a mat-list-item href="newdevices"><i class="bi bi-plus-square-fill"></i> New Devices</a>
-                </mat-list-item> -->
-                <hr class="my-0">
+                <mat-list-item>
+                  <a mat-list-item href="profile-page"><i class="bi bi-person-circle"></i> Profile</a>
+                </mat-list-item>
+                <!-- <hr class="my-0">
                 <mat-list-item>
                   <a mat-list-item href="general-users"><i class="bi bi-people-fill"></i> Users</a>
                 </mat-list-item>
-                <hr class="my-0">
+                <hr class="my-0"> -->
                 <!-- <mat-list-item class="mx-3" (click)="toggleSubMenu('submenu1')">
                   <span><i class="bi bi-gear-fill"></i> Settings</span>
                   
@@ -56,10 +55,10 @@
               </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
-          <button [disabled]= "!permission.devicecreate" class="btn btn-primary" (click)="openDialog7()" >New Device</button>
+          <!-- <button [disabled]= "!permission.devicecreate" class="btn btn-primary" (click)="openDialog7()" >New Device</button> -->
           <hr>
          <div class="row">
-          <div class="col-lg-6" *ngFor="let device of devicedetails.result">
+          <div class="col-lg-6 mb-3" *ngFor="let device of devicedetails.result">
             <mat-card>   
               <div class="device-content" >
                 <div class="d-flex flex-column">
@@ -68,9 +67,9 @@
               </div>
                  
                   <div class="my-3 mx-2">
-                <button [disabled]="!permission.deviceedit" (click)="onClick7(device)" class="btn btn-warning mx-1"><i class="bi bi-pencil-square mx-1" ></i></button>
+                <!-- <button [disabled]="!permission.deviceedit" (click)="onClick7(device)" class="btn btn-warning mx-1"><i class="bi bi-pencil-square mx-1" ></i></button>
                                   <button [disabled]="!permission.devicedelete" (click)="onDelete(device[0])" class="btn btn-danger mx-2"><i class="bi bi-trash"></i></button>
-                                  <button class="btn btn-primary mx-2"><i class="bi bi-grid-fill" ></i></button>
+                                  <button class="btn btn-primary mx-2"><i class="bi bi-grid-fill" ></i></button> -->
                 </div>
             </div>
               <hr>
@@ -92,7 +91,7 @@
                   <hr>
                   <span>
                     <button class="btn success-color disabled">CONTROLS</button>
-                    <button class="btn stats-color mx-3"(click)="onClick8()">STATS</button>
+                    <button class="btn stats-color mx-3"(click)="onClick8(device[0])">STATS</button>
                   </span>
               </mat-card-content>
             </mat-card>
@@ -105,9 +104,12 @@
      </mat-sidenav-container>  
     
     <nav class="navbar fixed-bottom footer">
-      <div class="container-fluid">
-        <a class="navbar-brand mx-3"><h1 class="footer-heading"><span><i class="bi bi-c-circle copyright"></i> </span><span class="year"> 2021-2022</span> Bariflo Labs Limited. All rights reserved.</h1></a>
-      </div>
+      
+<div class="container-fluid d-flex flex-row justify-content-between">
+  <a class="navbar-brand mx-3"><h1 class="footer-heading"><span><i class="bi bi-c-circle copyright"></i> </span><span class="year"> 2021-2022</span> Bariflo Labs Limited. All rights reserved.</h1></a>
+  <img src="./assets/img/Asset1.png" class="justify-content-center align-items-center mx-2" style="width: 40px; height: 40px;">
+</div>
+
     </nav>
 
 </body>

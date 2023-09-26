@@ -113,8 +113,10 @@ export class ActionComponent implements OnInit {
 
   }
 
-  onClick8(): void {
-    this.router.navigate(['./device-stats']);
+  onClick8(deviceid:any): void {
+    this.router.navigate(['./general-user-stats']);
+    this.dataSharingService.sendAccountId(deviceid);
+    localStorage.setItem('setdeviceId', JSON.stringify(deviceid) )
   }
 
 

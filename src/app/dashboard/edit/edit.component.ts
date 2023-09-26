@@ -34,4 +34,7 @@ export class EditComponent {
     
 
 }
+onClose(){
+  this.dialogRef.close()
+}
 }

@@ -1,5 +1,5 @@
 import { Component,Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { AuthenticationService } from '../authentication.service';
 import { DataSharingService } from '../data-sharing.service';
 
@@ -13,7 +13,7 @@ export class DeviceEditComponent {
   devicename='';
   deviceversion:any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any, private auth: AuthenticationService, private dataSharingService: DataSharingService){
+  constructor(@Inject(MAT_DIALOG_DATA) public data:any, private auth: AuthenticationService, private dataSharingService: DataSharingService, private dialogRef: MatDialogRef<DeviceEditComponent>){
     this.devicename= data[0],
     this.deviceversion = data[1]
   }
@@ -29,6 +29,9 @@ export class DeviceEditComponent {
     console.log(error))
     window.location.reload()
 
+  }
+  onClose(){
+    this.dialogRef.close()
   }
 
 }
