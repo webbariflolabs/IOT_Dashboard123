@@ -131,17 +131,17 @@ DeleteDevicetype(devicedelete:any){
 
 onDeviceSlider(devicedetails:any){
   console.log(devicedetails)
-  return this.http.post<any>('http://20.244.48.88/slider_control/', devicedetails)
+  return this.http.post<any>('http://20.244.48.88:8000/slider_control/', devicedetails)
 }
 
 onDeviceLineGraph(devicedetails:any){
   console.log(devicedetails)
-  return this.http.post<any>('http://20.244.48.88/graph_control/', devicedetails)
+  return this.http.post<any>('http://20.244.48.88:8000/graph_control/', devicedetails)
 }
 
 onDeviceOnOff(buttondetails:any){
   console.log(buttondetails)
-  return this.http.post<any>('http://20.244.48.88/on_off_control/', buttondetails)
+  return this.http.post<any>('http://20.244.48.88:8000/on_off_control/', buttondetails)
 }
 
 onAssignedControlsView(type_name:any,type_ver:any){
