@@ -36,7 +36,7 @@ export class LoginPasswordComponent implements OnInit {
   hero: any;
   users:any;
   headers:any;
-  errorMsg:boolean= false;
+  errorMsg:any;
 
   constructor(private router:Router,private snackBar: MatSnackBar, private formBuilder: FormBuilder,private authService: AuthenticationService, private http:HttpClient, private dataSharingService: DataSharingService){
       // this.loginForm=this.formBuilder.group({
@@ -46,7 +46,20 @@ export class LoginPasswordComponent implements OnInit {
  
   }
   ngOnInit(): void {
-    this.mobileno = parseInt(this.dataSharingService.getLogMob())
+   const checkInput= (this.dataSharingService.getLogMob())
+ 
+  
+   if (typeof checkInput === "string" && /^\d+$/.test(checkInput)){
+      this.mobileno = parseInt(checkInput);
+      console.log(this.mobileno)
+
+   }
+   else{
+    this.mobileno = this.dataSharingService.getLogMob();
+   }
+
+
+
   }
   // getcsrf(){
   //   this.http.get("http://192.168.0.113:8000/get_csrf/").subscribe(
@@ -76,6 +89,7 @@ export class LoginPasswordComponent implements OnInit {
   //   console.log(this.mobileno);
   //   this.router.navigate(['./login-password'])
   // }
+  errorfield :any;
 
   onSubmit(){
          /* console.log(this.getcsrf());
@@ -88,44 +102,111 @@ export class LoginPasswordComponent implements OnInit {
                           console.log(this.password)
                           
                   
-                            this.authService.login(this.mobileno, this.password)
-                              .subscribe(response => {
-                                console.log(response)
-                                // Handle successful login and navigation
-                                if (response.message === "Login Successfull For Admin User"){
-                                  localStorage.setItem('logMob',JSON.stringify(this.mobileno))
-                                  this.dataSharingService.loginSetMob(this.mobileno)
-                                  console.log(response);
-                                  this.router.navigate(['./admin-users'])
-                                  this.errorMsg = false;
-                                  const userName = response.username
-                                  const UserDataSet = {userName}
-                                  localStorage.setItem('userData',JSON.stringify(UserDataSet))
+                            // this.authService.login(this.mobileno, this.password)
+                            //   .subscribe(response => {
+                            //     console.log(response)
+                            //     // Handle successful login and navigation
+                            //     if (response.message === "Login Successfull For Admin User"){
+                            //       localStorage.setItem('logMob',JSON.stringify(this.mobileno))
+                            //       this.dataSharingService.loginSetMob(this.mobileno)
+                            //       console.log(response);
+                            //       this.router.navigate(['./users-check'])
+                            //       this.errorMsg = false;
+                            //       const userName = response.username
+                            //       const UserDataSet = {userName}
+                            //       localStorage.setItem('userData',JSON.stringify(UserDataSet))
 
-                                }
-                                else if (response.message==="Login Successfull For General User"){
-                                  localStorage.setItem('logMob',JSON.stringify(this.mobileno))
-                                  this.router.navigate(['./dashboard'])
-                                  this.errorMsg = false;
-                                  this.dataSharingService.setData(this.mobileno)
-                                  const userName=response.username
-                                  const UserDataSet={mobileno:this.mobileno,userName}
-                                  localStorage.setItem('userData',JSON.stringify(UserDataSet))
+                            //     }
+                            //     else if (response.message==="Login Successfull For General User"){
+                            //       localStorage.setItem('logMob',JSON.stringify(this.mobileno))
+                            //       this.router.navigate(['./general-dashboard'])
+                            //       this.errorMsg = false;
+                            //       this.dataSharingService.setData(this.mobileno)
+                            //       const userName=response.username
+                            //       const UserDataSet={mobileno:this.mobileno,userName}
+                            //       localStorage.setItem('userData',JSON.stringify(UserDataSet))
                                   
-                                }
-                                else{
-                                  // localStorage.setItem('logMob',JSON.stringify(mobileno))
-                                  // this.dataSharingService.loginSetMob(mobileno)
-                                  // this.router.navigate(['./dashboard'])
-                                  this.router.navigate(['./login'])
-                                  this.errorMsg = true;
-                                }
+                            //     }
+                            //     else{
+                            //       // localStorage.setItem('logMob',JSON.stringify(mobileno))
+                            //       // this.dataSharingService.loginSetMob(mobileno)
+                            //       // this.router.navigate(['./dashboard'])
+                            //       this.router.navigate(['./login'])
+                            //       alert('*Invalid Credientials');
+                            //     }
                                
-                              },
-                              error => {
-                                // Handle login error
-                                console.log(error);
-                              });
+                            //   },
+                            //   error => {
+                            //     // Handle login error
+                            //     console.log(error);
+                            //   });
+
+                          if (this.password !== undefined){
+
+                            
+                            this.authService.login(this.mobileno, this.password)
+                            .subscribe(response => {
+                              console.log(response)
+                              // Handle successful login and navigation
+                              
+                              if (response.message === "Login Successfull For  SuperAdmin"){
+
+                                localStorage.setItem('logMob',JSON.stringify(response.mobno))
+                                this.router.navigate(['./super-dashboard'])
+                                this.errorMsg = false;
+                                
+                                const userName = "Mrithyunjay Sahu"
+                                const UserDataSet = {userName}
+                                localStorage.setItem('userData',JSON.stringify(UserDataSet))
+                              }
+
+
+                              else if (response.message === "Login Successfull For 3D Admin" || response.message === "Login Successfull For waterbody Admin" || response.message === "Login Successfull For aqua Admin"){
+                                localStorage.setItem('logMob',JSON.stringify(response.mobno))
+                                this.dataSharingService.loginSetMob(response.mobno)
+                                console.log(response);
+                                this.router.navigate(['./users-check'])
+                                this.errorMsg = false;
+                                const userName = response.username
+                                const UserDataSet = {userName}
+                                localStorage.setItem('userData',JSON.stringify(UserDataSet))
+
+                              }
+                              else if (response.message === "Login Successfull For 3D User" || response.message === "Login Successfull For waterbody User" || response.message === "Login Successfull For aqua User" )
+                              
+                             {
+                                localStorage.setItem('logMob',JSON.stringify(response.mobno))
+                                this.router.navigate(['./general-dashboard'])
+                                this.errorMsg = false;
+                                this.dataSharingService.setData(response.mobno)
+                                const userName=response.username
+                                const UserDataSet={mobileno:response.mobno,userName}
+                                localStorage.setItem('userData',JSON.stringify(UserDataSet))
+                                
+                              }
+                              else{
+                                // localStorage.setItem('logMob',JSON.stringify(mobileno))
+                                // this.dataSharingService.loginSetMob(mobileno)
+                                // this.router.navigate(['./dashboard'])
+                                alert(response.error)
+                                this.router.navigate(['./login'])
+                                this.errorMsg = true;
+                              }
+                             
+                            },
+                            error => {
+                              // Handle login error
+                              console.log(error);
+                            });
+
+                          }
+
+                          else{
+                            this.errorfield = '*Please Enter the password!' 
+                          }
+
+
+                        
                           
           }}
 

@@ -62,7 +62,8 @@
   
 
   .controls{
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
   }
 
   /* box.component.css */
@@ -115,3 +116,10 @@
     cursor: pointer;
   }
   
+
+  .card-inner{
+    margin: 30px;
+    background-color: #F5F5F5;
+    padding: 10px;
+
+  }

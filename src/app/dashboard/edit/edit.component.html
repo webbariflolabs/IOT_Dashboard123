@@ -15,7 +15,7 @@
              <label for="account" class="label-style" >Account Name</label>
                <input class="input-style input-style:focus" id="account" type="text" [(ngModel)]="data[0]" name="editaccountname" >
              </div>
-           <button class="btn btn-primary submit my-2" (click)="onDetailsUpdate(data)">Update</button>
+           <button class="btn btn-primary submit" (click)="onDetailsUpdate(data)">Update</button>
            <p class="error mx-2" >{{errorMsg}}</p>
      </div>
     </mat-card-content>

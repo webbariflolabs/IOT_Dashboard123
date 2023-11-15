@@ -155,6 +155,7 @@ import { AuthenticationService } from '../authentication.service';
 import { DeviceButtonComponent } from '../device-button/device-button.component';
 import { DeviceGraphComponent } from '../device-graph/device-graph.component';
 import { DeviceSliderComponent } from '../device-slider/device-slider.component';
+import { DeleteControlComponent } from '../delete-control/delete-control.component';
 
 export interface Task {
   name: string;
@@ -322,9 +323,19 @@ getKey(item: ItemType): 'button' | 'slider' | 'graph' | undefined {
 
 
 onofbuttonAdd(): void {
+  
+  const getDevice = this.dataSharingService.getDeviceType();
+  if (getDevice === undefined){
+    this.onrefreshDevice = localStorage.getItem('localDevice')
+    this.deviceDetails = JSON.parse(this.onrefreshDevice);
+
+  }
+  else{
+    this.deviceDetails = getDevice;
+  }
   const dialogRef = this.dialog.open(DialogContent3Component, {
     width: '700px', // Set the desired width
-    data: this.dataSharingService.getDeviceType()
+    data: this.deviceDetails
   });
 
   dialogRef.afterClosed().subscribe(result => {
@@ -333,9 +344,18 @@ onofbuttonAdd(): void {
 }
 
 sliderInputAdd(): void {
+  const getDevice = this.dataSharingService.getDeviceType();
+  if (getDevice === undefined){
+    this.onrefreshDevice = localStorage.getItem('localDevice')
+    this.deviceDetails = JSON.parse(this.onrefreshDevice);
+
+  }
+  else{
+    this.deviceDetails = getDevice;
+  }
   const dialogRef = this.dialog.open(DialogContentComponent, {
     width: '500px', // Set the desired width
-    data: this.dataSharingService.getDeviceType()
+    data: this.deviceDetails
   });
 
   dialogRef.afterClosed().subscribe(result => {
@@ -345,9 +365,18 @@ sliderInputAdd(): void {
 
 
 linegraphAdd(): void {
+  const getDevice = this.dataSharingService.getDeviceType();
+  if (getDevice === undefined){
+    this.onrefreshDevice = localStorage.getItem('localDevice')
+    this.deviceDetails = JSON.parse(this.onrefreshDevice);
+
+  }
+  else{
+    this.deviceDetails = getDevice;
+  }
   const dialogRef = this.dialog.open(DialogContent1Component, {
     width: '700px', // Set the desired width
-    data: this.dataSharingService.getDeviceType()
+    data: this.deviceDetails
 
   });
 
@@ -360,12 +389,23 @@ saveconfigcontrol(){
   localStorage.setItem('controlList',JSON.stringify(this.showListcontrol))
 }
 
-
+onrefreshDevice:any;
+deviceDetails:any;
 
 onOffButton(data:any): void {
+
+  const getDevice = this.dataSharingService.getDeviceType();
+  if (getDevice === undefined){
+    this.onrefreshDevice = localStorage.getItem('localDevice')
+    this.deviceDetails = JSON.parse(this.onrefreshDevice);
+
+  }
+  else{
+    this.deviceDetails = getDevice;
+  }
   const dialogRef = this.dialog.open(DeviceButtonComponent, {
     width: '700px', // Set the desired width
-    data: data
+    data: {data, deviceDetails:this.deviceDetails }
   });
 
   dialogRef.afterClosed().subscribe(result => {
@@ -374,9 +414,19 @@ onOffButton(data:any): void {
 }
 
 onslider(data:any): void {
+  
+  const getDevice = this.dataSharingService.getDeviceType();
+  if (getDevice === undefined){
+    this.onrefreshDevice = localStorage.getItem('localDevice')
+    this.deviceDetails = JSON.parse(this.onrefreshDevice);
+
+  }
+  else{
+    this.deviceDetails = getDevice;
+  }
   const dialogRef = this.dialog.open(DeviceSliderComponent, {
     width: '500px', // Set the desired width
-    data: data
+    data: {data, deviceDetails: this.deviceDetails}
   });
 
   dialogRef.afterClosed().subscribe(result => {
@@ -386,9 +436,19 @@ onslider(data:any): void {
 
 
 onLinegraph(data:any): void {
+  
+  const getDevice = this.dataSharingService.getDeviceType();
+  if (getDevice === undefined){
+    this.onrefreshDevice = localStorage.getItem('localDevice')
+    this.deviceDetails = JSON.parse(this.onrefreshDevice);
+
+  }
+  else{
+    this.deviceDetails = getDevice;
+  }
   const dialogRef = this.dialog.open(DeviceGraphComponent, {
     width: '700px', // Set the desired width
-    data: data
+    data: {data, deviceDetails: this.deviceDetails}
 
   });
 
@@ -399,7 +459,26 @@ onLinegraph(data:any): void {
 
 
 
+onDeleteControl(data:any){
+  
+  const getDevice = this.dataSharingService.getDeviceType();
+  if (getDevice === undefined){
+    this.onrefreshDevice = localStorage.getItem('localDevice')
+    this.deviceDetails = JSON.parse(this.onrefreshDevice);
 
+  }
+  else{
+    this.deviceDetails = getDevice;
+  }
+  const control_key = Object.keys(data)[0];
+  const dialogRef = this.dialog.open(DeleteControlComponent, {
+    width: '300px', // Set the desired width
+    data:  {data:data[Object.keys(data)[0]], deviceDetails: this.deviceDetails, control_key}})
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('Dialog closed:', result)
+  });
+}
  
 
 onDialogEdit(item:any){
@@ -421,6 +500,9 @@ onDialogEdit(item:any){
   }
 
 }
+
+
+
 
 
   // ():void{
@@ -458,7 +540,8 @@ onDialogEdit(item:any){
   userStoreData:any;
   userNameProfile:any;
   controlsData: ItemType[] = [];
-   ngOnInit(): void {
+  response:any;
+  async ngOnInit(){
      
   this.userStoreData=localStorage.getItem('userData')
   const userDataObject = JSON.parse(this.userStoreData);
@@ -478,10 +561,21 @@ onDialogEdit(item:any){
     //   this.showListcontrol = this.ts.listcontrol; 
     // }
     const devicetype=   this.dataSharingService.getDeviceType()
-    this.auth.onAssignedControlsView(devicetype.type_name,devicetype.type_ver).subscribe(response=>
-      {console.log(response), this.controlsData = response}, error=>
-      console.log(error))
-
+    if (devicetype === undefined){
+       this.response = localStorage.getItem('localDevice');
+      const getDevice = JSON.parse(this.response)
+     await this.auth.onAssignedControlsView(getDevice.type_name,getDevice.type_ver).subscribe(response=>
+        {console.log(response), this.controlsData = response}, error=>
+        console.log(error))
+  
+    }
+    else{
+     await this.auth.onAssignedControlsView(devicetype.type_name,devicetype.type_ver).subscribe(response=>
+        {console.log(response), this.controlsData = response}, error=>
+        console.log(error))
+  
+    }
+    
   }
 
   // removecontrol(index:number){

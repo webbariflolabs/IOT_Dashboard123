@@ -84,3 +84,23 @@ body{
   .check-size{
     font-size: 25px;
   }
+
+  .side-bar{
+    background-color:#AFDAFA;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-width: 0px;
+    width: 280px;
+  }
+
+ .top-space{
+    margin-top: 70px;
+  }
+
+.selected-tab {
+  background-color: white;
+  border-radius: 30px 30px 30px 30px;
+  min-width: 100%;
+
+  
+}

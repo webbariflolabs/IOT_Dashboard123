@@ -11,6 +11,8 @@ import { NoviewDeleteComponent } from '../noview-delete/noview-delete.component'
 import { NoviewPermissionComponent } from '../noview-permission/noview-permission.component';
 import { NoviewAccountComponent } from '../noview-account/noview-account.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { UsersVerifyComponent } from '../users-verify/users-verify.component';
+import { UserAcceptComponent } from '../user-accept/user-accept.component';
 
 
 @Component({
@@ -30,6 +32,8 @@ export class UsersCheckComponent implements OnInit {
   constructor(public dialog: MatDialog, private router: Router, private auth: AuthenticationService, private dataSharingService: DataSharingService) {
     // this.loginform-this.formBuilder.group
   }
+
+  requestedCount:any;
 
 
   openDialog2(): void {
@@ -85,15 +89,22 @@ export class UsersCheckComponent implements OnInit {
 
 
 
- openDialog3(data:any): void {
-    const dialogRef = this.dialog.open(EditUserComponent, {
-      width: '700px',
-      data:data
-    });
+ openDialog3(userDetails:any): void {
+  console.log(userDetails)
+  this.dataSharingService.onSendRegisterDetails(userDetails);
+    const dialogRef = this.dialog.open(UserAcceptComponent, {
+      width: '600px',
+      height: '500px',
 
+      // data:userDetails,
+     
+    
+    });
+   
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed')
+     
       
+      console.log('The dialog was closed')
     });
 
     
@@ -164,11 +175,12 @@ userNameProfile:any;
 this.userStoreData=localStorage.getItem('userData')
 const userDataObject = JSON.parse(this.userStoreData);
 this.userNameProfile=userDataObject.userName
- 
+ const adminMob =localStorage.getItem('logMob');
 
 
-  this.auth.getData().subscribe((response)=>{this.userData = response
+  this.auth.onUserVerificationView(adminMob).subscribe((response)=>{this.userData = response
   console.log(this.userData)
+  this.requestedCount = this.userData.items.length;
   this.totalPages = Math.ceil(this.userData.items.length / this.pageSize)
   console.log(this.totalPages) }
   ,

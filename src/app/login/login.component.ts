@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
   // }
 
   value: string = 'hello';
+  error=''
 
   updateValue(newValue: string): void {
     this.value = newValue;
@@ -56,9 +57,16 @@ export class LoginComponent implements OnInit {
   }
 
   onMobileNext(){
-    console.log(this.mobileno);
-    this.router.navigate(['./login-password'])
-    this.dataSharingService.onSendLogMob(this.mobileno);
+    this.error = ''
+    if (this.mobileno === undefined){
+     this.error = "*Please Enter Mobile No or Gmail Id!"
+    }
+    else{
+      console.log(this.mobileno);
+      this.router.navigate(['./login-password'])
+      this.dataSharingService.onSendLogMob(this.mobileno);
+    }
+   
   }
 
   onSubmit(){
@@ -86,7 +94,7 @@ export class LoginComponent implements OnInit {
                                 }
                                 else if (response.message==="Login Successful For General User"){
                                   localStorage.setItem('logMob',JSON.stringify(mobileno))
-                                  this.router.navigate(['./dashboard'])
+                                  this.router.navigate(['./general-dashboard'])
                                   this.errorMsg = false;
                                   console.log(this.loginForm.value)
                                   this.dataSharingService.setData(mobileno)

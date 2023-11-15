@@ -30,11 +30,17 @@
     border-style: solid;
 
 }
+.logo_hand{
+  height: 10px;
+  width: 10px;
+  margin-left:0px;
+}
 
 .logo-sizing{
-    height: 45px;
-    width: 45px;
-    margin-left:5px;
+    margin-top: 11px;
+    height: 25px;
+    width: 25px;
+    margin-left:0px;
 }
 
 .mat-head{
@@ -156,7 +162,12 @@
 
  
 
- 
+ .error{
+  color: red;
+  font-size: 15px;
+  margin-top: 25px;
+  margin-left: 42px;
+ }
 
 
  
@@ -326,4 +337,53 @@
 
 .underline{
     text-decoration: none;
+}
+
+.w3rcontainer{
+  border: 1px solid #cccfdb;
+  border-radius: 2px;
+}
+.hover-underline-animation {
+ display: inline-block;
+ position: relative;
+ color: #0087ca;
+
+}
+
+.hover-underline-animation:after {
+ content: '';
+ position: absolute;
+ width: 100%;
+ transform: scaleX(0);
+ height: 2px;
+ bottom: -3px;
+ left: 0;
+ background-color: #0087ca;
+ transform-origin: bottom right;
+ transition: transform 0.25s ease-out;
+ margin-top: 10px;
+}
+
+.hover-underline-animation:hover:after {
+ transform: scaleX(1);
+ transform-origin: bottom left;
+}
+
+
+.hover-button {
+  background-color: #3498db; /* Button background color */
+  border: 2px solid #3498db; /* Initial border color */
+  border-radius: 6px;
+  color: #fff; /* Text color */
+  padding: 1px 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Transition effect for background-color and border-color */
+}
+
+/* Change button styles on hover */
+.hover-button:hover {
+  background-color: transparent; /* Transparent background on hover */
+  border-color: #3498db; /* Border color matches the button's background color */
+  color: #3498db; /* Text color changes to match the border color */
 }

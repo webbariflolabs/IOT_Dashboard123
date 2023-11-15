@@ -8,6 +8,7 @@ import { DataSharingService } from '../data-sharing.service';
 import { Edit5Component } from './edit5/edit5/edit5.component';
 import { GeneralNewDeviceComponent } from '../general-new-device/general-new-device.component';
 import { UserDeviceDeleteComponent } from '../user-device-delete/user-device-delete.component';
+import { AssignControlsComponent } from '../assign-controls/assign-controls.component';
 
 
 @Component({
@@ -17,44 +18,65 @@ import { UserDeviceDeleteComponent } from '../user-device-delete/user-device-del
 })
 export class ActionComponent implements OnInit {
 
+ 
+  devicedetails:any=[]
+  events: string[] = [];
   opened: boolean = true;
-  accountId: string[] = [];
-  accountName: string[] = [];
+  onOff=false;
 
-  constructor(public dialog: MatDialog, private router: Router, private auth: AuthenticationService, private dataSharingService: DataSharingService) {}
+  // addDevice() {
+  //   const newDevice = {
+  //     id: this.generateUniqueId(), // You can implement your own unique ID generation logic
+     
+  //     onOff: false // Default status is OFF
+  //   };
+  //   console.log(newDevice)
 
-  openDialog7(): void {
-   const dialogRef = this.dialog.open(GeneralNewDeviceComponent, {
-      width: '400px'
+  //   this.devicedetails.result.push(newDevice);
+  // }
+
+  // private generateUniqueId() {
+  //   // Implement your own logic to generate a unique ID here
+  //   // This is just a placeholder
+  //   return Math.floor(Math.random() * 1000);
+  // }
+
+  subMenuStates: { [key: string]: boolean } = {};
+
+
+  accountid:any;
+ 
+
+  constructor(private auth: AuthenticationService ,public dialog: MatDialog, private router: Router, private dataSharingService: DataSharingService) {}
+
+  // openDialog7(): void {
+  //   const dialogRef = this.dialog.open(UserNewDeviceComponent, {
+  //     width: '400px'
       
-    });
+  //   });
 
 
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed')
-      this.accountId = result;
-      this.accountName = result;
-      
-    });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed')
+  //   });
 
-
+    
 
     
     
-  }
+  // }
 
   openDialog8(): void {
     const dialogRef = this.dialog.open(EditComponent, {
       width: '250px',
-      data: { accountId: this.accountId, accountName: this.accountName },
+      
       
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed')
-      this.accountId = result;
-      this.accountName = result;
+     
       
     });
 
@@ -72,26 +94,26 @@ export class ActionComponent implements OnInit {
     this.router.navigate(['/login'])
 
   }
-  openDialog10(): void {
-    const dialogRef = this.dialog.open(CardComponent, {
-      width: '250px',
-      data: { accountId: this.accountId, accountName: this.accountName },
+  // openDialog10(): void {
+  //   const dialogRef = this.dialog.open(CardComponent, {
+  //     width: '250px',
+  //     data: { accountId: this.accountId, accountName: this.accountName },
       
-    });
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed')
-      this.accountId = result;
-      this.accountName = result;
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed')
+  //     this.accountId = result;
+  //     this.accountName = result;
       
-    });
+  //   });
 
     
-  }
+  // }
 
 
 
-  subMenuStates: { [key: string]: boolean } = {};
+
 
   toggleSubMenu(subMenuKey: string): void {
     this.subMenuStates[subMenuKey] = !this.subMenuStates[subMenuKey];
@@ -102,7 +124,7 @@ export class ActionComponent implements OnInit {
   }
 
 
-  onClick7(devicedetails:any): void {
+  onEditDevice(devicedetails:any): void {
     const dialogRef = this.dialog.open(Edit5Component,{
       width: '400px',
       data:devicedetails
@@ -110,207 +132,104 @@ export class ActionComponent implements OnInit {
 
     dialogRef.afterOpened().subscribe(result=>
       console.log('dialog closed'))
-
+   
   }
 
-  onClick8(deviceid:any): void {
-    this.router.navigate(['./general-user-stats']);
-    this.dataSharingService.sendAccountId(deviceid);
-    localStorage.setItem('setdeviceId', JSON.stringify(deviceid) )
+  onClick8(device:any): void {
+    this.router.navigate(['./general-user-graph']);
+  
+    this.dataSharingService.sendAccountId(device[0]);
+
+    localStorage.setItem('setdeviceId', JSON.stringify(device[0]) )
+
+    localStorage.setItem('deviceType',JSON.stringify(device))
+
+      // Redirect to the desired page
+      // setTimeout(() => {
+      //   location.reload();
+      // }, 10)
   }
 
+  
+// onCheck(){
+//   this.router.navigate(['./mqtt-device'])
+//   console.log("heelo")
+// }
+  
+ 
 
-  onDelete(deviceid:any){
-    const dialogRef = this.dialog.open(UserDeviceDeleteComponent,{
-      width: '400px',
-      data: deviceid
-    })
-  
-    dialogRef.afterOpened().subscribe(result=>
-      console.log('dialog closed'))
-   
-  
+ 
+ onDeleteDevice(deviceid:any){
+  const dialogRef = this.dialog.open(UserDeviceDeleteComponent,{
+    width: '400px',
+    data: deviceid
+  })
+
+  dialogRef.afterOpened().subscribe(result=>
+    console.log('dialog closed'))
+ 
+
+ }
+ userStoreData:any;
+ userNameProfile:any;
+ cardStates: boolean[] = [];
+ deviceId:any;
+
+  ngOnInit(): void {
+
+ 
+    // Initialize the toggle state for each card
+    this.cardStates = new Array(this.devicedetails.length).fill(false);
+ 
+this.userStoreData=localStorage.getItem('userData')
+const userDataObject = JSON.parse(this.userStoreData);
+this.userNameProfile=userDataObject.userName
+    const savedaccount  = localStorage.getItem('accountId');
+    if (savedaccount){
+      const getaccountid = JSON.parse(savedaccount);
+      this.auth.onFetchDevices(getaccountid).subscribe(response=>{
+        console.log(response)
+        this.devicedetails = response
+
+      }
+        ,
+        (error) =>
+        console.log(error))
   }
 
-
-
-  getAccounts:any=[]
-  permission= {usercreate: false,
-    useredit: false,
-    userdelete: false,
-    userview: false,
-    accountcreate: false,
-    accountedit: false,
-    accountdelete: false,
-    accountview: false,
-    devicecreate: false,
-    deviceedit: false,
-    deviceview: false,
-    devicedelete: false,
-    deviceinstruction: false,
-    setting: false,
-    userid: ''}
-    userPermissions:any={}
-    permissData:any =[]
-    devicedetails: any=[]
-    accountid: any
-    userStoreData:any;
-    userNameProfile:any;
-  
-  
-  
-  
-  
-  
-    ngOnInit(): void {
-      // const savedlogmob = localStorage.getItem('logMob');
-  
-      this.userStoreData=localStorage.getItem('userData')
-   
-   
-    const userDataObject = JSON.parse(this.userStoreData);
-      this.userNameProfile=userDataObject.userName
-      console.log(this.userNameProfile)
-    const savedlogmob = localStorage.getItem('logMob');
-
-    if (userDataObject){
-      // const getlogmob = JSON.parse(savedlogmob);
-      const userDataObject = JSON.parse(this.userStoreData);
-
-      const receivedData=userDataObject.mobileno
-
-      console.log(this.permission.accountview)
-
-      
-
-        this.auth.onFetchpermissions(receivedData).subscribe(response =>
-          { console.log(response),
-         this.userPermissions = response,
-         this.permissData=this.userPermissions.message,
-         
-         
-         this.permission = {usercreate: this.permissData.user_create,
-           useredit: this.permissData.user_edit,
-           userdelete: this.permissData.user_delete,
-           userview: this.permissData.user_view,
-           accountcreate: this.permissData.account_create,
-           accountedit: this.permissData.account_edit,
-           accountdelete: this.permissData.account_delete,
-           accountview: this.permissData.account_view,
-           devicecreate: this.permissData.device_create,
-           deviceedit: this.permissData.device_edit,
-           deviceview: this.permissData.device_view,
-           devicedelete: this.permissData.device_delete,
-           deviceinstruction: this.permissData.deviceinstruction,
-           setting: this.permissData.settings,
-           userid: "0"
-           },
-       console.log(this.permission);
-         
-       if (this.permission.deviceview === true){
-        const savedaccount  = localStorage.getItem('logaccountId');
-        if (savedaccount){
-          const getaccountid = JSON.parse(savedaccount);
-          this.auth.onFetchDevices(getaccountid).subscribe(response=>{
-            console.log(response)
-            this.devicedetails = response
-    
-          }
-            ,
-            (error) =>
-            console.log(error))
-      }
-    
-      else{
-        this.accountid = this.dataSharingService.getLoginAccountId();
-        this.auth.onFetchDevices(this.accountid).subscribe(response=>{
-          console.log(response)
-          this.devicedetails = response
-    
-        }
-          ,
-          (error) =>
-          console.log(error))
-    
-      }
-
-      }
-},
-         error=>
-         console.log(error))
-
-
-      
+  else{
+    this.accountid = this.dataSharingService.getAccountId();
+    this.auth.onFetchDevices(this.accountid).subscribe(response=>{
+      console.log(response)
+      this.devicedetails = response
 
     }
+      ,
+      (error) =>
+      console.log(error))
 
-    else{
-      const logmob = this.dataSharingService.loginGetMob();
+  }
 
-      
-      
-
-        this.auth.onFetchpermissions(logmob).subscribe(response =>
-          { console.log(response),
-         this.userPermissions = response,
-         this.permissData=this.userPermissions.message,
-         
-         
-         this.permission = {usercreate: this.permissData.user_create,
-           useredit: this.permissData.user_edit,
-           userdelete: this.permissData.user_delete,
-           userview: this.permissData.user_view,
-           accountcreate: this.permissData.account_create,
-           accountedit: this.permissData.account_edit,
-           accountdelete: this.permissData.account_delete,
-           accountview: this.permissData.account_view,
-           devicecreate: this.permissData.device_create,
-           deviceedit: this.permissData.device_edit,
-           deviceview: this.permissData.device_view,
-           devicedelete: this.permissData.device_delete,
-           deviceinstruction: this.permissData.deviceinstruction,
-           setting: this.permissData.settings,
-           userid: "0"
-           },
-       console.log(this.permission);
-       if (this.permission.deviceview === true){
-        const savedaccount  = localStorage.getItem('logaccountId');
-        if (savedaccount){
-          const getaccountid = JSON.parse(savedaccount);
-          this.auth.onFetchDevices(getaccountid).subscribe(response=>{
-            console.log(response)
-            this.devicedetails = response
-    
-          }
-            ,
-            (error) =>
-            console.log(error))
-      }
-    
-      else{
-        this.accountid = this.dataSharingService.getLoginAccountId();
-        this.auth.onFetchDevices(this.accountid).subscribe(response=>{
-          console.log(response)
-          this.devicedetails = response
-    
-        }
-          ,
-          (error) =>
-          console.log(error))
-    
-      }
-
-      }
-
-
-    
-
-        }
-
-        )
 
 
     }
 
-  }
+    onClickControls(data:any){
+      const dialogRef = this.dialog.open(AssignControlsComponent,{
+        width: '800px',
+        height: '400px',
+        data:data,
+      })
+    
+      dialogRef.afterOpened().subscribe(result=>
+        console.log('dialog closed'))
+     
+    }
+
+    onButtonChange(index: number): void {
+      // Toggle the state of the card at the given index
+      this.cardStates[index] = !this.cardStates[index];
+      console.log(this.cardStates)
+    }
+
 }

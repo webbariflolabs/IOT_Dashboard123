@@ -17,9 +17,9 @@ export class UserDeleteComponent {
   }
 
 
-  confirmUserDelete(){
+ async confirmUserDelete(){
     console.log(this.deletedataUser)
-    this.auth.DeleteUser(this.deletedataUser).subscribe(
+  await  this.auth.DeleteAdmin(this.deletedataUser).subscribe(
 
       (res)=>
       {console.log(res)

@@ -110,7 +110,7 @@ export class WebsocketService {
     
       this.storeid = JSON.parse(this.getdeviceid)
       console.log('local',this.storeid)
-      this.socket = new WebSocket(`ws://4.188.244.11:8000/ws/sc/${this.storeid}/`);
+      this.socket = new WebSocket(`ws://20.244.48.88:8000/ws/sc/${this.storeid}/`);
       this.socket.onopen = (event) => {
         console.log('WebSocket is open');
       };
@@ -140,7 +140,7 @@ export class WebsocketService {
     }
     else{
       console.log(deviceId)
-        this.socket = new WebSocket(`ws://4.188.244.11:8000/ws/sc/${deviceId}/`); // Replace with your WebSocket server URLws://20.244.51.20:8000/ws/sc/5107813318934759040/
+        this.socket = new WebSocket(`ws://20.244.48.88:8000/ws/sc/${deviceId}/`); // Replace with your WebSocket server URLws://20.244.51.20:8000/ws/sc/5107813318934759040/
         this.socket.onopen = (event) => {
           console.log('WebSocket is open');
         };

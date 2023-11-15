@@ -14,9 +14,7 @@
                       <input type="text" [(ngModel)]="graph_dis_name" class="p-2 color color:focus" value="Line Graph" >
                        
                      </td>
-                     <td>
-
-                     </td>
+                    
                      
                  </tr>
                  <tr>
@@ -29,22 +27,35 @@
                     Color
                     
                   </td>
-                  <!-- <td class="headings">
-                    Action
-                  </td> -->
+                
               </tr>
               <tr >
                 <td>
-                  <input placeholder="Label" class="p-2 back-color1"  [(ngModel)]="graph_label"   >
+                  <select  class="p-2 back-color1"  [(ngModel)]="graph_label">
+                    <option  value="" selected style="display: none;">Select Label Name</option>
+                    <option value="orp">ORP</option>
+                    <option value="temperature">Temperature</option>
+                    <option value="voltage">Voltage</option>
+                    <option value="current">Current</option>
+                    <option value="do">DO</option>
+                    <option value="ph">Ph</option>
+
+                  </select>
                 </td>
                
                 <td>
-                    <input placeholder="Color" class="p-2 back-color1"  [(ngModel)]="graph_color">
-                  
+                    <select  class="p-2 back-color1"  [(ngModel)]="graph_color">
+                      <option  value="" selected style="display: none;">Select Value</option>
+                      <option value="red">Red</option>
+                      <option value="blue">Blue</option>
+                      <option value="green">Green</option>
+                      <option value="Black">Black</option>
+                      <option value="pink">Pink</option>
+                      <option value="violet">Violet</option>
+  
+                    </select>
                 </td>
-                <!-- <td>
-                    <button class="btn action-button" (click)="deleteLabel(i)"><i class="bi bi-clipboard-plus-fill icon-color"></i></button>
-                </td> -->
+               
             </tr>
             
           
@@ -53,21 +64,14 @@
            <input type="checkbox" [(ngModel)]="graph_allow_user" class="checkbox-height" id="allowuser">    
            <label class="mx-2" for ="allowuser">Allow User Access</label>        
           </td>
-          <td rowspan="2">
-
-          </td>
-          
+       
       </tr>
-      <!-- <tr>
-        <td colspan="2">
-         <button class="btn custom-button" (click)="addforlabel()">ADD</button>
-        </td>        
-    </tr> -->
+
 
         </tbody>
 
           </table>
-    <button  class="btn custom-button"    (click)="onLineGraph()">Submit</button>
+    <button  class="btn custom-button btn-success" (click)="onLineGraph()">ADD</button>
 
 </mat-dialog-content>
 <mat-dialog-actions>

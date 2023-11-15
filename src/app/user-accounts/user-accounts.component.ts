@@ -33,22 +33,29 @@ export class UserAccountsComponent implements OnInit {
   }
   
   
-  openDialog(): void {
+  // openDialog(): void {
     
-    const dialogRef = this.dialog.open(CardComponent, {
-      width: '400px',
+  //   const dialogRef = this.dialog.open(CardComponent, {
+  //     width: '400px',
       
-    });
+  //   });
     
    
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed')
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed')
       
-    });
+  //   });
    
-  }
+  // }
+  mobileno ="";
 
+  accountsData:any=[];
+  userStoreData:any;
+  userNameProfile:any;
+  pageSize: number = 10; // Number of items per page
+  currentPage: number = 1; // Current page
+  totalPages: number = 1;
 
   openDialog1(data:any): void {
     const dialogRef = this.dialog.open(EditComponent, {
@@ -105,14 +112,7 @@ export class UserAccountsComponent implements OnInit {
   this.router.navigate(['./user-account-devices']);
   localStorage.setItem('accountId', JSON.stringify(accountid))
 }
-mobileno ="";
-
-accountsData:any=[];
-userStoreData:any;
-userNameProfile:any;
-pageSize: number = 10; // Number of items per page
-currentPage: number = 1; // Current page
-totalPages: number = 1; // Total number of pages
+ // Total number of pages
 
 
 
@@ -126,50 +126,78 @@ getCurrentPageData(): any {
  
 }
 
+
+userMobileno:any;
  ngOnInit(): void {
      
 this.userStoreData=localStorage.getItem('userData')
 const userDataObject = JSON.parse(this.userStoreData);
 this.userNameProfile=userDataObject.userName
-   
-  const savedmob =localStorage.getItem('mobno')
-  console.log(savedmob)
-  
-  if(savedmob){
-    const getmob = JSON.parse(savedmob)
-    const mobData = {mobileno: getmob}
 
-    this.auth.onGetAccounts(mobData).subscribe(response=>
-      {console.log(response), 
-      this.accountsData = response
-      this.totalPages = Math.ceil(this.accountsData.items.length / this.pageSize)
+
+this.mobileno = this.dataSharingService.getUserMobNo();
+console.log('befor',this.mobileno);
+
+
+
+
+this.userMobileno = localStorage.getItem('userMob');
+
+  const userMob = JSON.parse(this.userMobileno);
+  console.log('local',userMob);
+  this.auth.onAdminUserAccounts(userMob).subscribe(response=>
+    {console.log(response), 
+    this.accountsData = response
+    this.totalPages = Math.ceil(this.accountsData.items.length / this.pageSize)
     }
+     
+    ,
+    error=>console.log(error))
+
+
+
+
+
+}
+   
+  // const savedmob =localStorage.getItem('mobno')
+  // console.log(savedmob)
+  
+//   if(savedmob){
+//     const getmob = JSON.parse(savedmob)
+//     const mobData = {mobileno: getmob}
+
+//     this.auth.onGetAccounts(mobData).subscribe(response=>
+//       {console.log(response), 
+//       this.accountsData = response
+//       this.totalPages = Math.ceil(this.accountsData.items.length / this.pageSize)
+//     }
        
-      ,
-      error=>console.log(error))
+//       ,
+//       error=>console.log(error))
   
-  }
+//   }
   
-else{
-  this.mobileno = this.dataSharingService.getData();
-    console.log(this.mobileno);
+// else{
+//   this.mobileno = this.dataSharingService.getData();
+//     console.log(this.mobileno);
 
     
 
 
-    this.dataSharingService.sendMobile(this.mobileno);
-    const mobData = {mobileno: this.mobileno}
-    this.auth.onGetAccounts(mobData).subscribe(response=>
-      {console.log(response), 
-      this.accountsData = response
-      this.totalPages = Math.ceil(this.accountsData.items.length / this.pageSize)
-      }
+//     this.dataSharingService.sendMobile(this.mobileno);
+//     const mobData = {mobileno: this.mobileno}
+//     this.auth.onGetAccounts(mobData).subscribe(response=>
+//       {console.log(response), 
+//       this.accountsData = response
+//       this.totalPages = Math.ceil(this.accountsData.items.length / this.pageSize)
+//       }
        
-      ,
-      error=>console.log(error))
-  }
+//       ,
+//       error=>console.log(error))
+//   }
   
-}
+
 setPage(pageNumber: number) {
   if (pageNumber >= 1 && pageNumber <= this.totalPages) {
     this.currentPage = pageNumber;

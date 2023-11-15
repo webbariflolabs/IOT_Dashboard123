@@ -96,6 +96,30 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 
 import { LoginPasswordComponent } from './login-password/login-password.component';
 import { ForgotCheckComponent } from './forgot-check/forgot-check.component';
+import { DeleteControlComponent } from './delete-control/delete-control.component';
+import { SuperDashboardComponent } from './super-dashboard/super-dashboard.component';
+import { SuperParameterComponent } from './super-parameter/super-parameter.component';
+import { GeneralUserCreateComponent } from './general-user-create/general-user-create.component';
+import { UsersVerifyComponent } from './users-verify/users-verify.component';
+import { UserAcceptComponent } from './user-accept/user-accept.component';
+import { GeneralDashboardComponent } from './general-dashboard/general-dashboard.component';
+import { RegisterComponent } from './register/register.component';
+import { RegisterOneComponent } from './register-one/register-one.component';
+import { RegisterTwoComponent } from './register-two/register-two.component';
+import { RegisterThreeComponent } from './register-three/register-three.component';
+import { RegisterFourComponent } from './register-four/register-four.component';
+import { ForgotEmailComponent } from './forgot-email/forgot-email.component';
+import { ForgotEmailCheckComponent } from './forgot-email-check/forgot-email-check.component';
+import { AdminDeviceStatsComponent } from './admin-device-stats/admin-device-stats.component';
+import { UserAcceptOneComponent } from './user-accept-one/user-accept-one.component';
+import { UserAcceptTwoComponent } from './user-accept-two/user-accept-two.component';
+import { UserAcceptSuccessComponent } from './user-accept-success/user-accept-success.component';
+import { RegisterAddDeviceComponent } from './register-add-device/register-add-device.component';
+import { DeviceAddMsgComponent } from './device-add-msg/device-add-msg.component';
+import { UserAccountCreateComponent } from './user-account-create/user-account-create.component';
+import { PasswordSuccessComponent } from './password-success/password-success.component';
+import { DeviceGraphStatComponent } from './device-graph-stat/device-graph-stat.component';
+import { GeneralUserGraphComponent } from './general-user-graph/general-user-graph.component';
 
 @NgModule({
   declarations: [
@@ -150,7 +174,31 @@ import { ForgotCheckComponent } from './forgot-check/forgot-check.component';
     DeviceButtonComponent,
     ForgotPasswordComponent,
     LoginPasswordComponent,
-    ForgotCheckComponent
+    ForgotCheckComponent,
+    DeleteControlComponent,
+    SuperDashboardComponent,
+    SuperParameterComponent,
+    GeneralUserCreateComponent,
+    UsersVerifyComponent,
+    UserAcceptComponent,
+    GeneralDashboardComponent,
+    RegisterComponent,
+    RegisterOneComponent,
+    RegisterTwoComponent,
+    RegisterThreeComponent,
+    RegisterFourComponent,
+    ForgotEmailComponent,
+    ForgotEmailCheckComponent,
+    AdminDeviceStatsComponent,
+    UserAcceptOneComponent,
+    UserAcceptTwoComponent,
+    UserAcceptSuccessComponent,
+    RegisterAddDeviceComponent,
+    DeviceAddMsgComponent,
+    UserAccountCreateComponent,
+    PasswordSuccessComponent,
+    DeviceGraphStatComponent,
+    GeneralUserGraphComponent
     // DashboardComponent,
    
   ],

@@ -107,3 +107,235 @@ body{
   background-color: rgb(255, 63, 127);
   font-size: 12px;
 }
+
+
+.top-heading{
+  font-size: 30px;
+
+}
+
+.check-size{
+  font-size: 25px;
+}
+
+.side-bar{
+  background-color: #AFDAFA;
+  
+  
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-width: 0px;
+  width: 310px;
+}
+
+.icon-sizing{
+  width: 20px;
+height: 20px;
+  margin-bottom: 2px;
+}
+
+.icon-text{
+  font-size: 19px;
+  font-weight: bold;
+  margin-left:10px;
+  margin-top: 10px;
+}
+.top-space{
+  margin-top: 70px;
+}
+
+.selected-tab {
+background-color: white;
+border-radius: 30px 30px 30px 30px;
+min-width: 100%;
+
+
+}
+
+
+.home-button{
+  border-width: 0px;
+}
+
+
+.card{
+  background-color: #FFFEDA;
+  margin-left: 25px;
+}
+
+.button-controls{
+
+  background-color:#2F88FF ;
+
+  border:none;
+
+  color: #ffffff;
+
+  font-weight: 500;
+
+  margin-right: 16px;
+
+  border-radius: 10px;
+
+  padding-top: 5px;
+
+  padding-bottom: 5px;
+
+  padding-left: 6px;
+
+  padding-right: 6px;
+
+}
+
+
+
+.button-stats{
+
+  background-color:#08B70F;
+
+  border:none;
+
+  color: #ffffff;
+
+  font-weight: 500;
+
+  border-radius: 10px;
+
+  padding-top: 5px;
+
+  padding-bottom: 5px;
+
+  padding-left: 10px;
+
+  padding-right: 10px;
+
+
+
+
+
+}
+
+.name-style{
+  font-weight: 500;
+  font-size: 17px;
+  color: #002689;
+}
+
+.devices-step-container{
+
+  display:flex;
+
+  flex-direction: column;
+
+  margin-top:30px;
+
+  margin-left: 30px;
+
+  width:100%;
+  margin-bottom: 15px;
+
+
+}
+
+
+
+
+
+.container-overall-bg{
+
+  display:flex;
+
+  width:200px;
+
+}
+
+
+
+.container-devicebg{
+
+  background-color:#AFDAFA ;
+
+
+
+  text-align: center;
+
+  height:40px;
+
+  min-width:130px;
+
+  border-radius: 20px;;
+
+  padding-left: 2px;
+
+  padding-right: 2px;
+
+
+
+
+
+
+
+
+}
+
+
+
+.container-devicebg-name{
+
+  background-color:#AFDAFA ;
+
+  text-align: center;
+  height:40px;
+
+  min-width:120px;
+
+  border-radius: 20px;;
+
+
+
+  padding-left: 2px;
+
+  padding-right: 2px;
+
+
+
+
+
+}
+
+
+
+.name{
+
+  color:#093394;
+
+  font-weight: 500;
+
+  font-size:25px;
+
+}
+
+
+
+
+
+
+
+.arrow-image{
+
+  height:20px;
+
+  margin-top: 10px;
+
+  margin-left: 14px;
+
+  margin-right: 14px;
+
+}
+
+.footer{
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

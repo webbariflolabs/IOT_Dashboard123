@@ -133,15 +133,18 @@ export class UserAccountDevicesComponent implements OnInit{
    
   }
 
-  onClick8(deviceid:any): void {
-    this.router.navigate(['./device-stats']);
-    this.dataSharingService.sendAccountId(deviceid);
-    localStorage.setItem('setdeviceId', JSON.stringify(deviceid) )
+  onClick8(device:any): void {
+    this.router.navigate(['./device-graph-stat']);
+    
+    this.dataSharingService.sendAccountId(device[0]);
 
+    localStorage.setItem('setdeviceId', JSON.stringify(device[0]) )
+
+    localStorage.setItem('deviceType',JSON.stringify(device))
       // Redirect to the desired page
-      setTimeout(() => {
-        location.reload();
-      }, 100)
+      // setTimeout(() => {
+      //   location.reload();
+      // }, 10)
   }
 
   
@@ -208,10 +211,11 @@ this.userNameProfile=userDataObject.userName
 
     }
 
-    onClickControls(){
+    onClickControls(data:any){
       const dialogRef = this.dialog.open(AssignControlsComponent,{
         width: '800px',
         height: '400px',
+        data:data,
       })
     
       dialogRef.afterOpened().subscribe(result=>

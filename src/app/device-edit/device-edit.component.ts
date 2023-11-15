@@ -18,17 +18,28 @@ export class DeviceEditComponent {
     this.deviceversion = data[1]
   }
 
-  onEditDeviceType(){
+ async onEditDeviceType(){
 
 
 
     const devicedetails = {olddevicetypename: this.devicename , olddevicetypeversion: this.deviceversion, newtypename: this.data[0], newtypeversion: this.data[1]}
-  this.auth.onEditDeviceDetails(devicedetails).subscribe(response=>
-    console.log(response),
-    error=>
-    console.log(error))
-    window.location.reload()
+ 
+    try {
+       
+    await this.auth.onEditDeviceDetails(devicedetails).subscribe(response=>
+      console.log(response),
+      error=>
+      console.log(error))
+      window.location.reload()
+    
 
+    } catch (error) {
+             // Handle errors here (e.g., show an error message)
+             console.error('Error while adding control:', error);
+           }
+   
+ 
+ 
   }
   onClose(){
     this.dialogRef.close()

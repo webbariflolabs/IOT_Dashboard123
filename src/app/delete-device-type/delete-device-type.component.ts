@@ -21,16 +21,28 @@ export class DeleteDeviceTypeComponent {
     
   }
 
-  confirmDevicetype(){
-    this.auth.DeleteDevicetype(this.addDeleteData).subscribe(
+ async confirmDevicetype(){
 
-      (res)=>
-      {console.log(res)
+
+  try {
+    await this.auth.DeleteDevicetype(this.addDeleteData).subscribe(
+
+      (response)=>
+      {console.log(response)
+        if ((response as { message: string }).message === 'Devicetype deleted') {
+          window.location.reload();
+          this.dialogRef.close();
+        }
+        
       },
       err=>console.log(err)
     )
-    window.location.reload()
-    this.dialogRef.close();
+   
+  } catch (error) {
+         // Handle errors here (e.g., show an error message)
+         console.error('Error while adding control:', error);
+       }
+  
   }
 
 

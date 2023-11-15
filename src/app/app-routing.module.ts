@@ -32,6 +32,22 @@ import { SuperAdminComponent } from './super-admin/super-admin.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginPasswordComponent } from './login-password/login-password.component';
 import { ForgotCheckComponent } from './forgot-check/forgot-check.component';
+import { SuperDashboardComponent } from './super-dashboard/super-dashboard.component';
+import { SuperParameterComponent } from './super-parameter/super-parameter.component';
+import { GeneralUserCreateComponent } from './general-user-create/general-user-create.component';
+import { UsersVerifyComponent } from './users-verify/users-verify.component';
+import { GeneralDashboardComponent } from './general-dashboard/general-dashboard.component';
+import { RegisterComponent } from './register/register.component';
+import { RegisterOneComponent } from './register-one/register-one.component';
+import { RegisterTwoComponent } from './register-two/register-two.component';
+import { RegisterThreeComponent } from './register-three/register-three.component';
+import { RegisterFourComponent } from './register-four/register-four.component';
+import { ForgotEmailCheckComponent } from './forgot-email-check/forgot-email-check.component';
+import { ForgotEmailComponent } from './forgot-email/forgot-email.component';
+import { AdminDeviceStatsComponent } from './admin-device-stats/admin-device-stats.component';
+import { PasswordSuccessComponent } from './password-success/password-success.component';
+import { DeviceGraphStatComponent } from './device-graph-stat/device-graph-stat.component';
+import { GeneralUserGraphComponent } from './general-user-graph/general-user-graph.component';
 
 
 const routes: Routes = [
@@ -70,8 +86,23 @@ const routes: Routes = [
   {path:'super-admin', component:SuperAdminComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'login-password', component: LoginPasswordComponent},
-  {path: 'forgot-check', component:ForgotCheckComponent}
-  
+  {path: 'forgot-check', component:ForgotCheckComponent},
+  {path: 'super-dashboard',component:SuperDashboardComponent},
+  {path:'super-parameter', component:SuperParameterComponent},
+  {path:'general-user-create', component:GeneralUserCreateComponent},
+  {path:'users-verify', component:UsersVerifyComponent},
+  {path:'general-dashboard', component:GeneralDashboardComponent},
+  {path:'register', component:RegisterComponent},
+  {path:'register-one', component:RegisterOneComponent},
+  {path:'register-two', component:RegisterTwoComponent},
+  {path:'register-three', component:RegisterThreeComponent},
+  {path:'register-four', component:RegisterFourComponent},
+  {path:'forgot-email',component:ForgotEmailComponent},
+  {path:'forgot-email-check', component:ForgotEmailCheckComponent},
+  {path:'admin-device-stats', component:AdminDeviceStatsComponent},
+  {path:'password-success', component:PasswordSuccessComponent},
+  {path:'device-graph-stat', component: DeviceGraphStatComponent},
+  {path:'general-user-graph', component:GeneralUserGraphComponent}
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

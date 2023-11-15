@@ -6,6 +6,9 @@ import { DeviceEditComponent } from '../device-edit/device-edit.component';
 import { AuthenticationService } from '../authentication.service';
 import { DeleteDeviceTypeComponent } from '../delete-device-type/delete-device-type.component';
 import { DataSharingService } from '../data-sharing.service';
+
+
+
 @Component({
   selector: 'app-admin-device-types',
   templateUrl: './admin-device-types.component.html',
@@ -18,7 +21,7 @@ export class AdminDeviceTypesComponent implements OnInit {
   accountId: string[] = [];
   accountName: string[] = [];
   admin:string[] = [];
- 
+  deviceCount:any;
 
   constructor(private router: Router, public dialog : MatDialog, private auth: AuthenticationService, private dataSharingService: DataSharingService ) {
     // this.loginform-this.formBuilder.group
@@ -103,7 +106,8 @@ const userDataObject = JSON.parse(this.userStoreData);
 this.userNameProfile=userDataObject.userName
     this.auth.onGetDeviceTypes().subscribe(response=>
     {console.log(response),
-    this.devicedetails = response
+    this.devicedetails = response 
+    this.deviceCount = this.devicedetails.results.length
     this.totalPages = Math.ceil(this.devicedetails.results.length / this.pageSize);},
     error=>
     console.log(error) )

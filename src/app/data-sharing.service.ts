@@ -17,6 +17,91 @@ export class DataSharingService {
   private deviceId:any;
   private devicetype:any;
 
+  private registerDetails:any;
+ private userMobno:any;
+  private superViewAdmin:any;
+  constructor() { }
+
+  fullname:any;
+
+  categoryData:any;
+
+  AadhaarMobile:any;
+
+  emailData:any;
+
+  SetFullname(fullname:any){
+
+   this.fullname=fullname
+
+  }
+
+ 
+
+ 
+
+  getFullname(){
+
+    return this.fullname
+
+  }
+
+ 
+
+ 
+
+  setCategorySelect(categoryData:any){
+
+    this.categoryData=categoryData
+
+  }
+
+  getCategoryData(){
+
+    return this.categoryData
+
+ 
+
+  }
+
+ 
+
+ 
+
+  setAadhaarMobile(AadhaarMobile:any){
+
+    this.AadhaarMobile=AadhaarMobile
+
+  }
+
+ 
+
+ 
+
+  getAadhaarData(){
+
+    return this.AadhaarMobile
+
+  }
+
+ 
+
+  setemail(emailData:any){
+
+    this.emailData=emailData
+
+  }
+
+ 
+
+ 
+
+  getemailData(){
+
+   return this.emailData
+
+  }
+
   setData(data: any) {
     this.sharedData = data;
   }
@@ -143,5 +228,31 @@ addId=2
   getLogMob(){
     return this.checkmob;
   }
+
+  onSendRegisterDetails(userDetails:any){
+    this.registerDetails = userDetails;
+  }
+
+  getRegisterDetails(){
+    return this.registerDetails;
+  }
+
+  sendUserMobNo(mobno:any){
+    this.userMobno = mobno;
+  }
+
+  getUserMobNo(){
+    return this.userMobno;
+  }
+
+  setSuperView(superDetails:any){
+    this.superViewAdmin = superDetails;
+
+  }
+
+  getSuperView(){
+    return this.superViewAdmin;
+  }
+
 
 }

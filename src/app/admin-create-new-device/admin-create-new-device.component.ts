@@ -14,15 +14,33 @@ export class AdminCreateNewDeviceComponent {
    constructor(private auth:AuthenticationService, private dialogRef: MatDialogRef<AdminCreateNewDeviceComponent>){}
 
 
-  onCreateDevice(){
+  async onCreateDevice(){
     const devicedetails= {typename: this.devicename, typeversion: this.deviceversion}
-    this.auth.onPostDevices(devicedetails).subscribe(response=>
-      console.log(response),
-      error=>
-      console.log(error)
-      );
-      window.location.reload();
-      this.dialogRef.close()
+
+    try {
+      await  this.auth.onPostDevices(devicedetails).subscribe(response=>
+        {console.log(response)
+        
+          if(response.message === 'Devicetype Created'){
+                                      
+            this.dialogRef.close();
+        
+            // Reload the page
+            window.location.reload();
+      }
+      
+        
+        
+        },
+        error=>
+        console.log(error)
+        );
+       
+    } catch (error) {
+              // Handle errors here (e.g., show an error message)
+              console.error('Error while adding control:', error);
+            }
+ 
   }
   onClose(){
     this.dialogRef.close()
