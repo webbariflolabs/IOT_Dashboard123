@@ -66,3 +66,8 @@
     outline: none; 
   }
   
+
+  .errormsg{
+    color: red;
+    font-size: 16px;
+  }

@@ -110,10 +110,13 @@
              <div class="d-flex flex-column">
              <p class="device-head mx-3 my-2">Device</p>
              <!-- <button (click)="onButtonChange()" *ngIf="onOff" class="btn off-button my-1 mx-4"><i class="bi bi-square-fill square-on"></i> ON</button> -->
-             <button (click)="onButtonChange(i)" class="btn off-button my-1 mx-4">
-               <i class="bi bi-square-fill " [ngClass]="{'square-on':cardStates[i], 'square': !cardStates[i]}"></i>
-               {{ cardStates[i] ? 'ON' : 'OFF' }}
-             </button>
+             <!-- <button (click)="onButtonChange(i)" class="btn off-button my-1 mx-4">
+           
+             </button> -->
+             <div class="mx-4">
+              <i class="bi bi-square-fill " [ngClass]="{'square-on': getStatus(device[0]), 'square': !getStatus(device[0])}"></i>
+              {{ getStatus(device[0]) ? 'ON' : 'OFF' }}
+            </div>
              
            </div>
               

@@ -20,6 +20,8 @@ export class DataSharingService {
   private registerDetails:any;
  private userMobno:any;
   private superViewAdmin:any;
+
+private onOTP:any;
   constructor() { }
 
   fullname:any;
@@ -253,6 +255,16 @@ addId=2
   getSuperView(){
     return this.superViewAdmin;
   }
+
+  setOtp(otp:any){
+    this.onOTP = otp;
+  }
+
+  getOtp(){
+    return this.onOTP
+  }
+
+
 
 
 }

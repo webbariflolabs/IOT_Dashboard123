@@ -48,6 +48,9 @@ import { AdminDeviceStatsComponent } from './admin-device-stats/admin-device-sta
 import { PasswordSuccessComponent } from './password-success/password-success.component';
 import { DeviceGraphStatComponent } from './device-graph-stat/device-graph-stat.component';
 import { GeneralUserGraphComponent } from './general-user-graph/general-user-graph.component';
+import { NgxGraphComponent } from './ngx-graph/ngx-graph.component';
+import { NgxUserGraphComponent } from './ngx-user-graph/ngx-user-graph.component';
+import { PondsGraphComponent } from './ponds-graph/ponds-graph.component';
 
 
 const routes: Routes = [
@@ -102,7 +105,10 @@ const routes: Routes = [
   {path:'admin-device-stats', component:AdminDeviceStatsComponent},
   {path:'password-success', component:PasswordSuccessComponent},
   {path:'device-graph-stat', component: DeviceGraphStatComponent},
-  {path:'general-user-graph', component:GeneralUserGraphComponent}
+  {path:'general-user-graph', component:GeneralUserGraphComponent},
+  {path:'ngx-graph', component:NgxGraphComponent},
+  {path:'ngx-user-graph', component:NgxUserGraphComponent},
+  {path:'ponds-graph', component:PondsGraphComponent}
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

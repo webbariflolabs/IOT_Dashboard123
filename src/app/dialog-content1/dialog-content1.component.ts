@@ -44,7 +44,7 @@ export class DialogContent1Component {
 
  
   lineDetails:any;
-
+   errorPop:any;
  
    async onLineGraph(){
 
@@ -65,7 +65,9 @@ export class DialogContent1Component {
                // Reload the page
                window.location.reload();
          }
-         
+         else{
+            this.errorPop = response.message
+         }
          
          }, error=>
          console.log(error))

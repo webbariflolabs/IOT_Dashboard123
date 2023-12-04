@@ -8,7 +8,9 @@ import { AuthenticationService } from '../authentication.service';
 import { Edit5Component } from '../action/edit5/edit5/edit5.component';
 import { UserDeviceDeleteComponent } from '../user-device-delete/user-device-delete.component';
 import { AssignControlsComponent } from '../assign-controls/assign-controls.component';
-
+import { MqttServiceWrapper } from '../mqtt-service-wrapper.service';
+import { Subscription } from 'rxjs';
+ 
 
 @Component({
   selector: 'app-user-account-devices',
@@ -21,31 +23,25 @@ export class UserAccountDevicesComponent implements OnInit{
   events: string[] = [];
   opened: boolean = true;
   onOff=false;
+  userStoreData:any;
+ userNameProfile:any;
+ cardStates: boolean[] = [];
+ deviceId:any;
 
-  // addDevice() {
-  //   const newDevice = {
-  //     id: this.generateUniqueId(), // You can implement your own unique ID generation logic
-     
-  //     onOff: false // Default status is OFF
-  //   };
-  //   console.log(newDevice)
+ receivedMessage:any;
 
-  //   this.devicedetails.result.push(newDevice);
-  // }
-
-  // private generateUniqueId() {
-  //   // Implement your own logic to generate a unique ID here
-  //   // This is just a placeholder
-  //   return Math.floor(Math.random() * 1000);
-  // }
-
+ subscriptions: Subscription[] = [];
+ topicMessages: { [topic: string]: any[] } = {};
+// topicMessages: any = {'913154878189189': [{'divId': 913154878189189, status: true }], '29034809545114': [{'divId': 29034809545114, status: false}], '951443770673174': [{'divId': 951443770673174, status: true }] };
+  
   subMenuStates: { [key: string]: boolean } = {};
 
-
+  subscription: Subscription | undefined;
   accountid:any;
- 
+  
+  topicIds = [];
 
-  constructor(private auth: AuthenticationService ,public dialog: MatDialog, private router: Router, private dataSharingService: DataSharingService) {}
+  constructor(private auth: AuthenticationService ,public dialog: MatDialog, private router: Router, private dataSharingService: DataSharingService, private mqttServiceWrapper:MqttServiceWrapper) {}
 
   openDialog7(): void {
     const dialogRef = this.dialog.open(UserNewDeviceComponent, {
@@ -92,23 +88,7 @@ export class UserAccountDevicesComponent implements OnInit{
     this.router.navigate(['/login'])
 
   }
-  // openDialog10(): void {
-  //   const dialogRef = this.dialog.open(CardComponent, {
-  //     width: '250px',
-  //     data: { accountId: this.accountId, accountName: this.accountName },
-      
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed')
-  //     this.accountId = result;
-  //     this.accountName = result;
-      
-  //   });
-
-    
-  // }
-
+  
 
 
 
@@ -134,7 +114,7 @@ export class UserAccountDevicesComponent implements OnInit{
   }
 
   onClick8(device:any): void {
-    this.router.navigate(['./device-graph-stat']);
+    this.router.navigate(['./ngx-graph']);
     
     this.dataSharingService.sendAccountId(device[0]);
 
@@ -167,49 +147,94 @@ export class UserAccountDevicesComponent implements OnInit{
  
 
  }
- userStoreData:any;
- userNameProfile:any;
- cardStates: boolean[] = [];
- deviceId:any;
-
-  ngOnInit(): void {
+ 
+  async ngOnInit(){
 
  
     // Initialize the toggle state for each card
     this.cardStates = new Array(this.devicedetails.length).fill(false);
+
+    
+    this.mqttServiceWrapper.connect(() => {
+      console.log('Connected to MQTT broker.');
+    });
+
  
 this.userStoreData=localStorage.getItem('userData')
 const userDataObject = JSON.parse(this.userStoreData);
 this.userNameProfile=userDataObject.userName
-    const savedaccount  = localStorage.getItem('accountId');
-    if (savedaccount){
-      const getaccountid = JSON.parse(savedaccount);
-      this.auth.onFetchDevices(getaccountid).subscribe(response=>{
-        console.log(response)
-        this.devicedetails = response
+const savedaccount = localStorage.getItem('accountId');
+if (savedaccount) {
+  const getaccountid = JSON.parse(savedaccount);
+  try {
+    const response = await this.auth.onFetchDevices(getaccountid).toPromise();
+    console.log(response);
+    this.devicedetails = response; // Assuming the result contains the devices
+  } catch (error) {
+    console.log(error);
+  }
+} else {
+  this.accountid = this.dataSharingService.getAccountId();
+  try {
+    const response = await this.auth.onFetchDevices(this.accountid).toPromise();
+    console.log(response);
+    this.devicedetails = response; // Assuming the result contains the devices
+  } catch (error) {
+    console.log(error);
+  }
+}
 
+
+
+  this.topicIds = this.devicedetails.result.map((device:any)=>device[0]+'/status')
+
+  console.log(this.topicIds)
+
+    this.subscribeToTopics(this.topicIds);
+
+
+    }
+
+
+    subscribeToTopics(topics: string[]) {
+      
+      topics.forEach((topic) => {
+        const newSubscription = this.mqttServiceWrapper.observe(topic, (message) => {
+          const sensorDataIn = JSON.parse(message.payload.toString());
+          // Assuming you have a data structure to store messages from different topics
+          this.storeMessage(topic, sensorDataIn);
+        });
+    
+        // Store the subscription to be able to unsubscribe later if needed
+        this.subscriptions.push(newSubscription);
+      });
+    }
+    
+    storeMessage(topic: string, message: any) {
+      const topicNum: RegExpMatchArray | null = topic.match(/\d+/g);
+      if (topicNum !== null){
+        const topic_id = parseInt(topicNum[0])
+        if (!this.topicMessages[topic_id]) {
+          this.topicMessages[topic_id] = [];
+        }
+        this.topicMessages[topic_id].push(message);
       }
-        ,
-        (error) =>
-        console.log(error))
-  }
-
-  else{
-    this.accountid = this.dataSharingService.getAccountId();
-    this.auth.onFetchDevices(this.accountid).subscribe(response=>{
-      console.log(response)
-      this.devicedetails = response
-
+      
+      // Assuming you have a data structure to store messages from different topics
+      
     }
-      ,
-      (error) =>
-      console.log(error))
+   
 
-  }
-
-
-
+    getStatus(deviceId: string): boolean {
+      const deviceInfo = this.topicMessages[deviceId];
+      return deviceInfo ? deviceInfo[0].status : false;
     }
+    
+    ngOnDestroy() {
+      this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    }
+    
+
 
     onClickControls(data:any){
       const dialogRef = this.dialog.open(AssignControlsComponent,{
@@ -226,8 +251,47 @@ this.userNameProfile=userDataObject.userName
     onButtonChange(index: number): void {
       // Toggle the state of the card at the given index
       this.cardStates[index] = !this.cardStates[index];
-      console.log(this.cardStates)
+      console.log(this.cardStates);
     }
 
 
+
+
 }
+
+
+
+
+
+// openDialog10(): void {
+  //   const dialogRef = this.dialog.open(CardComponent, {
+  //     width: '250px',
+  //     data: { accountId: this.accountId, accountName: this.accountName },
+      
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed')
+  //     this.accountId = result;
+  //     this.accountName = result;
+      
+  //   });
+
+    
+  // }
+// addDevice() {
+  //   const newDevice = {
+  //     id: this.generateUniqueId(), // You can implement your own unique ID generation logic
+     
+  //     onOff: false // Default status is OFF
+  //   };
+  //   console.log(newDevice)
+
+  //   this.devicedetails.result.push(newDevice);
+  // }
+
+  // private generateUniqueId() {
+  //   // Implement your own logic to generate a unique ID here
+  //   // This is just a placeholder
+  //   return Math.floor(Math.random() * 1000);
+  // }

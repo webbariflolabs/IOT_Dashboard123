@@ -37,7 +37,7 @@
       <hr>
       <p *ngIf="item.button">
         <label class="switch">
-          <input type="checkbox" [(ngModel)]="item.button.isToggleOn">
+          <input type="checkbox" [(ngModel)]="item.button.isToggleOn" (change)="onToggleChange(item)">
           <span class="slider round"></span>
         </label>
       </p>
@@ -49,6 +49,7 @@
         <span class="ml-3">{{ item.slider.sliderValue }}</span>
       </div>
     </div>
+
   </ng-container>
 </div>
 </div>

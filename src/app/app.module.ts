@@ -120,6 +120,9 @@ import { UserAccountCreateComponent } from './user-account-create/user-account-c
 import { PasswordSuccessComponent } from './password-success/password-success.component';
 import { DeviceGraphStatComponent } from './device-graph-stat/device-graph-stat.component';
 import { GeneralUserGraphComponent } from './general-user-graph/general-user-graph.component';
+import { NgxGraphComponent } from './ngx-graph/ngx-graph.component';
+import { NgxUserGraphComponent } from './ngx-user-graph/ngx-user-graph.component';
+import { PondsGraphComponent } from './ponds-graph/ponds-graph.component';
 
 @NgModule({
   declarations: [
@@ -198,7 +201,10 @@ import { GeneralUserGraphComponent } from './general-user-graph/general-user-gra
     UserAccountCreateComponent,
     PasswordSuccessComponent,
     DeviceGraphStatComponent,
-    GeneralUserGraphComponent
+    GeneralUserGraphComponent,
+    NgxGraphComponent,
+    NgxUserGraphComponent,
+    PondsGraphComponent
     // DashboardComponent,
    
   ],

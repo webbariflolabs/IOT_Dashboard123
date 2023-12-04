@@ -102,9 +102,14 @@ body{
   font-size: 14px;
   font-weight: bold;
 }
+.square {
+  color: rgb(255, 63, 127);
+  font-size: 12px;
+}
 
-.square{
-  background-color: rgb(255, 63, 127);
+.square-on,
+.off-button:active .square-on {
+  color: rgb(11, 102, 52);
   font-size: 12px;
 }
 

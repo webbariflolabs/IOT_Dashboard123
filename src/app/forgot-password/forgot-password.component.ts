@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { DataSharingService } from '../data-sharing.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -9,17 +10,22 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class ForgotPasswordComponent {
   
-constructor(private router:Router, private auth: AuthenticationService){}
+constructor(private router:Router, private auth: AuthenticationService, private dataSharingService: DataSharingService){}
 errorMsg=''
-forgotMob:any;
-  onForgot(){
+forgotEmail:any;
 
-    if (this.forgotMob !== undefined){
-      this.auth.onForgotPassword(this.forgotMob).subscribe(response=>
-        console.log(response), error=>
+  async onForgot(){
+
+    if (this.forgotEmail !== undefined){
+      await this.auth.onForgotPassword(this.forgotEmail).subscribe(response=>
+        {console.log(response)
+          this.dataSharingService.setOtp(response.otp);
+          localStorage.setItem('otpNum',JSON.stringify(response.otp))
+          this.router.navigate(['./forgot-check'])
+          localStorage.setItem('forgotPass',JSON.stringify(this.forgotEmail))
+        }, error=>
         console.log(error))
-    this.router.navigate(['./forgot-check'])
-    localStorage.setItem('forgotPass',JSON.stringify(this.forgotMob))
+    
       
     }
     else{

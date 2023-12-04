@@ -1,26 +1,35 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
+
+import { Component, OnInit, OnDestroy, AfterViewInit,ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CardComponent } from '../dashboard/card/card/card.component';
-import { Chart, ChartTypeRegistry } from 'chart.js';
+import { Chart, ChartTypeRegistry , ChartData} from 'chart.js';
 import { WebsocketService } from '../websocket.service';
+import { MqttServiceWrapper } from '../mqtt-service-wrapper.service';
+import { Subscription } from 'rxjs';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
-  selector: 'app-device-stats',
-  templateUrl: './device-stats.component.html',
-  styleUrls: ['./device-stats.component.css']
+  selector: 'app-ponds-graph',
+  templateUrl: './ponds-graph.component.html',
+  styleUrls: ['./ponds-graph.component.css']
 })
-export class DeviceStatsComponent implements OnInit, OnDestroy,AfterViewInit{
+export class PondsGraphComponent implements OnInit, OnDestroy,AfterViewInit{
+  
+  receivedMessage: string = '';
+  subscription: Subscription | undefined;
+
   events: string[] = [];
   opened: boolean = true;
   LinechartInstance!: Chart;
-  
-  title = 'WebSocketMqtt';
+  graphDetails:any;
+  deviceId:any;
   jsonData: any;
   dataList:any=[]
   chart: any;
   mqttData:any;
-
+  controlDetails:any;
+  filteredControls:any;
   chart1: Chart | undefined;
   chart2: Chart | undefined;
   chart3: Chart | undefined;
@@ -38,9 +47,17 @@ export class DeviceStatsComponent implements OnInit, OnDestroy,AfterViewInit{
 
   // Array to store Chart instances
   charts: Chart[] = [];
+  sensorData: { [key: string]: { data: number[], borderColor: string } } = {};
+  sensorDataIn: { [paramType: string]: number[] } = {};
 
+  @ViewChild('lineChartCanvas', { static: true }) lineChartCanvas!: ElementRef;
 
-  constructor(public dialog: MatDialog, private router: Router, private webSocketService: WebsocketService) {
+  private allSensorData: ChartData = {
+    labels: [],
+    datasets: [],
+  };
+
+  constructor(public dialog: MatDialog,private auth:AuthenticationService, private router: Router, private webSocketService: WebsocketService, private mqttServiceWrapper: MqttServiceWrapper) {
     window.onload=()=>{
       console.log('LOADED')
     }
@@ -50,11 +67,32 @@ export class DeviceStatsComponent implements OnInit, OnDestroy,AfterViewInit{
 
   ngOnInit(): void {
        
- 
-  // Initialize the chart
-  this.userStoreData=localStorage.getItem('userData')
-  const userDataObject = JSON.parse(this.userStoreData);
-  this.userNameProfile=userDataObject.userName
+    this.graphDetails = localStorage.getItem('deviceType');
+
+    if (this.graphDetails){
+      const graphOptions = JSON.parse(this.graphDetails);
+      this.deviceId = graphOptions[0]
+      this.auth.onAssignedControlsView(graphOptions[2], graphOptions[3]).subscribe(response=>
+        {this.controlDetails = response;
+          console.log(this.controlDetails);
+         this.filteredControls = this.controlDetails.filter((item:any)=> 'graph' in item );
+          console.log('graph',this.filteredControls)
+        }, error=> console.log(error))
+    
+    }
+         
+    // Initialize the chart
+    this.userStoreData=localStorage.getItem('userData')
+    const userDataObject = JSON.parse(this.userStoreData);
+    this.userNameProfile=userDataObject.userName
+    console.log(this.deviceId)
+    
+
+    this.mqttServiceWrapper.connect(() => {
+      console.log('Connected to MQTT broker.');
+    });
+  this.sensorDataIn['dateTime'] = []
+    
   
   this.webSocketService.jsonData$.subscribe((data: any) => {
     this.jsonData = data;
@@ -72,6 +110,74 @@ export class DeviceStatsComponent implements OnInit, OnDestroy,AfterViewInit{
  
 
  }
+
+ subscribeToTopic() {
+  this.subscription = this.mqttServiceWrapper.observe('topic123', (message) => {
+    this.receivedMessage = message.payload.toString();
+    // console.log('Received message:', this.receivedMessage);
+    const sensorDataIn = JSON.parse(message.payload.toString());
+    this.handlesensorDataIn(sensorDataIn);
+  });
+}
+
+handlesensorDataIn(sensorDataIn: any) {
+  // Check if the received data has the correct deviceId 913154878189189
+
+
+  if (sensorDataIn.deviceId === `${this.deviceId}`) {
+    // Update the sensorDataIn structure with the latest values for each sensor type
+
+    if (!this.sensorDataIn[sensorDataIn.paramType]) {
+      // Initialize the array if it doesn't exist
+      this.sensorDataIn[sensorDataIn.paramType] = [];
+    }
+
+    this.sensorDataIn[sensorDataIn.paramType].push(sensorDataIn.paramValue);
+
+    if (this.sensorDataIn[sensorDataIn.paramType].length > 60) {
+      this.sensorDataIn[sensorDataIn.paramType].shift();
+    }
+
+    // if (this.sensorDataIn[sensorDataIn.paramType]) {
+    //   this.sensorDataIn[sensorDataIn.paramType].push(sensorDataIn.paramValue);
+
+    //   // Keep only the latest 60 values
+    //   if (this.sensorDataIn[sensorDataIn.paramType].length > 60) {
+    //     this.sensorDataIn[sensorDataIn.paramType].shift();
+    //   }
+    // }
+
+    // You can also store the 'time' values similarly if needed
+    if (!this.sensorDataIn['dateTime'].includes(sensorDataIn.dataPoint.split(' ')[1])) {
+      this.sensorDataIn['dateTime'].push(sensorDataIn.dataPoint.split(' ')[1]);
+    }
+
+    // Keep only the latest 60 values
+    if (this.sensorDataIn['dateTime'].length > 60) {
+      this.sensorDataIn['dateTime'].shift();
+    }
+   
+
+
+   
+    
+    }
+    
+        // console.log('Updated Sensor Data:', this.sensorDataIn);
+        
+       
+
+
+
+
+
+  
+      
+
+    
+
+
+  }
 
  ngAfterViewInit(): void {
 
