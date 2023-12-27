@@ -18,16 +18,18 @@ export class UserDeleteComponent {
 
 
  async confirmUserDelete(){
-    console.log(this.deletedataUser)
-  await  this.auth.DeleteAdmin(this.deletedataUser).subscribe(
+    console.log('in',this.deletedataUser)
 
-      (res)=>
-      {console.log(res)
-      },
-      err=>console.log(err)
-    )
+    try {
+      const response = await this.auth.DeleteUser(this.deletedataUser).toPromise();
+      console.log(response);
+   
+    } catch (error) {
+      console.log(error);
+    }
     window.location.reload()
     this.dialogRef.close();
+  
   }
 
   closeUserDelete(){

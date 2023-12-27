@@ -17,8 +17,11 @@
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+
   }
   
   .form-group {
@@ -63,7 +66,10 @@
   }
 
   .heading{
-    font-weight: bold;
+    font-weight: 400;
+    font-size: 26px;
+    color: #066fdf;
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
 
 
@@ -78,3 +84,40 @@
     border-color: rgba(40, 150, 218, 0.989); /* Border color when focused */
     outline: none; 
   }
+
+  .margin-top{
+    border-style: solid;
+    border-width: 5px;
+    border-color: #49c5b6;
+    background-image: linear-gradient(to right, rgb(162, 236, 185), rgb(204, 231, 223));
+
+    height: 100vh; /* Make sure the body covers the full height of the viewport */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-container{
+  background-color: rgb(65, 65, 204);
+  max-width: 850px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+/* Add this to your your-component.component.css file */
+::ng-deep .mat-input-outer-circle,
+::ng-deep .mat-input-inner-circle {
+  display: none !important;
+}
+
+.mat-form-field-wrapper {
+  overflow: hidden; /* Hide the spin buttons */
+}
+
+.mat-form-field-flex {
+  flex-direction: row-reverse; /* Reverse the direction to hide the spin buttons */
+}
+
+.mat-form-field-infix {
+  width: 100%; /* Ensure the input takes up the full width */
+}

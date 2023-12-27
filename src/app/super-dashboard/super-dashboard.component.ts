@@ -6,6 +6,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { UserDeleteComponent } from '../user-delete/user-delete.component';
 import { DialogRef } from '@angular/cdk/dialog';
 import { DataSharingService } from '../data-sharing.service';
+import { AdminDeleteComponent } from '../admin-delete/admin-delete.component';
 
 
 
@@ -53,7 +54,7 @@ export class SuperDashboardComponent implements OnInit {
   
   onDeleteUser(mobileno:any):void{
 
-    const dialogRef = this.dialog.open(UserDeleteComponent,{
+    const dialogRef = this.dialog.open(AdminDeleteComponent,{
         width:'300px',
         data: mobileno
       })

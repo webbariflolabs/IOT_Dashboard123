@@ -1,22 +1,48 @@
 
-<h2 mat-dialog-title>Line Graph</h2>
+<h2 mat-dialog-title>Edit Line Graph</h2>
 <hr/>
 <mat-dialog-content>
           <table class="table table-bordered table-striped table-hover">
              <tbody>
                  <tr>
-                     <td>
+                     <td class="display-name headings">
                       Display Name
                        
                      </td>
                     
-                     <td>
+                     <td colspan="2">
                       <input type="text" [(ngModel)]="displayname" class="p-2 color color:focus" value="Line Graph" >
                        
                      </td>
                
                      
                  </tr>
+                 <tr>
+                  <td class="display-name headings">
+                   X-axis Label Name
+                    
+                  </td>
+                 
+                  <td colspan="2">
+                   <input type="text" [(ngModel)]="graph_x" class="p-2 color color:focus" value="Line x" >
+                    
+                  </td>
+                 
+                  
+              </tr>
+              <tr>
+                <td class="display-name headings">
+                 Y-axis Label Name
+                  
+                </td>
+               
+                <td colspan="2">
+                 <input type="text" [(ngModel)]="graph_y" class="p-2 color color:focus" value="Line y" >
+                  
+                </td>
+               
+                
+            </tr>
                  <tr>
                   <td class="headings">
                     Label
@@ -27,43 +53,45 @@
                     Color
                     
                   </td>
-                  <!-- <td class="headings">
+                  <td class="headings">
                     Action
-                  </td> -->
+                  </td>
               </tr>
-              <tr >
+              <tr *ngFor ="let items of selectedOptions; index as i " >
                 <td>
-                  <input placeholder="Label" class="p-2 back-color1"  [(ngModel)]="labelname"   >
+              
+                  <input type="text" [(ngModel)]="items.graph_label" class="p-2 color color:focus" value="graph_label" >
+           
                 </td>
                
                 <td>
-                    <input placeholder="Color" class="p-2 back-color1"  [(ngModel)]="labelcolor">
-                  
+                    
+                  <input type="text" [(ngModel)]="items.graph_color" class="p-2 color color:focus" value="graph_color" >
                 </td>
-                <!-- <td>
-                    <button class="btn action-button" (click)="deleteLabel(i)"><i class="bi bi-clipboard-plus-fill icon-color"></i></button>
-                </td> -->
+                <td>
+                  <button class="btn custom-button delete" (click)="removeButton(i)"><i class="bi bi-trash"></i></button>
+                </td>
             </tr>
             
           
         <tr class="row-height">
-          <td colspan="2">
+          <td colspan="3">
            <input type="checkbox" [(ngModel)]="allow_user" class="checkbox-height" id="allowuser">    
-           <label class="mx-2" for ="allowuser">Allow User Access</label>        
+           <label class="mx-2 allow" for ="allowuser">Allow User Access</label>        
           </td>
          
           
       </tr>
-      <!-- <tr>
-        <td colspan="2">
-         <button class="btn custom-button" (click)="addforlabel()">ADD</button>
+      <tr>
+        <td colspan="3">
+         <button class="btn custom-button " (click)="addOption()">ADD</button>
         </td>        
-    </tr> -->
+    </tr>
 
         </tbody>
 
           </table>
-    <button  class="btn custom-button"    (click)="onLineGraph()">Submit</button>
+    <button  class="btn custom-button"    (click)="onLineGraph()">Update</button>
 
 </mat-dialog-content>
 <mat-dialog-actions>

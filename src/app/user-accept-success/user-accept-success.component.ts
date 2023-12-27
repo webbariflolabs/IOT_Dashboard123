@@ -12,5 +12,6 @@ export class UserAcceptSuccessComponent {
 
   onSuccess(){
     this.dialogRef.close();
+    window.location.reload();
   }
 }

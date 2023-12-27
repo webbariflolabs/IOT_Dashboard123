@@ -4,13 +4,16 @@ import { Subscription } from 'rxjs';
 
 import { MqttDataService } from '../mqtt-data.service';
 import { Component, OnInit, ViewChild, ElementRef,OnDestroy } from '@angular/core';
-import { Chart, ChartData, ChartDataset, UpdateMode } from 'chart.js'
+import { Chart, ChartData, ChartDataset, UpdateMode ,ChartOptions} from 'chart.js'
 
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../authentication.service';
 import { DataSharingService } from '../data-sharing.service';
+import 'chartjs-plugin-dragdata';
+import 'chartjs-plugin-zoom';
+
 
 @Component({
   selector: 'app-ngx-graph',
@@ -24,7 +27,6 @@ export class NgxGraphComponent implements OnInit, OnDestroy {
 
   // Structure to store sensor data
   sensorDataIn: { [paramType: string]: number[] } = {};
-
 
 
 
@@ -72,7 +74,7 @@ export class NgxGraphComponent implements OnInit, OnDestroy {
 
   constructor(private mqttServiceWrapper: MqttServiceWrapper,private mqttDataService: MqttDataService,public dialog: MatDialog, private router: Router, private auth : AuthenticationService, private dataSharingService:DataSharingService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     // Initialize the sensorDataIn structure with empty arrays for each sensor type
     this.userStoreData=localStorage.getItem('userData')
     const userDataObject = JSON.parse(this.userStoreData);
@@ -80,17 +82,28 @@ export class NgxGraphComponent implements OnInit, OnDestroy {
     console.log(this.deviceId)
     this.graphDetails = localStorage.getItem('deviceType');
 
-        if (this.graphDetails){
-          const graphOptions = JSON.parse(this.graphDetails);
-          this.deviceId = graphOptions[0]
-          this.auth.onAssignedControlsView(graphOptions[2], graphOptions[3]).subscribe(response=>
-            {this.controlDetails = response;
-              console.log(this.controlDetails);
-            this.filteredControls = this.controlDetails.filter((item:any)=> 'graph' in item );
-              console.log('graph',this.filteredControls)
-            }, error=> console.log(error))
 
+      if (this.graphDetails){
+        const graphOptions = JSON.parse(this.graphDetails);
+        try{
+          this.deviceId = graphOptions[0]
+          const response = await this.auth.onAssignedControlsView(graphOptions[2], graphOptions[3]).toPromise()
+          this.controlDetails = response;
+          console.log(response);
+        this.filteredControls = this.controlDetails.filter((item:any)=> 'graph' in item );
         }
+        catch(error){
+          console.log(error)
+        }
+           
+      
+
+      }
+    
+      console.log('graph',this.filteredControls)
+   
+
+        
      
 
     this.mqttServiceWrapper.connect(() => {
@@ -145,15 +158,18 @@ export class NgxGraphComponent implements OnInit, OnDestroy {
      
       }
       
-          // console.log('Updated Sensor Data:', this.sensorDataIn);
+          console.log('Updated Sensor Data:', this.sensorDataIn);
           
           this.mqttDataService.updateSensorData(this.sensorDataIn);
         
           this.updateChart();
 
-          this.initializeChart();
+          // this.initializeChart();
       
     }
+
+
+    
   
 
     initializeChart() {
@@ -176,16 +192,39 @@ export class NgxGraphComponent implements OnInit, OnDestroy {
               title: {
                 display: true,
                 text: 'Time',
+                color: 'red',
               },
             },
             y: {
               title: {
                 display: true,
                 text: 'Rpm',
+                color: 'red',
               },
             },
           },
-        },
+          plugins: {
+            zoom: {
+              limits: {
+                y: { min: 0, max: 200, minRange: 50 },
+              },
+              pan: {
+                enabled: true,
+                mode: 'xy',
+              },
+              zoom: {
+                wheel: {
+                  enabled: false,
+                },
+                pinch: {
+                  enabled: false,
+                },
+                mode: 'xy',
+              },
+            },
+         
+          },
+        } 
       });
 
       this.LineChartSingle = new Chart('lineChartTwo', {
@@ -198,66 +237,119 @@ export class NgxGraphComponent implements OnInit, OnDestroy {
               title: {
                 display: true,
                 text: 'Time',
+                color:'red',
+
               },
             },
             y: {
               title: {
                 display: true,
                 text: 'Rpm',
+                color:'red',
+
               },
+              // beginAtZero: true, 
             },
           },
-        },
+          plugins: {
+            zoom: {
+              limits: {
+                y: { min: 0, max: 200, minRange: 50 },
+              },
+              pan: {
+                enabled: true,
+                mode: 'xy',
+              },
+              zoom: {
+                wheel: {
+                  enabled: false,
+                },
+                pinch: {
+                  enabled: false,
+                },
+                mode: 'xy',
+              },
+            },
+         
+          },
+        }
       });
 
 
 
     }
-  
+ 
+
 updateChart() {
+  const latestDateTime = this.sensorDataIn['dateTime'].slice(-60);
 
-this.allSensorData.labels = this.sensorDataIn['dateTime'];
-this.allSensorData1.labels= this.sensorDataIn['dateTime'];
-this.allSensorData2.labels = this.sensorDataIn['dateTime'];
-this.allSensorData.datasets = [];
-this.allSensorData1.datasets = [];
-this.allSensorData2.datasets = [];
+  this.allSensorData.labels = latestDateTime;
 
-this.filteredControls.forEach((control: any) => {
-  const displayName = control.graph.display_name;
-  if (displayName in this.sensorDataIn) {
-    const sensorData = this.sensorDataIn[displayName];
-    this.allSensorData.datasets.push({
-      label: displayName,
-      data: sensorData,
-      borderColor: control.graph.color,
-      fill: false,
-      tension: 0.4,
-      hidden: false,
-    });
-  }
-});
+  this.filteredControls.forEach((control: any) => {
+    const displayName = control.graph.display_name;
 
+    if (displayName in this.sensorDataIn) {
+      const sensorData = this.sensorDataIn[displayName];
 
-this.allSensorData.datasets.forEach((set:any)=>{
-  if (set.label === 'X' || set.label === 'Y' || set.label === 'Z'){
-    this.allSensorData2.datasets.push(set);
-  }
-  else{
-    this.allSensorData1.datasets.push(set);
-  }
-})
+      if (displayName !== 'X' && displayName !== 'Y' && displayName !== 'Z') {
+        const existingDatasetIndex = this.allSensorData1.datasets.findIndex(
+          (set: any) => set.label === displayName
+        );
 
- if (this.LinechartInstance) {
-        this.LinechartInstance.data = this.allSensorData1;
-        this.LinechartInstance.update();
-      }
- if (this.LineChartSingle){
-        this.LineChartSingle.data = this.allSensorData2;
-        this.LineChartSingle.update();
+        if (existingDatasetIndex !== -1) {
+          // Update existing dataset in allSensorData1
+          this.allSensorData1.datasets[existingDatasetIndex].data = [...sensorData];
+        } else {
+          // Add new dataset to allSensorData1
+          this.allSensorData1.datasets.push({
+            label: displayName,
+            data: [...sensorData],
+            borderColor: control.graph.color,
+            fill: false,
+            tension: 0.4,
+            hidden: false,
+          });
+        }
+      } else {
+        const existingDatasetIndex2 = this.allSensorData2.datasets.findIndex(
+          (existingSet: any) => existingSet.label === displayName
+        );
+
+        if (existingDatasetIndex2 !== -1) {
+          // Update existing dataset in allSensorData2
+          this.allSensorData2.datasets[existingDatasetIndex2].data = [...sensorData];
+        } else {
+          // Add new dataset to allSensorData2
+          this.allSensorData2.datasets.push({
+            label: displayName,
+            data: [...sensorData],
+            borderColor: control.graph.color,
+            fill: false,
+            tension: 0.4,
+            hidden: false,
+          });
+        }
       }
     }
-    
+  });
+
+  if (this.LinechartInstance) {
+    this.allSensorData1.labels = latestDateTime;
+    this.LinechartInstance.data.labels = latestDateTime;
+    // this.LinechartInstance.data.datasets = [...this.allSensorData1.datasets]; // Update datasets
+    this.LinechartInstance.update();
+  }
+
+  if (this.LineChartSingle) {
+    this.allSensorData2.labels = latestDateTime;
+    this.LineChartSingle.data.labels = latestDateTime;
+    // this.LineChartSingle.data.datasets = [...this.allSensorData2.datasets]; // Update datasets
+    this.LineChartSingle.update();
+  }
+}
+
+
+
 
   unsubscribeFromTopic() {
     if (this.subscription) {
@@ -340,66 +432,159 @@ this.allSensorData.datasets.forEach((set:any)=>{
 
 }
 
-
-// Log the updated sensor data
-     
-    // Object.keys(this.sensorDataIn).forEach((sensorType) => {
-      //   this.allsensorData.datasets.push({
-      //     label: sensorType,
-      //     data: this.sensorDataIn[sensorType],
-      //     borderColor: this.getRandomColor(),
-      //     fill: false,
-      //     tension: 0.4,
-      //     hidden: false,
-      //   });
-      // });
-    
-      // Update the chart
-        // // Clear existing data
-        // this.allsensorData.labels = this.sensorDataIn['dateTime'];
-        // this.allsensorData.datasets = [];
-      
-        // // Update the sensor data
-        // Object.keys(this.sensorDataIn).forEach((sensorType) => {
-        //   this.allsensorData.datasets.push({
-        //     label: sensorType,
-        //     data: this.sensorDataIn[sensorType],
-        //     borderColor: this.getRandomColor(), // Generate random color for each dataset
-        //     // backgroundColor: 'rgba(0, 0, 0, 0)', // Set a transparent background
-        //   });
-        // });
-          // Update the chart for the single sensor
-
-
-            // getRandomColor() {
-    //   // Function to generate a random color in hex format
-    //   return '#' + Math.floor(Math.random() * 16777215).toString(16);
-    // }
-
-    // ngAfterViewInit(): void {
-    //   this.LinechartInstance = new Chart('lineChart', {
-    //     type: 'line',
-    //     data: this.allsensorData,
-    //     options: {
-    //       responsive: true,
-    //       scales: {
-    //         x: {
-      
-    //           title: {
-    //             display: true,
-    //             text: 'Time',
-    //           },
-    //         },
-    //         y: {
-    //           title: {
-    //             display: true,
-    //             text: 'Rpm',
-    //           },
-    //         },
-    //       },
-    //     },
-    //   });
-    
-    
   
-    // } 
+// updateChart() {
+
+//   this.allSensorData.labels = this.sensorDataIn['dateTime'];
+//   this.allSensorData1.labels= this.sensorDataIn['dateTime'];
+//   this.allSensorData2.labels = this.sensorDataIn['dateTime'];
+//   this.allSensorData.datasets = [];
+//   this.allSensorData1.datasets = [];
+//   this.allSensorData2.datasets = [];
+  
+//   this.filteredControls.forEach((control: any) => {
+//     const displayName = control.graph.display_name;
+//     if (displayName in this.sensorDataIn) {
+//       const sensorData = this.sensorDataIn[displayName];
+//       this.allSensorData.datasets.push({
+//         label: displayName,
+//         data: sensorData,
+//         borderColor: control.graph.color,
+//         fill: false,
+//         tension: 0.4,
+//         hidden: false,
+//       });
+//     }
+//   });
+  
+  
+//   this.allSensorData.datasets.forEach((set:any)=>{
+//     if (set.label === 'X' || set.label === 'Y' || set.label === 'Z'){
+//       this.allSensorData2.datasets.push(set);
+//     }
+//     else{
+//       this.allSensorData1.datasets.push(set);
+//     }
+//   })
+  
+//    if (this.LinechartInstance) {
+//           this.LinechartInstance.data = this.allSensorData1;
+//           this.LinechartInstance.update();
+//         }
+//    if (this.LineChartSingle){
+//           this.LineChartSingle.data = this.allSensorData2;
+//           this.LineChartSingle.update();
+//         }
+//       }
+      
+
+ 
+// updateChart() {
+
+// this.allSensorData.labels = this.sensorDataIn['dateTime'];
+// this.allSensorData1.labels= this.sensorDataIn['dateTime'];
+// this.allSensorData2.labels = this.sensorDataIn['dateTime'];
+// this.allSensorData.datasets = [];
+// this.allSensorData1.datasets = [];
+// this.allSensorData2.datasets = [];
+
+// this.filteredControls.forEach((control: any) => {
+//   const displayName = control.graph.display_name;
+//   if (displayName in this.sensorDataIn) {
+//     const sensorData = this.sensorDataIn[displayName];
+//     this.allSensorData.datasets.push({
+//       label: displayName,
+//       data: sensorData,
+//       borderColor: control.graph.color,
+//       fill: false,
+//       tension: 0.4,
+//       hidden: false,
+//     });
+//   }
+// });
+
+
+// this.allSensorData.datasets.forEach((set:any)=>{
+//   if (set.label === 'X' || set.label === 'Y' || set.label === 'Z'){
+//     this.allSensorData2.datasets.push(set);
+//   }
+//   else{
+//     this.allSensorData1.datasets.push(set);
+//   }
+// })
+
+//  if (this.LinechartInstance) {
+//         this.LinechartInstance.data = this.allSensorData1;
+//         this.LinechartInstance.update();
+//       }
+//  if (this.LineChartSingle){
+//         this.LineChartSingle.data = this.allSensorData2;
+//         this.LineChartSingle.update();
+//       }
+//     }
+    
+// updateChart() {
+//   this.allSensorData.labels = this.sensorDataIn['dateTime'];
+
+//   this.filteredControls.forEach((control: any) => {
+//     const displayName = control.graph.display_name;
+//     if (displayName in this.sensorDataIn) {
+//       const sensorData = this.sensorDataIn[displayName];
+//       if(displayName !== 'X' && displayName !== 'Y' && displayName !=='Z'){
+
+//         const existingDatasetIndex = this.allSensorData1.datasets.findIndex((set: any) => set.label === displayName);
+
+//         if (existingDatasetIndex !== -1) {
+//           // Update existing dataset in allSensorData1
+//           this.allSensorData1.datasets[existingDatasetIndex].data = sensorData;
+//         } else {
+//           // Add new dataset to allSensorData1
+//           this.allSensorData1.datasets.push({
+//             label: displayName,
+//             data: sensorData,
+//             borderColor: control.graph.color,
+//             fill: false,
+//             tension: 0.4,
+//             hidden: false,
+//           });
+//         }
+
+//       }
+
+//       else{
+
+//         const existingDatasetIndex2 = this.allSensorData2.datasets.findIndex((existingSet: any) => existingSet.label === displayName);
+
+//         if (existingDatasetIndex2 !== -1) {
+//           // Update existing dataset in allSensorData2
+//           this.allSensorData2.datasets[existingDatasetIndex2].data = sensorData;
+//         } else {
+//           // Add new dataset to allSensorData2
+//           this.allSensorData2.datasets.push({
+//             label: displayName,
+//             data: sensorData,
+//             borderColor: control.graph.color,
+//             fill: false,
+//             tension: 0.4,
+//             hidden: false,
+//           });
+//         }
+
+
+//       }
+    
+//     }
+//   });
+
+
+
+//   if (this.LinechartInstance) {
+//     this.allSensorData1.labels = this.sensorDataIn['dateTime'];
+//     this.LinechartInstance.update();
+//   }
+
+//   if (this.LineChartSingle) {
+//     this.allSensorData2.labels = this.sensorDataIn['dateTime'];
+//     this.LineChartSingle.update();
+//   }
+// }

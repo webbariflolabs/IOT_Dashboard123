@@ -123,3 +123,14 @@
     padding: 10px;
 
   }
+
+  @media screen and (max-width:768px){
+    .controls{
+      font-size: 13px;
+      font-weight: bold;
+    }
+    .display-name{
+      font-size: 12px;
+    }
+   
+  }

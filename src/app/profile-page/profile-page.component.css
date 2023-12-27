@@ -168,7 +168,7 @@ body{
 
   .side-bar{
     background-color:#80BBF1;
-    
+    position: fixed;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-width: 0px;
@@ -177,7 +177,7 @@ body{
 
   
   .top-space{
-    margin-top: 70px;
+    margin-top: 100px;
   }
 
   .mat-toolbar{
@@ -2135,4 +2135,8 @@ border:none;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+
+.nav-space{
+  margin-top: 70px;
 }

@@ -45,15 +45,21 @@ export class DialogContent1Component {
  
   lineDetails:any;
    errorPop:any;
- 
+ errorMsg:any;
+ graph_x:any;
+ graph_y:any;
+
+ selectedOptions: { graph_label: string, graph_color: string }[] = [];
+
    async onLineGraph(){
 
+      if( this.graph_dis_name!== ''  && this.graph_x !== '' && this.graph_y !=='' ){
 
-
-      this.lineDetails = {graph_dis_name: this.graph_dis_name, graph_label:this.graph_label,graph_color:this.graph_color,type_name: this.data.type_name,type_ver: this.data.type_ver, graph_allow_user: this.graph_allow_user}
+   
+      this.lineDetails = {graph_dis_name: this.graph_dis_name, params:this.selectedOptions,type_name: this.data.type_name,type_ver: this.data.type_ver, graph_allow_user: this.graph_allow_user, x:this.graph_x,y:this.graph_y}
       
       try {
-         
+         console.log('line:',this.lineDetails)
       await this.auth.onDeviceLineGraph(this.lineDetails).subscribe(response=>
          {console.log(response)
          
@@ -78,5 +84,17 @@ export class DialogContent1Component {
              }
      
     }
+    else{
+      this.errorMsg = '*Please Enter all fields!'
+   }
+      }
+      
+
+ addOption(){
+  this.selectedOptions.push({ graph_label: '', graph_color: '' });
+ }
+ removeOption(index: number) {
+  this.selectedOptions.splice(index, 1);
+}
 
 }

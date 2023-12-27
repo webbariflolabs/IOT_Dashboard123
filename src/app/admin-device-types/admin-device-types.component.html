@@ -1,7 +1,7 @@
 <body class="main-container">
-  <mat-toolbar class="mb-0 d-flex flex-row justify-content-between" >
+  <mat-toolbar class="mb-0 d-flex flex-row justify-content-between fixed-top" >
     <div class="d-flex flex-row">
-      <div class="d-flex flex-column justify-content-center" (click)="opened=!opened">
+      <div class="d-flex flex-column justify-content-center bar-div" (click)="opened=!opened">
         <div class="bar1"></div>
         <div class="bar2"></div>
         <div class="bar3"></div>
@@ -23,10 +23,11 @@
       </div>
   </mat-toolbar>
  
-       <mat-sidenav-container>
+       <mat-sidenav-container class="nav-space">
         <mat-sidenav mode="side" class="side-bar" [(opened)]="opened">
           <mat-nav-list class="top-space">
           
+            <div class="lg-side">
             <mat-list-item class="mt-3">
               <a mat-list-item href="users-check">
                 <img src="./assets/img/Vector.png" class="icon-sizing">
@@ -47,6 +48,31 @@
                 <span class="icon-text">Device Type Create</span>
               </a>
             </mat-list-item>
+          </div>
+
+          <div class="sm-side">
+            <div class="mt-3">
+              <a href="users-check">
+                <img src="./assets/img/Vector.png" class="icon-sizing">
+              
+              </a>
+            </div>
+        
+            <div class="mt-3">
+              <a  href="general-user-create">
+                <img src="./assets/img/person-add.png" class="icon-sizing">
+            
+              </a>
+            </div>
+        
+            <div class="mt-3 selected-tab">
+              <a  href="admin-device-types">
+                <img src="./assets/img/diagram-3.png" class="icon-sizing">
+    
+              </a>
+            </div>
+          </div>
+
           </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
@@ -101,13 +127,13 @@
         
             </div>
 
-            <div class="no-users text-center my-3 ">
-              <div class=" user-heading" >
-                <h1>
+            <div class="no-users text-center ">
+           
+                <h1 class="user-heading" >
                   Device Types
 
                 </h1>
-              </div>
+              
               <ng-container *ngIf="getCurrentPageData() && getCurrentPageData().length > 0; else noCountMessage">
               <h1 class="number">{{deviceCount}}</h1>
               </ng-container>
@@ -120,7 +146,7 @@
             </div>
 
             <div class="below-container">
-            <div class="d-flex flex-row justify-content-end ">
+            <div class="d-flex flex-row ">
             <button class="btn btn-primary pl-3 pr-3 new-button " (click)="onAddDeviceType()" >Create Device Type</button>
 
             </div>
@@ -130,11 +156,11 @@
               <table class="table table-bordered table-striped table-hover table-design">
               <thead>
                 <tr>
-                  <th>Sl.No</th>
-                  <th>Name</th>
-                  <th>Version</th>
-                  <th>Status</th>
-                  <th>Action</th>
+                  <th class="table-head">Sl.No</th>
+                  <th class="table-head">Name</th>
+                  <th class="table-head">Version</th>
+                  <th class="table-head">Status</th>
+                  <th class="table-head">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -153,8 +179,8 @@
                   <td  class="name-style">
                     enabled
                   </td>
-                  <td>
-                    <button class="btn btn-warning mx-1 all-button" (click)="onEditDevice(device)" >Edit</button>
+                  <td class="text-center">
+                    <button class="btn btn-warning mx-1 all-button edit" (click)="onEditDevice(device)" >Edit</button>
                     <button (click)="onDeleteDevice(device)" class="btn btn-danger mx-1 all-button">Delete</button>
                     <button class="btn btn-primary mx-1 all-button" (click)="onAssignedCntrls(device)" >View</button>
                   </td>
@@ -174,7 +200,7 @@
 
             <div class="d-flex flex-row justify-content-end button-adjust">
               <button class="btn btn-primary custom-button  mt-1 mx-2 prev" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
-              <span class="my-2">Page {{ currentPage }} of {{ totalPages }}</span>
+              <span class="my-2 page-note">Page {{ currentPage }} of {{ totalPages }}</span>
               <button class="btn btn-success custom-button mt-1 mx-2" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
             </div>
           </div>

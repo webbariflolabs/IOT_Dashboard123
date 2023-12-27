@@ -51,6 +51,11 @@ import { GeneralUserGraphComponent } from './general-user-graph/general-user-gra
 import { NgxGraphComponent } from './ngx-graph/ngx-graph.component';
 import { NgxUserGraphComponent } from './ngx-user-graph/ngx-user-graph.component';
 import { PondsGraphComponent } from './ponds-graph/ponds-graph.component';
+import { NgxPrintingComponent } from './ngx-printing/ngx-printing.component';
+import { NgxDynamicComponent } from './ngx-dynamic/ngx-dynamic.component';
+import { DemoLoginComponent } from './demo-login/demo-login.component';
+import { NgxLiveComponent } from './ngx-live/ngx-live.component';
+
 
 
 const routes: Routes = [
@@ -108,7 +113,12 @@ const routes: Routes = [
   {path:'general-user-graph', component:GeneralUserGraphComponent},
   {path:'ngx-graph', component:NgxGraphComponent},
   {path:'ngx-user-graph', component:NgxUserGraphComponent},
-  {path:'ponds-graph', component:PondsGraphComponent}
+  {path:'ponds-graph', component:PondsGraphComponent},
+  {path:'ngx-printing', component:NgxPrintingComponent},
+  {path:'ngx-dynamic', component:NgxDynamicComponent},
+  {path:'demo-login', component:DemoLoginComponent},
+  {path:'ngx-live', component:NgxLiveComponent}
+
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

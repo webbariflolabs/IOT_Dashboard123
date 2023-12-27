@@ -4,7 +4,7 @@
           <table class="table table-bordered table-striped table-hover">
              <tbody>
                  <tr>
-                     <td>
+                     <td class="display-name">
                       Display Name
                        
                      </td>
@@ -16,7 +16,7 @@
                      
                  </tr>
                  <tr>
-                  <td>
+                  <td class="display-name">
                     Virtual Pin
                     
                   </td>
@@ -28,7 +28,7 @@
                   
               </tr>
               <tr>
-                <td>
+                <td class="display-name">
                   Min
                   
                 </td>
@@ -40,7 +40,7 @@
                 
             </tr>
             <tr>
-              <td>
+              <td class="display-name">
                Max
                 
               </td>
@@ -52,7 +52,7 @@
               
           </tr>
           <tr>
-            <td>
+            <td class="display-name">
              
               Step Value
             </td>
@@ -66,7 +66,7 @@
         <tr>
           <td colspan="2"  class="row-height">
            <input type="checkbox" [(ngModel)]="slider_allow_user" id="allowuser" class="check-size" checked>    
-           <label class="mx-2" for ="allowuser">Allow User Access</label>        
+           <label class="mx-2 allow" for ="allowuser">Allow User Access</label>        
           </td>
           
           
@@ -80,6 +80,7 @@
         </tbody>
 
           </table>
+      <p class="errormsg">{{errorMsg}}</p>
     <button type="submit" (click)="onSlider()" class="btn custom-button btn-success">ADD</button>
 
 </mat-dialog-content>

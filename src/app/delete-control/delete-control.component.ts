@@ -24,7 +24,7 @@ export class DeleteControlComponent {
       this.virtualpin = this.data.data.virtual_pin;
     }
     else{
-      this.virtualpin = this.data.data.label;
+      this.virtualpin = this.data.data.params;
     }
 
     const deleteControls = {type_name: this.data.deviceDetails.type_name, type_ver: this.data.deviceDetails.type_ver, display_name:this.data.data.display_name,virtual_pin:this.virtualpin}

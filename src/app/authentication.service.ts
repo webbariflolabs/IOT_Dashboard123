@@ -254,6 +254,9 @@ onAdminUserAccounts(mobno:any){
   return this.http.get(`http://20.244.51.20:8000/account_view/${mobno}/`,)
 }
 
-
+demoLogin(userDetails:any){
+  console.log('log',userDetails)
+  return this.http.post('http://20.244.51.20:8000/log_in/',userDetails)
+}
 
 }

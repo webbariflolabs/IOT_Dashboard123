@@ -33,7 +33,7 @@
 <div class="d-flex flex-row">
   <ng-container *ngFor="let item of controlDetails">
     <div class="box" *ngIf="item.slider || item.button">
-      <h2>{{ item.slider ? item.slider.display_name : item.button.display_name }}</h2>
+      <h2 class="display-name">{{ item.slider ? item.slider.display_name : item.button.display_name }}</h2>
       <hr>
       <p *ngIf="item.button">
         <label class="switch">

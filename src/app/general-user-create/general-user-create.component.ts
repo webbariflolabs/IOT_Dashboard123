@@ -96,10 +96,10 @@ onLogout1():void{
     })
   }
 
-  onDeleteUser(){
+  onDeleteUser(mobileno:any){
     const dialogRef = this.dialog.open(UserDeleteComponent,{
       width:'300px',
-  
+      data: mobileno,
     })
   
   }

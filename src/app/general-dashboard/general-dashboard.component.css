@@ -169,7 +169,7 @@ body{
 
   .side-bar{
     background-color:#80BBF1;
-    
+    position: fixed;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-width: 0px;
@@ -178,7 +178,7 @@ body{
 
   
   .top-space{
-    margin-top: 70px;
+    margin-top: 150px;
   }
 
   .mat-toolbar{
@@ -466,6 +466,7 @@ body{
   .name-style{
     font-weight: 500;
     font-size: 16px;
+    text-align: center;
   }
   
   .change-btn{
@@ -652,3 +653,13 @@ border: 1px solid #000000;
     font-weight: 500;
     font-style: italic;
   }
+
+  .nav-space{
+    margin-top: 70px;
+  }
+.table-head{
+  background-color:#80BBF1;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}

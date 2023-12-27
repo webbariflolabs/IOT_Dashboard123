@@ -19,8 +19,12 @@ slider_max:any;
   sliderDetails:any;
   slider_step_value:any;
   slider_allow_user= false;
+  errorMsg:any;
   async onSlider(){
-    this.sliderDetails = {slider_dis_name: this.slider_dis_name, slider_pin:this.slider_pin,slider_min:this.slider_min,slider_max:this.slider_max,slider_step_value:this.slider_step_value,type_name: this.data.type_name,type_ver: this.data.type_ver, slider_allow_user: this.slider_allow_user}
+
+
+    if(this.slider_dis_name!=='' && this.slider_pin!==''&& this.slider_min !== '' && this.slider_max !== '' && this.slider_step_value !== ''){
+      this.sliderDetails = {slider_dis_name: this.slider_dis_name, slider_pin:this.slider_pin,slider_min:this.slider_min,slider_max:this.slider_max,slider_step_value:this.slider_step_value,type_name: this.data.type_name,type_ver: this.data.type_ver, slider_allow_user: this.slider_allow_user}
    
    
     try {
@@ -44,6 +48,10 @@ slider_max:any;
              console.error('Error while adding control:', error);
            }
    
+    }
+    else{
+      this.errorMsg= '*Please Enter all the Fields!'
+    }
    
     
   }

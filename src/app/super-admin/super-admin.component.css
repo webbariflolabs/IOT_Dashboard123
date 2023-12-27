@@ -91,6 +91,7 @@ body{
     border-bottom-right-radius: 20px;
     border-width: 0px;
     width: 280px;
+    position: fixed;
   }
 
   .icon-sizing{
@@ -106,7 +107,7 @@ height: 20px;
     margin-top: 10px;
   }
   .top-space{
-    margin-top: 70px;
+    margin-top: 100px;
   }
 
 .selected-tab {
@@ -241,11 +242,203 @@ background-color: #2F88FF;
 
 }
 
+.sm-side{
+  display: none;
 
-
+ 
+}
+.lg-side{
+  display: block;
+}
 @media screen and (max-width: 768px) {
+
+
+  .bar1, .bar2, .bar3 {
+    max-width: 10px;
+    max-height: 1px;
+    background-color: #9a9c9c;
+    margin: 2px 0;
+    transition: 0.4s;
+    
+  }
+
+  .bar-div{
+    margin-right: 5px;
+    margin-top: 5px;
+  }
+  .top-heading{
+    font-size: 20px;
+    margin-top: 0px;
+  }
+
+  .side-bar{
+    width: 55px;
+  }
+
+  .selected-tab {
+    background-color: white;
+    border-radius: 40px;
+    text-align: center;
+    }
+    .icon-sizing{
+      max-width: 16px;
+    max-height: 16px;
+      margin-bottom: 2px;
+    }
+    
+    .icon-text{
+      font-size: 10px;
+      margin-left:2px;
+      margin-top: 2px;
+    }
+
+    
+    .lowercase{
+      height: 40px;
+      width:100px;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      background-color: transparent;
+      border-width: 0.25px;
+      border-color: rgb(121, 120, 120);
+      border-style: solid;
+      border-top-width: 0px;
+      margin-left: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+  
+  .uppercase{
+      width: 112px;
+      height: 20px;
+      background-color:  #AFDAFA;
+      border-top-left-radius: 10px ;
+      border-top-right-radius: 10px;
+      border-width: 0px;
+     
+      display: flex;
+      justify-content: center;
+      align-items: center
+  }
+  
+  .box-heading{
+      font-size: 12px;
+  }
+  
+.user-heading{
+  font-weight: 500;
+  font-size: 10px;
+
+}
+.status-container{
+  margin-left: 0px;
+  margin-top:0px;
+}
+.number{
+  font-weight: bold;
+  font-size:13px;
+  font-style: italic;
+}
+
+.designation-style{
+  font-size: 13px;
+ 
+}
+.search-filter{
+  width: 150px;
+height: 25px;
+
+border-radius: 16px;
+background-color: #E9E9E9;
+border-width: 0px;
+padding-left: 15px;
+margin-top: 10px;
+margin-left: 4px;
+font-size: 12px;
+}
+
+.table-design{
+  border-top-left-radius: 20px ;
+  border-top-right-radius: 20px;
+
+}
+.table-head{
+font-size: 10px;
+
+}
+.container-margin{
+  margin-right: 5px;
+}
+
+.center-text{
+font-size: 10px;
+}
+.name-style{
+  font-size: 10px;
+
+}
+
+
+
+.change-btn{
+  width: 25px;
+height: 13px;
+color:white;
+border-radius: 10px;
+font-size: 7px;
+display: flex;
+padding: 3px;
+justify-content: center;
+margin-bottom: 2px;
+}
+
+.sm-side{
+  display: block;
+
+ 
+}
+.lg-side{
+  display: none;
+}
+
+.margin-image{
+  margin-left: 5px;
+}
+
+.table-margin{
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 8px;
+}
+
+.custom-button{
+  width: 25px;
+  height: 17px;
+  color:white;
+  border-radius: 5px;
+  border-width: 0px;
+  display: flex;
+  justify-content: center;
+  padding: 3px;
+  font-size: 8px;
+
+}
+
+
+.prev{
+  width: 35px;
   
 }
+.page-note{
+  font-size: 7px;
+}
+}
+
+
+
+
 .user-designation{
   background-color: #AFDAFA;
   text-align: center;
@@ -256,4 +449,14 @@ background-color: #2F88FF;
   font-size: 23px;
   font-weight: bold;
   font-style: italic;
+}
+
+.nav-space{
+  margin-top: 70px;
+}
+.new-button{
+  background-color:#2F88FF ;
+  font-weight: bold;
+  border-width: 0px;
+  border-radius: 10px;
 }

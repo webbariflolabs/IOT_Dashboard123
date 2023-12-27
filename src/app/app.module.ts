@@ -123,6 +123,17 @@ import { GeneralUserGraphComponent } from './general-user-graph/general-user-gra
 import { NgxGraphComponent } from './ngx-graph/ngx-graph.component';
 import { NgxUserGraphComponent } from './ngx-user-graph/ngx-user-graph.component';
 import { PondsGraphComponent } from './ponds-graph/ponds-graph.component';
+import { NgxPrintingComponent } from './ngx-printing/ngx-printing.component';
+import { NgxGaugeModule } from 'ngx-gauge';
+import { NgxDynamicComponent } from './ngx-dynamic/ngx-dynamic.component';
+import { DemoLoginComponent } from './demo-login/demo-login.component';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { NgxLiveComponent } from './ngx-live/ngx-live.component';
+import { AdminDeleteComponent } from './admin-delete/admin-delete.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -204,7 +215,13 @@ import { PondsGraphComponent } from './ponds-graph/ponds-graph.component';
     GeneralUserGraphComponent,
     NgxGraphComponent,
     NgxUserGraphComponent,
-    PondsGraphComponent
+    PondsGraphComponent,
+    NgxPrintingComponent,
+    NgxDynamicComponent,
+    DemoLoginComponent,
+    NgxLiveComponent,
+    AdminDeleteComponent,
+
     // DashboardComponent,
    
   ],
@@ -245,7 +262,12 @@ import { PondsGraphComponent } from './ponds-graph/ponds-graph.component';
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    FormsModule
+    FormsModule,
+    NgxGaugeModule,
+    LoadingBarModule,
+    LoadingBarHttpClientModule,
+    LoadingBarRouterModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

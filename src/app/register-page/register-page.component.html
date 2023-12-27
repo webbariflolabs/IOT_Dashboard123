@@ -1,12 +1,98 @@
-<body>
-    <mat-toolbar>
-        <img src="./assets/img/Asset1.png" class="justify-content-center align-items-center mx-2" style="width: 50px; height: 50px;">
-        <h1 class="mb-0">Bariflo Labs</h1>
-    </mat-toolbar>
-
+<body class="margin-top">
+    
+  <div class="d-flex flex-row">
     <div class="registration-container  mt-5">
         <h2 class="heading">Registration</h2>
+    
+        
+        <form (ngSubmit)="onSubmit()">
+          <div class="d-flex flex-row">
+          <div class="form-group col-md-6">
+            <!-- <label for="username">Full Name <span class="star">*</span> :</label>
+            <input placeholder="Enter full name" class="color color:focus" type="text" id="username" name="username" [(ngModel)]="user.username" required> -->
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="First Name"  [(ngModel)]="user.firstname">
+            </mat-form-field>
+
+          </div>
+          <div class="form-group col-md-6 mx-3">
+            <!-- <label for="mobileno">Mobile Number <span class="star">*</span> :</label>
+            <input placeholder="Enter Mobile Number" class="color color:focus" type="text" id="mobileno" name="mobileno" [(ngModel)]="user.mobileno" required> -->
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Last Name"  [(ngModel)]="user.lastname">
+            </mat-form-field>
+          </div>
+        </div>  
+        <div class="d-flex flex-row">
+
+          <div class="form-group col-md-6">
+          
+          <div class="form-group col-md-6">
+            <!-- <mat-form-field class="example-full-width">
+              <input matInput placeholder="Adhaar Number"  [(ngModel)]="user.adhaarnumber">
+            </mat-form-field> -->
+            <mat-form-field class="example-full-width">
+              <input matInput type="number" placeholder="Number" [formControl]="numberFormControl" spin="false">
+              <mat-error *ngIf="numberFormControl.hasError('required')">
+                Number is required
+              </mat-error>
+              <mat-error *ngIf="numberFormControl.hasError('pattern')">
+                Please enter a 10-digit number
+              </mat-error>
+            </mat-form-field>
+            
+          </div>
+          </div>
+          <div class="form-group col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Email" [formControl]="emailFormControl"
+                     [errorStateMatcher]="matcher">
+            
+              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex flex-row">
+
+          
+    </div>
+   
+  <div class="d-flex flex-row my-2">
+    <div class="form-group col-md-6">
+      <label for="how">How many devices Do you want <span class="star">*</span> :</label>
+      <input placeholder="Enter number" type="text" id="how" name="how" [(ngModel)]="user.devicesNumber" class="color color:focus" required>
+    </div>
+    <div class="form-group col-md-6 mx-3">
+      <label for="category">Admin Category <span class="star">*</span> :</label>
+      <select class="category-drop">
+        <option selected value="" style="display: none;">Select Category</option>
+        <option value="3dprinting">3D Printing</option>
+      </select>
+    </div>
+  </div>  
+         
+          <button type="submit">Register</button>
+        </form>
+
+
+     
+
+
+
+      </div>
+
+
+
+      <div class="right-container mt-5">
+        <h2 class="heading">Registration</h2>
         <hr>
+        
         <form (ngSubmit)="onSubmit()">
           <div class="d-flex flex-row">
           <div class="form-group col-md-6">
@@ -21,13 +107,7 @@
         <div class="d-flex flex-row">
 
           <div class="form-group col-md-6">
-            <!-- <label for="dob"><span class="star">*</span>Date of Birth:</label>
-            <mat-form-field>
-                <input matInput [matDatepicker]="dobPicker" placeholder="Date of Birth" name="dob" [(ngModel)]="user.dob">
-                <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-                <mat-datepicker #dobPicker></mat-datepicker>
-              </mat-form-field> -->
-              
+          
           <div class="form-group col-md-6">
             <label for="panno">Adhaar Number <span class="star">*</span> :</label>
             <input placeholder="Enter Adhaar Number" class="color color:focus" type="text" id="panno" name="panno" [(ngModel)]="user.panno" required>
@@ -40,25 +120,9 @@
         </div>
         <div class="d-flex flex-row">
 
-          <!-- <div class="form-group col-md-6 mx-2">
-
-          <label ><span class="star">*</span>Upload Adhaar Card:</label>
-         <input type="file" id="document" name="document" (change)="onFileSelected($event)">
-        </div> -->
+          
     </div>
-    <!-- <div class="d-flex flex-row my-2">
-
-        <div class="form-group col-md-6 mx-2">
-
-            <label ><span class="star">*</span>Upload Land Document:</label>
-           <input type="file" id="land-document" name="land-document" (change)="onLandSelected($event)">
-          </div>
-        <div class="form-group col-md-6 mx-2">
-
-        <label ><span class="star">*</span>Upload PAN Card:</label>
-       <input type="file" id="panCard" name="panCard" (change)="onPanSelected($event)">
-      </div>
-  </div> -->
+   
   <div class="d-flex flex-row my-2">
     <div class="form-group col-md-6">
       <label for="how">How many devices Do you want <span class="star">*</span> :</label>
@@ -72,12 +136,49 @@
       </select>
     </div>
   </div>  
-          <!-- <div class="form-group">
+         
+          <button type="submit">Register</button>
+        </form>
+
+
+     
+
+
+
+      </div>
+      
+    </div>
+</body>
+
+
+
+
+  <!-- <label for="dob"><span class="star">*</span>Date of Birth:</label>
+            <mat-form-field>
+                <input matInput [matDatepicker]="dobPicker" placeholder="Date of Birth" name="dob" [(ngModel)]="user.dob">
+                <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                <mat-datepicker #dobPicker></mat-datepicker>
+              </mat-form-field> -->
+              
+<!-- <div class="form-group col-md-6 mx-2">
+
+          <label ><span class="star">*</span>Upload Adhaar Card:</label>
+         <input type="file" id="document" name="document" (change)="onFileSelected($event)">
+        </div> -->
+ <!-- <div class="d-flex flex-row my-2">
+
+        <div class="form-group col-md-6 mx-2">
+
+            <label ><span class="star">*</span>Upload Land Document:</label>
+           <input type="file" id="land-document" name="land-document" (change)="onLandSelected($event)">
+          </div>
+        <div class="form-group col-md-6 mx-2">
+
+        <label ><span class="star">*</span>Upload PAN Card:</label>
+       <input type="file" id="panCard" name="panCard" (change)="onPanSelected($event)">
+      </div>
+  </div> -->
+ <!-- <div class="form-group">
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" [(ngModel)]="user.password" required>
           </div> -->
-          <button type="submit">Register</button>
-        </form>
-      </div>
-      
-</body>

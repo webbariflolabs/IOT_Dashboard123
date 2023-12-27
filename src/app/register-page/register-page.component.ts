@@ -1,9 +1,20 @@
-import { Component } from '@angular/core';
+import { Component,ViewEncapsulation} from '@angular/core';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.css']
+  styleUrls: ['./register-page.component.css'],
+  encapsulation: ViewEncapsulation.None  //
 })
 export class RegisterPageComponent {
   user: any = {}; // This object will hold the user's registration data
@@ -11,6 +22,15 @@ export class RegisterPageComponent {
   adhaarFile: File | null = null;
   panFile: File | null = null;
   landFile: File | null = null;
+
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
+  numberFormControl = new FormControl(null, [Validators.required, Validators.pattern(/^\d{10}$/)]);
+
+  matcher = new MyErrorStateMatcher();
 
   onFileSelected(event: any) {
     this.adhaarFile = event.target.files[0];

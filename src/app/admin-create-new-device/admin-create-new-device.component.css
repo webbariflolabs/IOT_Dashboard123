@@ -85,3 +85,10 @@
     height: 35px;
     width: 90px;
 }
+
+@media only screen and (max-width: 768px) {
+
+  .custom-input{
+    width: 200px;
+  }
+}

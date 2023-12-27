@@ -139,7 +139,7 @@ body{
 
 .side-bar{
   background-color:#80BBF1;
-  
+  position: fixed;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-width: 0px;
@@ -217,7 +217,9 @@ text-align: center;
 
 }
 
- 
+ .top-space{
+  margin-top: 100px;
+ }
 .user-designation{
   background-color: #80BBF1;
   text-align: center;
@@ -230,4 +232,174 @@ text-align: center;
   font-weight: bold;
   font-style: italic;
   color:white;
+}
+
+.sm-side{
+  display: none;
+
+ 
+}
+.lg-side{
+  display: block;
+}
+.top-card{
+  margin-top: 40px;
+  margin-left: 30px;
+  padding: 20px;
+}
+@media only screen and (max-width: 768px) {
+
+
+  .bar1, .bar2, .bar3 {
+    max-width: 10px;
+    max-height: 1px;
+    background-color: #9a9c9c;
+    margin: 2px 0;
+    transition: 0.4s;
+    
+  }
+
+  .bar-div{
+    margin-right: 5px;
+    margin-top: 5px;
+  }
+  .top-heading{
+    font-size: 20px;
+    margin-top: 0px;
+  }
+
+  .side-bar{
+    width: 55px;
+  }
+
+  .selected-tab {
+    background-color: white;
+    border-radius: 40px;
+    text-align: center;
+    }
+    .icon-sizing{
+      max-width: 16px;
+    max-height: 16px;
+      margin-bottom: 2px;
+    }
+    
+    .icon-text{
+      font-size: 10px;
+      margin-left:2px;
+      margin-top: 2px;
+    }
+
+    .change-btn{
+      width: 30px;
+    height: 17px;
+    color:white;
+    border-radius: 8px;
+    border-width: 0px;
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+    font-size: 8px;
+    margin-bottom: 2px;
+    } 
+
+
+.top-card{
+  margin-top: 10px;
+  margin-left: 5px;
+  padding:6px
+}
+
+
+
+.designation-style{
+  font-size: 13px;
+ 
+}
+
+.below-container{
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top:20px;
+}
+.table-head{
+font-size: 10px;
+
+}
+
+.center-text{
+font-size: 10px;
+}
+.name-style{
+  font-size: 10px;
+
+}
+.new-button{
+  
+  background-color:  #1863BB;
+  max-width: 80px;
+  max-height: 25px;
+  font-size: 7px;
+  padding: 5px;
+}
+
+
+.all-button{
+  width: 25px;
+height: 13px;
+color:white;
+border-radius: 10px;
+font-size: 7px;
+display: flex;
+padding-top: 2px;
+justify-content: center;
+margin-bottom: 2px;
+}
+
+.sm-side{
+  display: block;
+
+ 
+}
+.lg-side{
+  display: none;
+}
+
+.margin-image{
+  margin-left: 5px;
+}
+
+.table-margin{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+
+
+.edit{
+  color:black;
+}
+
+.down-card{
+  margin-top: 5px;
+}
+
+.table-heading{
+  font-size: 12px;
+}
+
+.data-heading{
+  font-size: 11px;
+}
+}
+
+
+.nav-space{
+  margin-top: 70px;
+}
+.new-button{
+  background-color:#2F88FF ;
+  font-weight: bold;
+  border-width: 0px;
+  border-radius: 10px;
 }

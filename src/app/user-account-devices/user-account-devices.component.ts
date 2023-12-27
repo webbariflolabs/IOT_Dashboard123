@@ -114,7 +114,7 @@ export class UserAccountDevicesComponent implements OnInit{
   }
 
   onClick8(device:any): void {
-    this.router.navigate(['./ngx-graph']);
+    this.router.navigate(['./ngx-dynamic']);
     
     this.dataSharingService.sendAccountId(device[0]);
 

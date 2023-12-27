@@ -6,6 +6,7 @@ import { EditComponent } from '../dashboard/edit/edit.component';
 import { DataSharingService } from '../data-sharing.service';
 import { AuthenticationService } from '../authentication.service';  
 import { UserAccountDeleteComponent } from '../user-account-delete/user-account-delete.component';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-user-accounts',
   templateUrl: './user-accounts.component.html',

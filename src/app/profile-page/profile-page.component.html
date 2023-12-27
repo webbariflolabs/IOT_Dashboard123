@@ -1,5 +1,5 @@
 <body class="main-container">
-  <mat-toolbar class="mb-0 d-flex flex-row justify-content-between" >
+  <mat-toolbar class="mb-0 d-flex flex-row justify-content-between fixed-top" >
     <div class="d-flex flex-row">
       <div class="d-flex flex-column justify-content-center" (click)="opened=!opened">
         <div class="bar1"></div>
@@ -23,7 +23,7 @@
       </div>
   </mat-toolbar>
 
-  <mat-sidenav-container>
+  <mat-sidenav-container class="nav-space">
     <mat-sidenav mode="side" class="side-bar" [(opened)]="opened">
       <mat-nav-list class="top-space">
       

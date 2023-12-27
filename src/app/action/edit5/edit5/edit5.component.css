@@ -141,3 +141,33 @@ body{
   font-size: 30px;
   
 }
+
+@media screen and (max-width:768px){
+  .device-heading{
+    font-size: 15px;
+  }
+  .cross{
+    color: red;
+    font-size: 15px;
+    
+  }
+  .name-label{
+    font-size: 12px;
+  }
+  .custom-input{
+    font-size: 11px;
+    width: 150px;
+  }
+
+  .save-button{
+    width: 40px;
+    height: 20px;
+   
+    border-radius: 5px;
+    border-width: 0px;
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+    font-size: 10px;
+  }
+}

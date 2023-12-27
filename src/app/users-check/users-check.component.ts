@@ -24,7 +24,7 @@ export class UsersCheckComponent implements OnInit {
   events: string[] = [];
   opened: boolean = true;
  // Your data array
- pageSize: number = 10; // Number of items per page
+ pageSize: number = 7; // Number of items per page
  currentPage: number = 1; // Current page
  totalPages: number = 1; // Total number of pages
 
