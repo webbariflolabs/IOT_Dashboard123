@@ -22,7 +22,14 @@ export class RegisterPageComponent {
   adhaarFile: File | null = null;
   panFile: File | null = null;
   landFile: File | null = null;
+  
+  selectCategory:any;
+  counter: number = 1; // Default quantity
 
+  devicedetails:any;
+  optionsCategory =['Aqua','water','3d Printing'];
+  counters: number[] = [1];
+  pondsCount=1;
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -30,6 +37,25 @@ export class RegisterPageComponent {
 
   numberFormControl = new FormControl(null, [Validators.required, Validators.pattern(/^\d{10}$/)]);
 
+  aadharFormControl =  new FormControl(null, [Validators.required, Validators.pattern(/^\d{12}$/)]);
+
+  firstFormControl =  new FormControl(null, [Validators.required])
+  lastFormControl =  new FormControl(null, [Validators.required])
+  accountFormControl =  new FormControl(null, [Validators.required])
+
+  pondFormControl =  new FormControl(null, [Validators.required])
+  districtFormControl =  new FormControl(null, [Validators.required])
+
+
+  firstname:any;
+  lastname:any;
+  mobileno:any;
+  aadharno:any;
+    email:any;
+  accountname:any;
+  pondname:any;
+  districtname:any;
+  
   matcher = new MyErrorStateMatcher();
 
   onFileSelected(event: any) {
@@ -47,33 +73,88 @@ export class RegisterPageComponent {
   onSubmit() {
     // Handle the registration logic here, e.g., send a POST request to your server
     console.log('Registration data:', this.user);
-    console.log('date of birth:', this.dob );
+
     if (this.adhaarFile) {
       // Upload the file here using a service or an HTTP request
     }
   }
 
-//uploading document to server
-// import { HttpClient } from '@angular/common/http';
+  
+  increment(index: number) {
+  
+  this.selectItemsAndCounters[index].count++;
+  
+  }
+  
+  
+  
+  decrement(index: number) {
+  
+  if (this.selectItemsAndCounters[index].count > 1) {
+  
+    this.selectItemsAndCounters[index].count--;
+  
+  }
+  
+  }
 
-// // ...
 
-// constructor(private http: HttpClient) {}
+  pondsInc(){
+   
 
-// onSubmit() {
-//   if (this.adhaarFile) {
-//     const formData = new FormData();
-//     formData.append('file', this.adhaarFile);
+    this.pondsCount++;
+  }
 
-//     this.http.post('your-upload-api-endpoint', formData).subscribe(
-//       (response) => {
-//         // Handle successful file upload response
-//       },
-//       (error) => {
-//         // Handle error
-//       }
-//     );
-//   }
-// }
+  pondsDec(){
+    if (this.pondsCount>1){
+      this.pondsCount--;
+    }
+   
+  }
+  
+  
+  
+  selectItems: { value: any}[] = [{ value: '' }];
+  
+  selectItemsAndCounters: { value: string; count: number }[] = [];
+  
+  
+  check()
+  {
+    console.log(this.selectCategory)
+  }
+  
+  addSelectItem() {
+    // this.selectItemsAndCounters.splice(1, 0);
+  
+  this.selectItemsAndCounters.push({ value: '', count: 1 });
+  
+  console.log( this.selectItemsAndCounters)
+  
+  
+  
+  }
+  
+  onRemove(index:any){
+    this.selectItemsAndCounters.splice(index, 1);
+  }
+  
+  
+  onMobileNext(){
+  
+    const length= this.selectItemsAndCounters.length;
+  
+    let count = 0;
+  
+    for (let i =0; i<length; i++){
+      if (this.selectItemsAndCounters[i].value !==''){
+        count  = count+1;
+      }
+    }
+  
 
+  
+  
+  }
+  
 }

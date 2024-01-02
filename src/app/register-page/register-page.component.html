@@ -2,7 +2,7 @@
     
   <div class="d-flex flex-row">
     <div class="registration-container  mt-5">
-        <h2 class="heading">Registration</h2>
+        <h1 class="heading">Registration</h1>
     
         
         <form (ngSubmit)="onSubmit()">
@@ -12,7 +12,10 @@
             <input placeholder="Enter full name" class="color color:focus" type="text" id="username" name="username" [(ngModel)]="user.username" required> -->
 
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="First Name"  [(ngModel)]="user.firstname">
+              <input matInput placeholder="First Name"  [formControl]="firstFormControl"   [(ngModel)]="firstname">
+              <mat-error *ngIf="firstFormControl.hasError('required')">
+                First Name is required
+              </mat-error>
             </mat-form-field>
 
           </div>
@@ -20,7 +23,10 @@
             <!-- <label for="mobileno">Mobile Number <span class="star">*</span> :</label>
             <input placeholder="Enter Mobile Number" class="color color:focus" type="text" id="mobileno" name="mobileno" [(ngModel)]="user.mobileno" required> -->
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Last Name"  [(ngModel)]="user.lastname">
+              <input matInput placeholder="Last Name"  [formControl]="lastFormControl"   [(ngModel)]="lastname">
+              <mat-error *ngIf="lastFormControl.hasError('required')">
+                Last Name is required
+              </mat-error>
             </mat-form-field>
           </div>
         </div>  
@@ -33,9 +39,9 @@
               <input matInput placeholder="Adhaar Number"  [(ngModel)]="user.adhaarnumber">
             </mat-form-field> -->
             <mat-form-field class="example-full-width">
-              <input matInput type="number" placeholder="Number" [formControl]="numberFormControl" spin="false">
+              <input matInput placeholder="Phone Number"  #input maxlength="10"  [formControl]="numberFormControl" [(ngModel)]="mobileno">
               <mat-error *ngIf="numberFormControl.hasError('required')">
-                Number is required
+                Phone Number is required
               </mat-error>
               <mat-error *ngIf="numberFormControl.hasError('pattern')">
                 Please enter a 10-digit number
@@ -44,9 +50,9 @@
             
           </div>
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-6 mx-3">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Email" [formControl]="emailFormControl"
+              <input matInput placeholder="Email" [formControl]="emailFormControl" [(ngModel)]="email"
                      [errorStateMatcher]="matcher">
             
               <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -65,19 +71,22 @@
    
   <div class="d-flex flex-row my-2">
     <div class="form-group col-md-6">
-      <label for="how">How many devices Do you want <span class="star">*</span> :</label>
-      <input placeholder="Enter number" type="text" id="how" name="how" [(ngModel)]="user.devicesNumber" class="color color:focus" required>
+      <!-- <label for="how">How many devices Do you want <span class="star">*</span> :</label>
+      <input placeholder="Enter number" type="text" id="how" name="how" [(ngModel)]="user.devicesNumber" class="color color:focus" required> -->
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Aadhaar Number"  #input maxlength="12"  [formControl]="aadharFormControl" [(ngModel)]="aadharno">
+        <mat-error *ngIf="numberFormControl.hasError('required')">
+          Aadhaar no is required
+        </mat-error>
+        <mat-error *ngIf="numberFormControl.hasError('pattern')">
+          Please enter a 12-digit number
+        </mat-error>
+      </mat-form-field>
+
     </div>
-    <div class="form-group col-md-6 mx-3">
-      <label for="category">Admin Category <span class="star">*</span> :</label>
-      <select class="category-drop">
-        <option selected value="" style="display: none;">Select Category</option>
-        <option value="3dprinting">3D Printing</option>
-      </select>
-    </div>
+   
   </div>  
-         
-          <button type="submit">Register</button>
+ 
         </form>
 
 
@@ -90,54 +99,154 @@
 
 
       <div class="right-container mt-5">
-        <h2 class="heading">Registration</h2>
-        <hr>
+        <h1 class="right-heading">Additional Details</h1>
+
         
         <form (ngSubmit)="onSubmit()">
           <div class="d-flex flex-row">
           <div class="form-group col-md-6">
-            <label for="username">Full Name <span class="star">*</span> :</label>
-            <input placeholder="Enter full name" class="color color:focus" type="text" id="username" name="username" [(ngModel)]="user.username" required>
+        
+
+            <mat-form-field>
+              <mat-select placeholder="Select Your Category" [(ngModel)]="selectCategory" name="optionsCheck">
+                <mat-option value="aqua">Aqua</mat-option>
+                <mat-option value="water">Water Body</mat-option>
+                <mat-option value="3d">3D Printing</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
           <div class="form-group col-md-6 mx-3">
-            <label for="mobileno">Mobile Number <span class="star">*</span> :</label>
-            <input placeholder="Enter Mobile Number" class="color color:focus" type="text" id="mobileno" name="mobileno" [(ngModel)]="user.mobileno" required>
+           
           </div>
         </div>  
-        <div class="d-flex flex-row">
 
-          <div class="form-group col-md-6">
+        <div *ngIf="selectCategory === 'aqua'">
           
-          <div class="form-group col-md-6">
-            <label for="panno">Adhaar Number <span class="star">*</span> :</label>
-            <input placeholder="Enter Adhaar Number" class="color color:focus" type="text" id="panno" name="panno" [(ngModel)]="user.panno" required>
+          <div class="d-flex flex-row">
+
+          
+            <div class="form-group col-md-6">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Account Name"  [formControl]="accountFormControl" [(ngModel)]="accountname">
+                <mat-error *ngIf="accountFormControl.hasError('required')">
+                  Account name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
           </div>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="email">Email <span class="star">*</span> :</label>
-            <input placeholder="Enter Email" class="color color:focus" type="email" id="email" name="email" [(ngModel)]="user.email" required>
-          </div>
+        
+     
+    <div class="d-flex flex-row my-2">
+      <div class="email-input">
+  
+        <table>
+          <thead>
+            <tr>
+              <td class="device-name-element">
+                Device Types
+              </td>
+              <td class="device-name-element">
+                Device Quantity
+              </td>
+              <td class="device-name-element">
+                Action
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let selectItem of selectItemsAndCounters; let i = index">
+              <td class="margin-row">  
+              <mat-form-field class="category">
+                <mat-select placeholder="Select Your Category" [(ngModel)]="selectItemsAndCounters[i].value"  name="selectItem{{i}}">
+                  <mat-option *ngFor="let option of optionsCategory" [value]="option" class="optionselect">{{option}}</mat-option>
+                  
+                </mat-select>
+              </mat-form-field>
+  
+              </td>
+              <td class="margin-row category">
+                <div class="container-option">
+                  <button class="minus-element" (click)="decrement(i)">-</button>
+                  <button class="count-element">{{selectItem.count}}</button>
+                  <button class="pluse-element"  (click)="increment(i)">+</button>
+              </div>
+              </td>
+              <td class="margin-row category">
+                <button class="delete-button" (click)="onRemove(i)"><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <div class="add-container">
+                  <button class="add" (click)="addSelectItem()">Add+</button>
+              </div>
+              </td>
+            </tr>
+          </tbody>
+  
+        </table>
+  
+  
+  
+  
+      </div>
+    </div>
         </div>
-        <div class="d-flex flex-row">
+
+
+
+        <div *ngIf="selectCategory === 'water'">
+          <div class="d-flex flex-row">
 
           
-    </div>
+            <div class="form-group col-md-6">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Pond Name" [formControl]="pondFormControl"  [(ngModel)]="pondname">
+                <mat-error *ngIf="pondFormControl.hasError('required')">
+                  Pond name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-group col-md-6 margin-water">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="District Name" [formControl]="districtFormControl" [(ngModel)]="districtname">
+                <mat-error *ngIf="districtFormControl.hasError('required')">
+                  District name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex flex-row justify-content-between">
+            <p class="ponds-heading">Number of Ponds :</p>
+
+            <div class="container-option">
+              <button class="minus-element" (click)="pondsDec()">-</button>
+              <button class="count-element">{{pondsCount}}</button>
+              <button class="pluse-element"  (click)="pondsInc()">+</button>
+          </div>
+
+          </div>
+        
+
+        </div>
+
+
+
+
+
+
+
+
+      
+
+
+
    
-  <div class="d-flex flex-row my-2">
-    <div class="form-group col-md-6">
-      <label for="how">How many devices Do you want <span class="star">*</span> :</label>
-      <input placeholder="Enter number" type="text" id="how" name="how" [(ngModel)]="user.devicesNumber" class="color color:focus" required>
-    </div>
-    <div class="form-group col-md-6 mx-3">
-      <label for="category">Admin Category <span class="star">*</span> :</label>
-      <select class="category-drop">
-        <option selected value="" style="display: none;">Select Category</option>
-        <option value="3dprinting">3D Printing</option>
-      </select>
-    </div>
-  </div>  
-         
-          <button type="submit">Register</button>
+         <div class="d-flex flex-row justify-content-end button-container">
+          <button type="submit" class="register-button">Register</button>
+
+         </div>
         </form>
 
 
@@ -182,3 +291,38 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" [(ngModel)]="user.password" required>
           </div> -->
+          <!-- <div class="form-group col-md-6 mx-3">
+            <label for="category">Admin Category <span class="star">*</span> :</label>
+            <select class="category-drop">
+              <option selected value="" style="display: none;">Select Category</option>
+              <option value="3dprinting">3D Printing</option>
+            </select>
+          </div>
+                  <button type="submit">Register</button> -->
+
+
+                  <!-- 
+      <div class="container-element" *ngFor="let selectItem of selectItemsAndCounters; let i = index">
+              <div class="container-device-type">
+                  <p class="device-name-element">Device Types</p>
+                  <div class="device-type" >                     
+                     <select [(ngModel)]="selectItemsAndCounters[i].value" class="selectItems" name="selectItems">
+                         <option value="" disabled selected >Select Category</option>
+                            <option *ngFor="let option of optionsCategory" [value]="option" class="'optionselect">{{option}}</option>
+                     </select>
+                 </div>
+              </div>
+        
+      <div class="device-Quantity-container">
+      <p class="device-name-element">Device Quantity</p>
+      <div >
+          <div class="container-option">
+          <button class="minus-element" (click)="decrement(i)">-</button>
+          <button class="count-element">{{selectItem.count}}</button>
+          <button class="pluse-element"  (click)="increment(i)">+</button>
+      </div>
+      </div>
+
+  </div>
+      </div>
+       -->

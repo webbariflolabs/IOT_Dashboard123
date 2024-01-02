@@ -133,6 +133,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { NgxLiveComponent } from './ngx-live/ngx-live.component';
 import { AdminDeleteComponent } from './admin-delete/admin-delete.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TokenVerifyComponent } from './token-verify/token-verify.component';
 
 
 @NgModule({
@@ -221,6 +222,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DemoLoginComponent,
     NgxLiveComponent,
     AdminDeleteComponent,
+    TokenVerifyComponent,
 
     // DashboardComponent,
    

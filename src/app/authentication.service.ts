@@ -259,4 +259,11 @@ demoLogin(userDetails:any){
   return this.http.post('http://4.188.244.11/log_in/',userDetails)
 }
 
+tokenCheck(token:any){
+  console.log(token);
+  return this.http.post<any>('http://4.188.244.11/token_verification/',token)
+
+}
+
+
 }

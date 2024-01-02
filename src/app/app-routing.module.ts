@@ -55,6 +55,7 @@ import { NgxPrintingComponent } from './ngx-printing/ngx-printing.component';
 import { NgxDynamicComponent } from './ngx-dynamic/ngx-dynamic.component';
 import { DemoLoginComponent } from './demo-login/demo-login.component';
 import { NgxLiveComponent } from './ngx-live/ngx-live.component';
+import { TokenVerifyComponent } from './token-verify/token-verify.component';
 
 
 
@@ -88,7 +89,20 @@ const routes: Routes = [
   {path: 'general-users', component:GeneralUsersComponent},
   {path: 'mqtt-device', component:MqttDeviceComponent},
   {path: 'general-user-stats', component:GeneralUserStatsComponent},
-  {path: 'register-page', component: RegisterPageComponent},
+  {path: 'register-page', component: RegisterPageComponent,
+  // pathMatch: 'full',
+  // children: [
+  //   {
+  //     path: '',
+  //     component: RegisterPageComponent
+  //   },
+  //   {
+  //     path: '',
+  //     component: RegisterPageComponent
+  //    // Optional: Use an AuthGuard if needed
+  //   },
+  // ],
+},
   {path:'profile-page', component: ProfilePageComponent},
   {path:'users-check', component:UsersCheckComponent},
   {path:'super-admin', component:SuperAdminComponent},
@@ -117,7 +131,8 @@ const routes: Routes = [
   {path:'ngx-printing', component:NgxPrintingComponent},
   {path:'ngx-dynamic', component:NgxDynamicComponent},
   {path:'demo-login', component:DemoLoginComponent},
-  {path:'ngx-live', component:NgxLiveComponent}
+  {path:'ngx-live', component:NgxLiveComponent},
+  {path:'verify-token',component:TokenVerifyComponent, pathMatch:'full'}
 
 ]
 @NgModule({

@@ -15,11 +15,11 @@
 .registration-container {
     max-width: 850px;
     margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
+    padding: 50px 30px 20px 30px;
+  
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     background-color: white;
 
   }
@@ -67,7 +67,7 @@
 
   .heading{
     font-weight: 400;
-    font-size: 26px;
+    font-size: 30px;
     color: #066fdf;
     font-family: Georgia, 'Times New Roman', Times, serif;
   }
@@ -89,7 +89,7 @@
     border-style: solid;
     border-width: 5px;
     border-color: #49c5b6;
-    background-image: linear-gradient(to right, rgb(162, 236, 185), rgb(204, 231, 223));
+    background-image: linear-gradient(to right, rgb(134, 203, 243), rgb(140, 160, 224));
 
     height: 100vh; /* Make sure the body covers the full height of the viewport */
     display: flex;
@@ -102,22 +102,246 @@
   max-width: 850px;
   border-top-right-radius: 7px;
   border-bottom-right-radius: 7px;
+
+    margin: 0 auto;
+    padding: 50px 30px 20px 30px;
+ 
+/* 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+
 }
 
 /* Add this to your your-component.component.css file */
-::ng-deep .mat-input-outer-circle,
-::ng-deep .mat-input-inner-circle {
-  display: none !important;
+
+
+.right-heading{
+color:white;
+font-weight: 400;
+font-size: 30px;
+font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.mat-form-field-wrapper {
-  overflow: hidden; /* Hide the spin buttons */
+
+.email-input{
+
+ 
+
+  width: 400px;
+
+  display:flex;
+
+  flex-direction: column;
+
+  justify-content: flex-start;
+
+}
+.container-element{
+
+  display: flex;
+
+  justify-content: space-between;
+
+
+
 }
 
-.mat-form-field-flex {
-  flex-direction: row-reverse; /* Reverse the direction to hide the spin buttons */
+.device-name-element{
+
+  color:white;
+
+  font-weight: 500;
+
 }
 
-.mat-form-field-infix {
-  width: 100%; /* Ensure the input takes up the full width */
+.selectItems{
+
+  width:150px;
+
+  height:43px;
+
+  margin-bottom: 20px;;
+
+  color: #575757;
+
+  font-size:17px;
+
+  font-family: 'Roboto';
+
+  font-weight: 400;
+
+  border:none;
+
+  border:1px solid #adb5bd;
+
+  border-radius: 5px;
+
+
+
+
+
+}
+
+.device-Quantity-container{
+
+  display:flex;
+
+  flex-direction: column;
+
+}
+
+
+.container-option{
+
+  display:flex;
+
+  margin-bottom:25px;
+
+}
+
+.minus-element{
+
+  background-color: #D9D9D9;
+
+  height:35px;
+
+  border:none;
+
+  border-top-left-radius: 5px;
+
+  border-bottom-left-radius: 5px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width:40px;
+
+  margin-right: 5px;
+
+  color:  rgb(65, 65, 204);
+
+}
+
+
+
+.pluse-element{
+
+  background-color: #D9D9D9;
+
+  height:35px;
+
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:40px;
+
+  color:  rgb(65, 65, 204);
+
+  padding-bottom: 10px;
+  border:none;
+
+  border-top-right-radius: 5px;
+
+  border-bottom-right-radius: 5px;
+
+
+
+
+
+}
+.count-element{
+
+  border:none;
+
+  background-color: #D9D9D9;
+
+  margin-right: 5px;
+
+  padding-left: 15px;
+
+  padding-right: 15px;
+  height:35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:  rgb(65, 65, 204);
+  width:40px;
+
+
+}
+
+.add{
+
+  background-color: #71d871;
+
+  border:none;
+  margin-right: 5px;
+
+  color: rgb(65, 65, 204);
+  border-radius: 5px;
+
+  height: 35px;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+
+
+
+.add-container{
+
+display: flex;    
+
+flex-direction: row;
+
+justify-content: flex-end;
+
+align-items: flex-end;
+
+width:400px;
+
+}
+
+.register-button{
+  border-radius: 30px;
+  background-color: white;
+  color: rgb(65, 65, 204);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.button-container{
+  margin-top: 50px;
+}
+
+.delete-button{
+  font-size: 20px;
+  color: rgb(247, 108, 108);
+  background-color: transparent;
+  border-width: 0px;
+  margin-bottom: 20px;
+}
+
+
+/* Change input text color */
+.margin-row{
+  margin-top:20px;
+}
+
+.category{
+  margin-right: 10px;
+}
+
+.margin-water{
+  margin-left: 20px;
+}
+
+.ponds-heading{
+  font-size: 20px;
+  color: white;
+
+  
 }
