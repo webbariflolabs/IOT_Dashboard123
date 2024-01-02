@@ -42,15 +42,16 @@ export class SuperDashboardComponent implements OnInit {
   }
 
   onLogout():void{
-    this.router.navigate(['/login'])
+    window.location.href = 'http://aqua.bariflorobotics.com/login'
 
 
   }
   onLogout1():void{
-    this.router.navigate(['/login'])
+    window.location.href = 'http://aqua.bariflorobotics.com/login'
 
 
   }
+  
   
   onDeleteUser(mobileno:any):void{
 

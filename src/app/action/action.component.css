@@ -310,7 +310,7 @@ min-width: 100%;
 
 
 
-.name{
+.card-heading{
 
   color:#093394;
 
@@ -348,3 +348,390 @@ min-width: 100%;
 .nav-space{
   margin-top: 70px;
 }
+
+
+
+.sm-side{
+  display: none;
+
+ 
+}
+.lg-side{
+  display: block;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+
+
+  .bar1, .bar2, .bar3 {
+    max-width: 10px;
+    max-height: 1px;
+    background-color: #9a9c9c;
+    margin: 2px 0;
+    transition: 0.4s;
+    
+  }
+
+  .bar-div{
+    margin-right: 5px;
+    margin-top: 5px;
+  }
+  .top-heading{
+    font-size: 20px;
+    margin-top: 0px;
+  
+  }
+
+  .side-bar{
+    width: 55px;
+  }
+
+  .selected-tab {
+    background-color: white;
+    border-radius: 40px;
+    text-align: center;
+    }
+    .icon-sizing{
+      max-width: 16px;
+    max-height: 16px;
+      margin-bottom: 2px;
+    }
+    
+    .icon-text{
+      font-size: 10px;
+      margin-left:2px;
+      margin-top: 2px;
+    
+    }
+    .sm-side{
+      display: block;
+    
+     
+    }
+    .lg-side{
+      display: none;
+    }
+    .designation-style{
+      font-size: 13px;
+     
+    }
+
+    .table-head{
+      background-color:#80BBF1;
+      text-align: center;
+      color: white;
+      font-size: 11px;
+    }
+    
+
+.device-image{
+
+  height:40px;
+
+
+
+}
+
+.arrow-image{
+
+  height:14px;
+
+  margin-top: 10px;
+
+  margin-left: 10px;
+
+  margin-right: 10px;
+
+}
+
+.container-under{
+
+
+
+  height:30px;
+
+  margin-top:30px;
+
+
+
+}
+
+.image-devicedashboard{
+
+  border:1px solid #6E6F71;
+
+  border-radius: 5px;
+
+  height:40px;
+
+  width:70px;
+
+}
+
+
+.waterbody{
+font-size: 13px;
+
+
+
+}
+.devices-step-container{
+
+  display:flex;
+
+  flex-direction: column;
+
+  margin-top:30px;
+
+  margin-left: 0px;
+
+  width:100%;
+  margin-bottom: 10px;
+
+
+}
+    
+.table-margin{
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 30px;
+}
+.center-text{
+  font-size: 10px;
+  }
+  
+/* .card-heading{
+  font-size: 15px;
+  font-weight: bold;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin-top: 20px;
+  margin-left:5px;
+  background-color:#AFDAFA ;
+  width: 80px;
+  border-radius: 20px;
+  padding-left: 10px;
+  height:30px;
+  color:white;
+} */
+
+
+.card-heading{
+
+  color:#093394;
+
+  font-weight: 500;
+
+  font-size:18px;
+
+}
+.container-devicebg{
+
+  background-color:#AFDAFA ;
+
+  font-weight: bold;
+  color:white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-align: center;
+
+  height:30px;
+
+  min-width:100px;
+
+  border-radius: 20px;;
+  padding-left: 10px;
+
+
+
+
+
+
+
+
+}
+
+
+.container-devicebg-name{
+
+  background-color:#AFDAFA ;
+
+  font-weight: bold;
+  color:white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-align: center;
+
+  height:30px;
+
+  min-width:100px;
+
+  border-radius: 20px;;
+  padding-left: 10px;
+
+
+
+
+
+}
+
+.designation-style{
+  font-size: 13px;
+ 
+}
+
+.custom-button{
+  width: 25px;
+  height: 17px;
+  color:white;
+  border-radius: 5px;
+  border-width: 0px;
+  display: flex;
+  justify-content: center;
+  padding: 3px;
+  font-size: 8px;
+
+}
+
+.prev{
+  width: 35px;
+}
+.page-note{
+  font-size: 7px;
+}
+
+
+.table-margin{
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 30px;
+}
+
+.new-button{
+  width: 60px;
+  height: 20px;
+  color:white;
+  border-radius: 5px;
+  border-width: 0px;
+  display: flex;
+  justify-content: center;
+  padding: 3px;
+  font-size: 10px;
+
+}
+
+.square {
+  color: rgb(255, 63, 127);
+  font-size: 8px;
+}
+
+.square-on,
+.off-button:active .square-on {
+  color: rgb(11, 102, 52);
+  font-size: 8px;
+}
+
+
+
+
+.on-off{
+  font-size: 9px;
+  margin-left:2px;
+}
+
+.name-style{
+  font-size: 10px;
+
+}
+
+
+
+
+.edit-button{
+  width: 40px;
+height: 20px;
+color:white;
+border-radius: 6px;
+font-size: 9px;
+display: flex;
+padding-top: 2px;
+justify-content: center;
+margin-bottom: 2px;
+}
+.edit{
+  color: black;
+}
+.account{
+  width: 45px;
+}
+
+
+.device-head{
+
+  font-size: 15px;
+}
+
+.button-controls{
+
+  background-color:#2F88FF ;
+
+  border:none;
+
+  color: #ffffff;
+
+  width: 60px;
+  height: 20px;
+ 
+  border-radius: 5px;
+  border-width: 0px;
+  display: flex;
+  justify-content: center;
+  padding: 3px;
+  font-size: 10px;
+
+}
+
+
+
+.button-stats{
+
+  background-color:#08B70F;
+
+  border:none;
+
+  color: #ffffff;
+
+  width: 40px;
+  height: 20px;
+ 
+  border-radius: 5px;
+  border-width: 0px;
+  display: flex;
+  justify-content: center;
+  padding: 3px;
+  font-size: 10px;
+
+
+
+
+
+}
+
+.buttons-arrange{
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-buttons{
+  display: flex;
+
+}
+
+.time-button{
+  font-size: 12px;
+}
+
+.back-button{
+  font-size: 12px;
+}
+
+  }

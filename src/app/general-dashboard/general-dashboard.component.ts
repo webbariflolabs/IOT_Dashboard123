@@ -21,17 +21,17 @@ export class GeneralDashboardComponent implements OnInit {
     // this.loginform-this.formBuilder.group
   }
 
-  
   onLogout():void{
-    this.router.navigate(['/login'])
-    console.log("nn")
+    window.location.href = 'http://aqua.bariflorobotics.com/login'
+
 
   }
   onLogout1():void{
-    this.router.navigate(['/login'])
-    console.log("nn")
+    window.location.href = 'http://aqua.bariflorobotics.com/login'
+
 
   }
+  
  
 getCurrentPageData(): any {
   const startIndex = (this.currentPage - 1) * this.pageSize;

@@ -14,15 +14,16 @@ export class ProfilePageComponent implements OnInit{
   constructor(private router:Router, private auth:AuthenticationService){}
   
   onLogout():void{
-    this.router.navigate(['/login'])
-    console.log("nn")
+    window.location.href = 'http://aqua.bariflorobotics.com/login'
+
 
   }
   onLogout1():void{
-    this.router.navigate(['/login'])
-    console.log("nn")
+    window.location.href = 'http://aqua.bariflorobotics.com/login'
+
 
   }
+  
   user: any = {};
   userStoreData:any;
   userNameProfile:any;

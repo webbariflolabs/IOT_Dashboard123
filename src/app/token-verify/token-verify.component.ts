@@ -44,9 +44,9 @@ token:any;
             localStorage.setItem('userData',JSON.stringify(UserDataSet))
           }
           else{
-            localStorage.setItem('logMob',JSON.stringify(response.mobno))
+            localStorage.setItem('logMob',JSON.stringify(response.mobile_no))
             this.router.navigate(['./general-dashboard'])
-            this.dataSharingService.setData(response.mobno)
+            this.dataSharingService.setData(response.mobile_no)
             const userName=response.username
             const UserDataSet={mobileno:response.mobno,userName}
             localStorage.setItem('userData',JSON.stringify(UserDataSet))

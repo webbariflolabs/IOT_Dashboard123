@@ -48,18 +48,17 @@ export class AdminDeviceTypesComponent implements OnInit {
 
 
 
-  onLogout1():void{
-    this.router.navigate(['/login'])
-
-
-  }
-
   onLogout():void{
-    this.router.navigate(['/login'])
+    window.location.href = 'http://aqua.bariflorobotics.com/login'
 
 
   }
+  onLogout1():void{
+    window.location.href = 'http://aqua.bariflorobotics.com/login'
 
+
+  }
+  
 
   onAddDeviceType(): void {
     const dialogRef = this.dialog.open(AdminCreateNewDeviceComponent, {

@@ -12,9 +12,9 @@ import { AuthenticationService } from '../authentication.service';
 export class UserAcceptOneComponent {
 
   constructor(private dialog: MatDialog, private dialogRef:MatDialogRef<UserAcceptTwoComponent>, private dataSharingService:DataSharingService, private auth:AuthenticationService){
-
+ 
     this.registerDetails =this.dataSharingService.getRegisterDetails();
-    this.accountName = this.registerDetails[3];
+    this.accountName = this.registerDetails[3].accountname;
   }
 
  

@@ -41,7 +41,7 @@ export class NgxUserGraphComponent implements OnInit, OnDestroy {
   sensorData: { [key: string]: { data: number[], borderColor: string } } = {};
   no_of_charts:any;
   chartIds: string[] = []
-  downloadOptions: string[] = ['1','7', '30', '90', 'custom'];
+  downloadOptions: string[] = ['Download','1','7', '30', '90', 'custom'];
   @ViewChild('chartContainer') chartContainer!: ElementRef;
   dynamicChartData: any[] = [   ];// Assuming dynamicChartData is an array of chart data
   charts: Chart[] = [];
@@ -85,7 +85,13 @@ export class NgxUserGraphComponent implements OnInit, OnDestroy {
 
     this.initializeChart();
 
+    this.handleResponsiveLayout();
+    window.addEventListener('resize', () => this.handleResponsiveLayout());
+
     this.subscribeToTopic();
+
+
+
 
   }
 
@@ -195,7 +201,26 @@ export class NgxUserGraphComponent implements OnInit, OnDestroy {
       this.chartsInitialized = true;
     }
     
-    
+    handleResponsiveLayout() {
+      const screenWidth = window.innerWidth;
+      const chartsPerRow = screenWidth < 768 ? 1 : 2;
+  
+      const chartContainers = this.chartContainer.nativeElement.querySelectorAll('.col-lg-6');
+      chartContainers.forEach((container: HTMLElement, index: number) => {
+        this.renderer.setStyle(container, 'width', `${100 / chartsPerRow}%`);
+      });
+
+
+      const canvasElements = document.querySelectorAll('canvas');
+  const isMobile = window.innerWidth < 768; // Adjust the breakpoint as needed
+
+  canvasElements.forEach((canvas: HTMLCanvasElement) => {
+    canvas.style.marginLeft = isMobile ? '2px' : '50px';
+  });
+
+ 
+
+    }
 
     private createControls(container: HTMLElement, index: number, displayName: string) {
       // Create controls dynamically
@@ -207,7 +232,7 @@ export class NgxUserGraphComponent implements OnInit, OnDestroy {
       header.classList.add('heading-name');
     
       const downloadSelect = document.createElement('select');
-      downloadSelect.className = 'download-button primary';
+     
     
       // Apply additional styles using Renderer2
       this.renderer.setStyle(downloadSelect, 'background-color', '#80BBF1');
@@ -216,18 +241,36 @@ export class NgxUserGraphComponent implements OnInit, OnDestroy {
       this.renderer.setStyle(downloadSelect, 'border-radius', '6px');
       this.renderer.setStyle(downloadSelect, 'border-width', '0px');
       this.renderer.setStyle(downloadSelect, 'margin-right', '10px');
+      this.renderer.setStyle(downloadSelect, 'height', '50px');
+      this.renderer.setStyle(downloadSelect, 'width', '100px');
 
 
       this.renderer.setStyle(controlsDiv, 'margin-bottom', '20px' );
       this.renderer.setStyle(controlsDiv, 'margin-top', '15px' );
-      
 
       this.renderer.setStyle(header, 'font-size', '25px');
       this.renderer.setStyle(header, 'font-weight', 'bold');
       this.renderer.setStyle(header, 'color', '#676869');
       this.renderer.setStyle(header, 'margin-left', '90px');
    
+      const isMobile = window.innerWidth < 768; // Adjust the breakpoint as needed
+      const headerMarginLeft = isMobile ? '2px' : '90px';
+      const headerFont = isMobile? '12px': '25px';
+      
+      this.renderer.setStyle(header, 'margin-left', headerMarginLeft);
+      this.renderer.setStyle(header, 'font-size', headerFont);
 
+      const selectWidth = isMobile? '70px': '100px';
+      const selectHeight = isMobile? '25px': '50px';
+      const selectFont = isMobile? '10px': '16px';
+
+      const controlMargin = isMobile? '5px': '20px';
+
+      this.renderer.setStyle(downloadSelect, 'width', selectWidth);
+      this.renderer.setStyle(downloadSelect, 'font-size', selectFont);
+
+      this.renderer.setStyle(downloadSelect, 'height', selectHeight);
+      this.renderer.setStyle(controlsDiv, 'margin-bottom', controlMargin);
 
     
       this.downloadOptions.forEach(optionValue => {
@@ -253,6 +296,7 @@ export class NgxUserGraphComponent implements OnInit, OnDestroy {
     canvas.height = 400;
     canvas.style.marginLeft = '50px'; 
     canvas.id = `lineChart${index + 1}`;
+    this.handleResponsiveLayout()
     return canvas;
   } 
   
@@ -382,16 +426,19 @@ updateChart() {
     this.router.navigate(['./user-account-devices'])
     }
     
-    onLogout():void{
-    this.router.navigate(['/login'])
-    
-    }
+  
     subMenuStates: { [key: string]: boolean } = {};
     
     
+    onLogout():void{
+      window.location.href = 'http://aqua.bariflorobotics.com/login'
+  
+  
+    }
     onLogout1():void{
-    this.router.navigate(['/login'])
-    
+      window.location.href = 'http://aqua.bariflorobotics.com/login'
+  
+  
     }
     
     onSelectChange(event:any){
@@ -409,4 +456,5 @@ updateChart() {
 
 
 }
+
 

@@ -428,16 +428,19 @@ updateChart() {
     }
     
     onLogout():void{
-    this.router.navigate(['/login'])
-    
+      window.location.href = 'http://aqua.bariflorobotics.com/login'
+  
+  
     }
+    onLogout1():void{
+      window.location.href = 'http://aqua.bariflorobotics.com/login'
+  
+  
+    }
+    
     subMenuStates: { [key: string]: boolean } = {};
     
     
-    onLogout1():void{
-    this.router.navigate(['/login'])
-    
-    }
     
     onSelectChange(event:any){
     

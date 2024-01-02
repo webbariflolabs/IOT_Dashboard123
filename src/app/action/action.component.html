@@ -1,14 +1,14 @@
 <body class="main-container">
   <mat-toolbar class="mb-0 d-flex flex-row justify-content-between fixed-top" >
-    <div class="d-flex flex-row">
-      <div class="d-flex flex-column justify-content-center" (click)="opened=!opened">
+    <div class="d-flex flex-row"> 
+      <div class="d-flex flex-column justify-content-center bar-div" (click)="opened=!opened">
         <div class="bar1"></div>
         <div class="bar2"></div>
         <div class="bar3"></div>
       </div>
       <div class="d-flex flex-row">
       
-        <button class="home-button"><h1 class="mb-0 mt-2 top-heading">Bariflo Labs</h1></button>
+     <h1 class="mb-0 mt-2 top-heading">Bariflo Labs</h1>
     </div>
     </div>
       <div class="d-flex flex-row">
@@ -28,26 +28,38 @@
       <mat-sidenav mode="side" class="side-bar" [(opened)]="opened">
         <mat-nav-list class="top-space">
         
+          <div class="lg-side">
           <mat-list-item class="mt-3 selected-tab">
             <a mat-list-item href="general-dashboard">
               <img src="./assets/img/grid.png" class="icon-sizing">
               <span class="icon-text">Dashboard</span>
             </a>
           </mat-list-item>
-      
-          <!-- <mat-list-item class="mt-3 ">
-            <a mat-list-item href="general-user-create">
-              <img src="./assets/img/diagram-3.png" class="icon-sizing">
-              <span class="icon-text">Devices</span>
-            </a>
-          </mat-list-item> -->
-      
+   
           <mat-list-item class="mt-3 ">
             <a mat-list-item href="profile-page">
               <img src="./assets/img/person.png" class="icon-sizing">
               <span class="icon-text">User Profile</span>
             </a>
           </mat-list-item>
+          </div>
+
+          <div class="sm-side">
+            <div item class="mt-3 selected-tab">
+              <a href="general-dashboard">
+                <img src="./assets/img/grid.png" class="icon-sizing">
+               
+              </a>
+            </div>
+     
+            <div class="mt-3 ">
+              <a href="profile-page">
+                <img src="./assets/img/person.png" class="icon-sizing">
+        
+              </a>
+            </div>
+            </div>
+
         </mat-nav-list>
       </mat-sidenav>
         <mat-sidenav-content>
@@ -58,7 +70,7 @@
         
             <div class="container-devicebg">
         
-                 <p class="name">Accounts</p>
+                 <p class="card-heading">Accounts</p>
         
             </div>  
         
@@ -66,7 +78,7 @@
         
             <div class="container-devicebg-name">
         
-             <p class="name">Devices</p>
+             <p class="card-heading">Devices</p>
         
             </div>
         
@@ -92,22 +104,22 @@
             </div>
               <hr>
               <mat-card-content>
-                <div class="d-flex flex-row justify-content-between">
+                <div class="d-flex flex-row justify-content-between name-style">
                   <span>Device Id </span>
                   <span class="name-style">{{device[0]}}</span>
                 </div>
                   <hr>
-                  <div class="d-flex flex-row justify-content-between">
+                  <div class="d-flex flex-row justify-content-between name-style">
                     <span>Device Name</span>
                     <span  class="name-style">{{device[1]}}</span>
                   </div>
                   <hr>
-                  <div class="d-flex flex-row justify-content-between">
+                  <div class="d-flex flex-row justify-content-between name-style">
                     <span>Device Type</span>
                     <span  class="name-style">{{device[2]}}</span>
                   </div>
                   <hr>
-                  <div class="d-flex flex-row justify-content-between">
+                  <div class="d-flex flex-row justify-content-between name-style">
                     <span>Device Version</span>
                     <span  class="name-style">{{device[3]}}</span>
                   </div>

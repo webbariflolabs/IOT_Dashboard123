@@ -27,15 +27,16 @@ filterText: string = '';
 usersAccepted:any;
 mobno:any;
 onLogout():void{
-  this.router.navigate(['/login'])
+  window.location.href = 'http://aqua.bariflorobotics.com/login'
 
 
 }
 onLogout1():void{
-  this.router.navigate(['/login'])
+  window.location.href = 'http://aqua.bariflorobotics.com/login'
 
 
 }
+
 
   ngOnInit(): void {
     this.userStoreData=localStorage.getItem('userData')

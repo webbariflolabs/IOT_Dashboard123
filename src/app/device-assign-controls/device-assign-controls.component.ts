@@ -525,18 +525,17 @@ onDialogEdit(item:any){
 
 
 
-
-  onLogout1():void{
-    this.router.navigate(['/login'])
-
-
-  }
-
   onLogout():void{
-    this.router.navigate(['/login'])
+    window.location.href = 'http://aqua.bariflorobotics.com/login'
 
 
   }
+  onLogout1():void{
+    window.location.href = 'http://aqua.bariflorobotics.com/login'
+
+
+  }
+  
   userStoreData:any;
   userNameProfile:any;
   controlsData: ItemType[] = [];

@@ -16,9 +16,10 @@ export class UserAcceptTwoComponent {
 
   constructor(@Inject (MAT_DIALOG_DATA) public data:any,private dialog: MatDialog,private auth:AuthenticationService, private dialogRef:MatDialogRef<UserAcceptTwoComponent>,private dataSharingService:DataSharingService){
   this.registerDetails= this.dataSharingService.getRegisterDetails();
-  const jsonInput = this.registerDetails[5];
-  const convJson = jsonInput.replace(/'/g,'"');
-  this.deviceDetails = JSON.parse(convJson);
+  const jsonInput = this.registerDetails[3].devicesList;
+  // const convJson = jsonInput.replace(/'/g,'"');
+  // this.deviceDetails = JSON.parse(jsonInput);
+  this.deviceDetails = jsonInput;
   console.log(this.deviceDetails)
 
   }
