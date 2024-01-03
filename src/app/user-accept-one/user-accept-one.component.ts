@@ -26,7 +26,7 @@ export class UserAcceptOneComponent {
 
  async onAccounts(){
 
-    const accountDetails={accountname:this.registerDetails[3],usermobno:this.registerDetails[1]}
+    const accountDetails={accountname:this.registerDetails[3].accountname,usermobno:this.registerDetails[1]}
     await this.auth.onSendAccountDetails(accountDetails).subscribe(response=>
      { console.log(response)
         this.accountId = response.accountid;
