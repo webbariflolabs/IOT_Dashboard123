@@ -46,6 +46,7 @@ export class LoginPasswordComponent implements OnInit {
  
   }
   ngOnInit(): void {
+    
    const checkInput= (this.dataSharingService.getLogMob())
  
   
@@ -154,7 +155,7 @@ export class LoginPasswordComponent implements OnInit {
                                 localStorage.setItem('logMob',JSON.stringify(response.mobno))
                                 this.router.navigate(['./super-dashboard'])
                                 this.errorMsg = false;
-                                
+
                                 const userName = "Mrithyunjay Sahu"
                                 const UserDataSet = {userName}
                                 localStorage.setItem('userData',JSON.stringify(UserDataSet))
@@ -163,6 +164,7 @@ export class LoginPasswordComponent implements OnInit {
 
                               else if (response.message === "Login Successfull For 3D Admin" || response.message === "Login Successfull For waterbody Admin" || response.message === "Login Successfull For aqua Admin"){
                                 localStorage.setItem('logMob',JSON.stringify(response.mobno))
+                    
                                 this.dataSharingService.loginSetMob(response.mobno)
                                 console.log(response);
                                 this.router.navigate(['./users-check'])
@@ -176,6 +178,7 @@ export class LoginPasswordComponent implements OnInit {
                               
                              {
                                 localStorage.setItem('logMob',JSON.stringify(response.mobno))
+                              
                                 this.router.navigate(['./general-dashboard'])
                                 this.errorMsg = false;
                                 this.dataSharingService.setData(response.mobno)

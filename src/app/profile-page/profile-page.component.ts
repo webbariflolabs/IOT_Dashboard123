@@ -16,11 +16,11 @@ export class ProfilePageComponent implements OnInit{
   onLogout():void{
     window.location.href = 'http://aqua.bariflorobotics.com/login'
 
-
+    localStorage.removeItem('token')
   }
   onLogout1():void{
     window.location.href = 'http://aqua.bariflorobotics.com/login'
-
+    localStorage.removeItem('token')
 
   }
   

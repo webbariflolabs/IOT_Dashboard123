@@ -423,7 +423,7 @@ updateChart() {
 
 
   onBackStats():void{
-    this.router.navigate(['./user-account-devices'])
+    this.router.navigate(['./action'])
     }
     
   
@@ -432,13 +432,13 @@ updateChart() {
     
     onLogout():void{
       window.location.href = 'http://aqua.bariflorobotics.com/login'
-  
+      localStorage.removeItem('token')
   
     }
     onLogout1():void{
       window.location.href = 'http://aqua.bariflorobotics.com/login'
   
-  
+      localStorage.removeItem('token')
     }
     
     onSelectChange(event:any){

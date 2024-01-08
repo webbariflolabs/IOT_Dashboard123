@@ -264,6 +264,12 @@ tokenCheck(token:any){
   return this.http.post<any>('http://4.188.244.11/token_verification/',token)
 
 }
+loggedIn(){
+  const token=localStorage.getItem('token')
+  console.log(`jwt token `+!!token)
+  return !!token;
+}
+
 
 
 }

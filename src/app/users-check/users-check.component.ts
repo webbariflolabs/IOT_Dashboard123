@@ -54,12 +54,12 @@ export class UsersCheckComponent implements OnInit {
   
   onLogout():void{
     window.location.href = 'http://aqua.bariflorobotics.com/login'
-
+    localStorage.removeItem('token')
 
   }
   onLogout1():void{
     window.location.href = 'http://aqua.bariflorobotics.com/login'
-
+    localStorage.removeItem('token')
 
   }
   
@@ -168,16 +168,15 @@ userData:any =[]
 userStoreData:any;
 userNameProfile:any;
 
-
+imageElement:any;
 
  ngOnInit(): void {
  
 this.userStoreData=localStorage.getItem('userData')
 const userDataObject = JSON.parse(this.userStoreData);
 this.userNameProfile=userDataObject.userName
+this.imageElement=userDataObject.img
  const adminMob =localStorage.getItem('logMob');
-
-
   this.auth.onUserVerificationView(adminMob).subscribe((response)=>{this.userData = response
   console.log(this.userData)
   this.requestedCount = this.userData.items.length;

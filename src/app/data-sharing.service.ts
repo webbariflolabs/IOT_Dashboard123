@@ -21,6 +21,8 @@ export class DataSharingService {
  private userMobno:any;
   private superViewAdmin:any;
 
+  private jwtToken:any;
+
 private onOTP:any;
   constructor() { }
 
@@ -265,6 +267,8 @@ addId=2
   }
 
 
-
+setToken(){
+  
+}
 
 }

@@ -134,6 +134,7 @@ import { NgxLiveComponent } from './ngx-live/ngx-live.component';
 import { AdminDeleteComponent } from './admin-delete/admin-delete.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TokenVerifyComponent } from './token-verify/token-verify.component';
+import { AuthGuard } from './auth.guard';
 
 
 @NgModule({
@@ -271,7 +272,7 @@ import { TokenVerifyComponent } from './token-verify/token-verify.component';
     LoadingBarRouterModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

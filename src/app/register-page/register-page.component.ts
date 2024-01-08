@@ -103,7 +103,7 @@ export class RegisterPageComponent {
    
 
     this.pondsCount++;
-  }
+  } 
 
   pondsDec(){
     if (this.pondsCount>1){

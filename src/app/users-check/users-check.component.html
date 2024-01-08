@@ -121,7 +121,7 @@
             <!-- *ngIf="item[2] === 'admin'" -->
             <!-- *ngFor="let item of getCurrentPageData(); let i = index" -->
        
-                                         
+            <!-- <img [src]="imageElement" class="justify-content-center align-items-center mx-2" style="width: 35px; height: 40px;">                  -->
             <ng-container *ngIf="getCurrentPageData() && getCurrentPageData().length > 0; else noDataMessage" > 
                 <tr *ngFor="let item of getCurrentPageData(); let i = index" >
                   <td class="name-style">

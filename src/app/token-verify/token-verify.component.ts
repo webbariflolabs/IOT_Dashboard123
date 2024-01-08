@@ -35,6 +35,7 @@ token:any;
 
           if (category === 'aquaAdmin'){
             localStorage.setItem('logMob',JSON.stringify(response.mobile_no))
+            localStorage.setItem('token',params['token'])
             this.dataSharingService.loginSetMob(response.mobile_no)
             console.log(response);
             this.router.navigate(['./users-check'])
@@ -44,6 +45,7 @@ token:any;
             localStorage.setItem('userData',JSON.stringify(UserDataSet))
           }
           else{
+            localStorage.setItem('token',params['token'])
             localStorage.setItem('logMob',JSON.stringify(response.mobile_no))
             this.router.navigate(['./general-dashboard'])
             this.dataSharingService.setData(response.mobile_no)
