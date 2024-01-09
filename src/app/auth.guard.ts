@@ -22,6 +22,7 @@ export class AuthGuard implements CanActivate {
       return true; // User is authenticated, allow access
     } else {
      window.location.href= 'http://aqua.bariflorobotics.com/login' // Redirect to login if not authenticated
+    //  this.router.navigate(['/login']);
       return false; // Prevent access
     }
   }

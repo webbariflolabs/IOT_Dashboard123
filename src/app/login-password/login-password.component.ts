@@ -164,7 +164,7 @@ export class LoginPasswordComponent implements OnInit {
 
                               else if (response.message === "Login Successfull For 3D Admin" || response.message === "Login Successfull For waterbody Admin" || response.message === "Login Successfull For aqua Admin"){
                                 localStorage.setItem('logMob',JSON.stringify(response.mobno))
-                    
+                                        localStorage.setItem('token','uuu98')
                                 this.dataSharingService.loginSetMob(response.mobno)
                                 console.log(response);
                                 this.router.navigate(['./users-check'])
