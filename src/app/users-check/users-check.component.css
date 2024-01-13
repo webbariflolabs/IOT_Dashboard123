@@ -529,3 +529,90 @@ justify-content: center;
 .table-head-color{
   background-color: #80BBF1;
 }
+
+.header{
+  background-color: #80BBF1;
+  text-align: center;
+  color: white;
+}
+
+.cell{
+  text-align: center;
+}
+
+
+.photo-upload{
+width: 222px;
+height: 225px;
+
+border-radius: 5px;
+border-width: 0px;
+background-color: #FFFEDA;
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+
+.photo-details{
+margin-right: 50px;
+
+}
+
+.create-button{
+width: 122px;
+height: 46px;
+
+border-radius: 33px;
+background-color: #0040BB;
+color:white;
+margin-bottom: 70px;
+margin-left: 50px;
+}
+
+
+
+.inner-image{
+width: 112px;
+height: 114px;
+border-radius: 60px;
+border-width: 1px;
+background-color: white;
+border-color: #818283;
+border-style: solid;
+
+}
+
+.profile-pic{
+width: 75px;
+height: 88px;
+margin-left:18px;
+margin-top:15px;
+border-radius: 18px;
+}
+
+.upload-button{
+height: 35px;
+margin-top: 20px;
+border-radius: 16px;
+background-color: #2F88FF;
+width: 120px;
+}
+
+.image-buttons{
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+#fileInput{
+  background-color: chartreuse;
+}
+
+
+.ocr-center{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

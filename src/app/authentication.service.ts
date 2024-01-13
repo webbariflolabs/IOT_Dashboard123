@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { UrlSegment } from '@angular/router';
 
 
@@ -262,7 +262,6 @@ demoLogin(userDetails:any){
 tokenCheck(token:any){
   console.log(token);
   return this.http.post<any>('http://4.188.244.11/token_verification/',token)
-
 }
 loggedIn(){
   const token=localStorage.getItem('token')
@@ -270,6 +269,20 @@ loggedIn(){
   return !!token;
 }
 
+
+
+onOcrUpload(imageData:any){
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/octet-stream',
+    'Ocp-Apim-Subscription-Key': '99c2e5e9b6304233943114b1b462e7de'
+  });
+
+  console.log(imageData)
+  return this.http.post<any>('https://eastasia.api.cognitive.microsoft.com/vision/v2.1/ocr?detectOrientation=true', imageData, {headers})
+
+}
+
+​
 
 
 }

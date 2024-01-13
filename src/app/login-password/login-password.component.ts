@@ -178,6 +178,7 @@ export class LoginPasswordComponent implements OnInit {
                               
                              {
                                 localStorage.setItem('logMob',JSON.stringify(response.mobno))
+                                localStorage.setItem('token','uuu98')
                               
                                 this.router.navigate(['./general-dashboard'])
                                 this.errorMsg = false;

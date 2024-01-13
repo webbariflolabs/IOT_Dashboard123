@@ -135,6 +135,7 @@ import { AdminDeleteComponent } from './admin-delete/admin-delete.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TokenVerifyComponent } from './token-verify/token-verify.component';
 import { AuthGuard } from './auth.guard';
+import { OcrCodeComponent } from './ocr-code/ocr-code.component';
 
 
 @NgModule({
@@ -224,6 +225,7 @@ import { AuthGuard } from './auth.guard';
     NgxLiveComponent,
     AdminDeleteComponent,
     TokenVerifyComponent,
+    OcrCodeComponent,
 
     // DashboardComponent,
    

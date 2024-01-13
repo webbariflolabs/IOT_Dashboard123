@@ -57,6 +57,7 @@ import { DemoLoginComponent } from './demo-login/demo-login.component';
 import { NgxLiveComponent } from './ngx-live/ngx-live.component';
 import { TokenVerifyComponent } from './token-verify/token-verify.component';
 import { AuthGuard } from './auth.guard';
+import { OcrCodeComponent } from './ocr-code/ocr-code.component';
 
 
 const routes: Routes = [
@@ -107,9 +108,9 @@ const routes: Routes = [
   {path:'profile-page', component: ProfilePageComponent, canActivate:[AuthGuard]},
   {path:'users-check', component:UsersCheckComponent, canActivate:[AuthGuard]},
   {path:'super-admin', component:SuperAdminComponent, canActivate:[AuthGuard]},
-  {path: 'forgot-password', component: ForgotPasswordComponent, canActivate:[AuthGuard]},
+  {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'login-password', component: LoginPasswordComponent},
-  {path: 'forgot-check', component:ForgotCheckComponent, canActivate:[AuthGuard]},
+  {path: 'forgot-check', component:ForgotCheckComponent},
   {path: 'super-dashboard',component:SuperDashboardComponent, canActivate:[AuthGuard]},
   {path:'super-parameter', component:SuperParameterComponent, canActivate:[AuthGuard]},
   {path:'general-user-create', component:GeneralUserCreateComponent, canActivate:[AuthGuard]},
@@ -120,8 +121,8 @@ const routes: Routes = [
   {path:'register-two', component:RegisterTwoComponent, canActivate:[AuthGuard]},
   {path:'register-three', component:RegisterThreeComponent, canActivate:[AuthGuard]},
   {path:'register-four', component:RegisterFourComponent, canActivate:[AuthGuard]},
-  {path:'forgot-email',component:ForgotEmailComponent, canActivate:[AuthGuard]},
-  {path:'forgot-email-check', component:ForgotEmailCheckComponent, canActivate:[AuthGuard]},
+  {path:'forgot-email',component:ForgotEmailComponent},
+  {path:'forgot-email-check', component:ForgotEmailCheckComponent},
   {path:'admin-device-stats', component:AdminDeviceStatsComponent, canActivate:[AuthGuard]},
   {path:'password-success', component:PasswordSuccessComponent, canActivate:[AuthGuard]},
   {path:'device-graph-stat', component: DeviceGraphStatComponent, canActivate:[AuthGuard]},
@@ -133,7 +134,8 @@ const routes: Routes = [
   {path:'ngx-dynamic', component:NgxDynamicComponent, canActivate:[AuthGuard]},
   {path:'demo-login', component:DemoLoginComponent, canActivate:[AuthGuard]},
   {path:'ngx-live', component:NgxLiveComponent, canActivate:[AuthGuard]},
-  {path:'verify-token',component:TokenVerifyComponent, pathMatch:'full'}
+  {path:'verify-token',component:TokenVerifyComponent, pathMatch:'full'},
+  {path:'ocr-code', component:OcrCodeComponent}
 
 ]
 @NgModule({

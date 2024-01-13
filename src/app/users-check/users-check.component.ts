@@ -13,6 +13,7 @@ import { NoviewAccountComponent } from '../noview-account/noview-account.compone
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UsersVerifyComponent } from '../users-verify/users-verify.component';
 import { UserAcceptComponent } from '../user-accept/user-accept.component';
+import { FileService } from '../file.service';
 
 
 @Component({
@@ -20,6 +21,12 @@ import { UserAcceptComponent } from '../user-accept/user-accept.component';
   templateUrl: './users-check.component.html',
   styleUrls: ['./users-check.component.css']
 })
+
+
+
+
+
+
 export class UsersCheckComponent implements OnInit {
   events: string[] = [];
   opened: boolean = true;
@@ -28,10 +35,81 @@ export class UsersCheckComponent implements OnInit {
  currentPage: number = 1; // Current page
  totalPages: number = 1; // Total number of pages
 
+ 
+ resultData: any;
+ selectedImage: string | ArrayBuffer | null = './assets/img/OIP.jpg';
+ constructor(public dialog: MatDialog,private  ocrService:FileService,  private router: Router, private auth: AuthenticationService, private dataSharingService: DataSharingService) {
+  // this.loginform-this.formBuilder.group
+}
+file:any;
+ handleFileSelect(event: any): void {
+   
+   this.file = event.target.files[0];
+   if (this.file) {
+     this.ocrService.processImage(this.file).subscribe(
+       (data) => {
+         this.resultData = data;
+         console.log(this.resultData)
+         this.listOfParamVal =[];
+         this.transponseList=[];
+         this.extractData(data);
+       },
+       (error) => {
+         console.error('Error:', error);
+         this.resultData = { error: 'Failed to process image.' };
+       }
+     );
+   }
+ }
 
-  constructor(public dialog: MatDialog, private router: Router, private auth: AuthenticationService, private dataSharingService: DataSharingService) {
-    // this.loginform-this.formBuilder.group
-  }
+
+
+
+ processImage(event:any): void {
+   event.preventDefault()
+   
+  
+ }
+
+ 
+transposeArray(array: any[][]): any[][] {
+ return array[0].map((_, colIndex) => array.map(row => row[colIndex]));
+}
+ listOfParamVal: string[][] = [];
+
+ transponseList:any;
+ extractData(resultData: any): void {
+   const pData = resultData["regions"];
+
+   for (const each of pData) {
+       const list: string[] = [];
+
+       for (const eachLine of each["lines"]) {
+           const wordArr = eachLine["words"];
+           let word = "";
+
+           for (const t of wordArr) {
+               word += t["text"];
+           }
+
+           list.push(word);
+       }
+
+       this.listOfParamVal.push(list);
+   }
+
+   
+   console.log('listOfParamVal',this.listOfParamVal);
+
+   this.transponseList = this.transposeArray(this.listOfParamVal)
+
+   console.log('transponse',this.transponseList);
+
+
+}
+
+
+  
 
   requestedCount:any;
 
