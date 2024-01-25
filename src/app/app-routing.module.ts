@@ -69,6 +69,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'dashboard',component:DashboardComponent, canActivate:[AuthGuard]
 },
+{path:'verify-token', component:TokenVerifyComponent},
   {
     path: 'dashboard-dialog',
     loadChildren: () => import('./dashboard/dashboard-dialog.module').then(m => m.DashboardDialogModule),
