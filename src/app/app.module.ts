@@ -137,6 +137,10 @@ import { TokenVerifyComponent } from './token-verify/token-verify.component';
 import { AuthGuard } from './auth.guard';
 import { OcrCodeComponent } from './ocr-code/ocr-code.component';
 
+import { ThermalComponent } from './thermal/thermal.component';
+import { WaterPageComponent } from './water-page/water-page.component';
+import { WaterGraphComponent } from './water-graph/water-graph.component';
+
 
 @NgModule({
   declarations: [
@@ -226,6 +230,10 @@ import { OcrCodeComponent } from './ocr-code/ocr-code.component';
     AdminDeleteComponent,
     TokenVerifyComponent,
     OcrCodeComponent,
+
+    ThermalComponent,
+     WaterPageComponent,
+     WaterGraphComponent,
 
     // DashboardComponent,
    

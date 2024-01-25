@@ -58,6 +58,10 @@ import { NgxLiveComponent } from './ngx-live/ngx-live.component';
 import { TokenVerifyComponent } from './token-verify/token-verify.component';
 import { AuthGuard } from './auth.guard';
 import { OcrCodeComponent } from './ocr-code/ocr-code.component';
+import { ThermalComponent } from './thermal/thermal.component';
+import { WaterPageComponent } from './water-page/water-page.component';
+import { WaterGraphComponent } from './water-graph/water-graph.component';
+
 
 
 const routes: Routes = [
@@ -134,8 +138,11 @@ const routes: Routes = [
   {path:'ngx-dynamic', component:NgxDynamicComponent, canActivate:[AuthGuard]},
   {path:'demo-login', component:DemoLoginComponent, canActivate:[AuthGuard]},
   {path:'ngx-live', component:NgxLiveComponent, canActivate:[AuthGuard]},
-  {path:'verify-token',component:TokenVerifyComponent, pathMatch:'full'},
-  {path:'ocr-code', component:OcrCodeComponent}
+    
+  {path:'ocr-code', component:OcrCodeComponent,canActivate:[AuthGuard]},
+{path:'thermal', component:ThermalComponent},
+{path:'water-page', component:WaterPageComponent},
+{path:'water-graph', component:WaterGraphComponent}
 
 ]
 @NgModule({

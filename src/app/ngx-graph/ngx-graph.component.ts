@@ -158,7 +158,7 @@ export class NgxGraphComponent implements OnInit, OnDestroy {
      
       }
       
-          console.log('Updated Sensor Data:', this.sensorDataIn);
+          // console.log('Updated Sensor Data:', this.sensorDataIn);
           
           this.mqttDataService.updateSensorData(this.sensorDataIn);
         

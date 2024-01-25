@@ -15,6 +15,8 @@ export class AuthenticationService {
     return this.http.post<any>('http://4.188.244.11/login/', body); 
   }
 
+  // 20.244.51.20
+
   onSubmitAddUser(userDetails:any){
     console.log(userDetails);
     return this.http.post<any>('http://4.188.244.11/user/',userDetails)
@@ -271,18 +273,21 @@ loggedIn(){
 
 
 
-onOcrUpload(imageData:any){
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/octet-stream',
-    'Ocp-Apim-Subscription-Key': '99c2e5e9b6304233943114b1b462e7de'
-  });
 
-  console.log(imageData)
-  return this.http.post<any>('https://eastasia.api.cognitive.microsoft.com/vision/v2.1/ocr?detectOrientation=true', imageData, {headers})
 
+
+
+onThermalImage(imageDetails:any){
+  console.log(imageDetails);
+  return this.http.get<any>(`http://`);
 }
 
-​
+
+
+onOcrImage(imageData:any){
+  console.log(imageData)
+return this.http.post<any>('http://20.244.51.20/ocr/', imageData)
+}
 
 
 }

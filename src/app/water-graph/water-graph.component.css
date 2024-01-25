@@ -29,6 +29,7 @@ body{
 
 .top-heading{
     font-size: 30px;
+
   }
 
   .name-icon{
@@ -255,7 +256,7 @@ body{
 
 
 .side-bar{
-  background-color:#AFDAFA;
+  background-color:#80BBF1;
   
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -286,12 +287,6 @@ min-width: 100%;
 
 
 }
-
-.table-design{
-  border-top-left-radius: 20px ;
-  border-top-right-radius: 20px;
-
-}
 .side-bar{
     background-color:#80BBF1;
     position: fixed;
@@ -307,6 +302,14 @@ min-width: 100%;
     margin-top: 10px;
   }
 
+  .heading-name{
+    font-size: 5px;
+    font-weight: bold;
+  }
+
+  .chart-container{
+    width:95%;
+  }
 
   .nav-space{
     margin-top: 70px;
@@ -318,157 +321,215 @@ min-width: 100%;
     border-radius: 10px;
   }
 
-  .header{
-    background-color: #80BBF1;
-    text-align: center;
-    color: white;
+  .time-button{
+    background-color: rgb(60, 165, 60);
+    border-radius: 6px;
+    border-width: 0px;
   }
 
-  .cell{
-    text-align: center;
+  .back-button{
+    background-color: rgb(236, 94, 94);
+    border-radius: 6px;
+    border-width: 0px;
+  }
+  .sm-side{
+    display: none;
+  
+   
+  }
+  .lg-side{
+    display: block;
   }
 
-  
-.photo-upload{
-  width: 222px;
-  height: 225px;
-  
-  border-radius: 5px;
-  border-width: 0px;
-  background-color: #FFFEDA;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  }
-  
-  .photo-details{
-  margin-right: 50px;
-  
-  }
-  
-  .create-button{
-  width: 122px;
-  height: 46px;
-  
-  border-radius: 33px;
-  background-color: #0040BB;
-  color:white;
-  margin-bottom: 70px;
-  margin-left: 50px;
-  }
+  @media only screen and (max-width: 768px) {
 
 
+    .bar1, .bar2, .bar3 {
+      max-width: 10px;
+      max-height: 1px;
+      background-color: #9a9c9c;
+      margin: 2px 0;
+      transition: 0.4s;
+      
+    }
   
-  .inner-image{
-  width: 112px;
-  height: 114px;
-  border-radius: 60px;
-  border-width: 1px;
-  background-color: white;
-  border-color: #818283;
-  border-style: solid;
+    .bar-div{
+      margin-right: 5px;
+      margin-top: 5px;
+    }
+    .top-heading{
+      font-size: 20px;
+      margin-top: 0px;
+    
+    }
   
+    .side-bar{
+      width: 55px;
+    }
+  
+    .selected-tab {
+      background-color: white;
+      border-radius: 40px;
+      text-align: center;
+      }
+      .icon-sizing{
+        max-width: 16px;
+      max-height: 16px;
+        margin-bottom: 2px;
+      }
+      
+      .icon-text{
+        font-size: 10px;
+        margin-left:2px;
+        margin-top: 2px;
+      
+      }
+      .sm-side{
+        display: block;
+      
+       
+      }
+      .lg-side{
+        display: none;
+      }
+      .designation-style{
+        font-size: 13px;
+       
+      }
+  
+      
+  .table-margin{
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 30px;
   }
   
-  .profile-pic{
-  width: 75px;
-  height: 88px;
-  margin-left:18px;
-  margin-top:15px;
-  border-radius: 18px;
-  }
-  
-  .upload-button{
-  height: 35px;
-  margin-top: 20px;
-  border-radius: 16px;
-  background-color: #2F88FF;
-  width: 120px;
-  }
-
-  .image-buttons{
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
-  }
-
-  #fileInput{
-    background-color: chartreuse;
-  }
-
-
-  .ocr-center{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .user-designation{
-    background-color: #80BBF1;
-    text-align: center;
-    border-radius: 16px;
-  
-  }
-  
-  .designation-style{
-    font-size: 23px;
-    font-weight: bold;
-    font-style: italic;
+  .new-button{
+    width: 60px;
+    height: 20px;
     color:white;
+    border-radius: 5px;
+    border-width: 0px;
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+    font-size: 10px;
+  
+  }
+  
+  .square {
+    color: rgb(255, 63, 127);
+    font-size: 8px;
+  }
+  
+  .square-on,
+  .off-button:active .square-on {
+    color: rgb(11, 102, 52);
+    font-size: 8px;
+  }
+  
+  
+  
+  
+  .on-off{
+    font-size: 9px;
+    margin-left:2px;
+  }
+  
+  .name-style{
+    font-size: 10px;
+  
+  }
+  
+  
+  
+  
+  .edit-button{
+    width: 40px;
+  height: 20px;
+  color:white;
+  border-radius: 6px;
+  font-size: 9px;
+  display: flex;
+  padding-top: 2px;
+  justify-content: center;
+  margin-bottom: 2px;
+  }
+  .edit{
+    color: black;
+  }
+  .account{
+    width: 45px;
+  }
+  
+  
+  .device-head{
+  
+    font-size: 15px;
+  }
+  
+  .button-controls{
+  
+    background-color:#2F88FF ;
+  
+    border:none;
+  
+    color: #ffffff;
+  
+    width: 60px;
+    height: 20px;
+   
+    border-radius: 5px;
+    border-width: 0px;
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+    font-size: 10px;
+  
+  }
+  
+  
+  
+  .button-stats{
+  
+    background-color:#08B70F;
+  
+    border:none;
+  
+    color: #ffffff;
+  
+    width: 40px;
+    height: 20px;
+   
+    border-radius: 5px;
+    border-width: 0px;
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+    font-size: 10px;
+  
+  
+  
+  
+  
+  }
+  
+  .buttons-arrange{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .top-buttons{
+    display: flex;
+
   }
 
+  .time-button{
+    font-size: 12px;
+  }
+
+  .back-button{
+    font-size: 12px;
+  }
   
-
-.waterbody{
-
-  font-weight: 500;
-
-  margin-bottom:0;
-  font-size: 26px;
-  
-
-
-}
-
-
-
-.container-body{
-
-  display:flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  margin-bottom: 5px;
-
-  margin-left:5px;
-
-
-
-}
-
-
-
-.horzontal-line{
-
-  min-width: 1400px;    
- 
-  margin: 0 auto; /* Center the line horizontally on the page */
- 
- border: 1px solid #000000;
- 
- }
-
-
-.container-under-water{
-
-  display:flex;
-
-  flex-direction: column;
-
-  margin-left:5px;
-
-}
+    }

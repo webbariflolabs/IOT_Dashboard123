@@ -14,35 +14,59 @@ export class OcrCodeComponent implements OnInit{
   userStoreData:any;
   userNameProfile:any;
   selectedImage: string | ArrayBuffer | null = './assets/img/OIP.jpg';
-  constructor(private ocrService: FileService) {}
-file:any;
-  handleFileSelect(event: any): void {
-    
-    this.file = event.target.files[0];
-    if (this.file) {
-      this.ocrService.processImage(this.file).subscribe(
-        (data) => {
-          this.resultData = data;
-          console.log(this.resultData)
-          this.listOfParamVal =[];
-          this.transponseList=[];
-          this.extractData(data);
-        },
-        (error) => {
-          console.error('Error:', error);
-          this.resultData = { error: 'Failed to process image.' };
-        }
-      );
-    }
-  }
-
+  constructor(private ocrService: FileService, private auth:AuthenticationService) {}
+  file:any;
+  translateData:any;
+  adminMob:any;
 ngOnInit(): void {
   this.userStoreData=localStorage.getItem('userData')
   const userDataObject = JSON.parse(this.userStoreData);
   this.userNameProfile=userDataObject.userName
 }
+
+handleFileSelect(event:any){
+  const file: File = event.target.files[0];
+  const formData = new FormData();
+    formData.append('image', file);
+    this.adminMob =localStorage.getItem('logMob');
+
+    formData.append('mobno',this.adminMob )
+
+    // const ocrDetails = {mobno:parseInt(this.adminMob), image:formData}
+
+    
+    this.auth.onOcrImage(formData).subscribe((response)=>{
+      console.log(response);
+      this.translateData=[];
+      this.translateData = response.message;
+    }, error=>{
+      console.log(error)
+    })
+  
+}
  
- 
+
+// handleFileSelect(event: any): void {
+    
+//   this.file = event.target.files[0];
+//   if (this.file) {
+//     this.ocrService.processImage(this.file).subscribe(
+//       (data) => {
+//         this.resultData = data;
+//         console.log(this.resultData)
+//         this.listOfParamVal =[];
+//         this.transponseList=[];
+//         this.extractData(data);
+//       },
+//       (error) => {
+//         console.error('Error:', error);
+//         this.resultData = { error: 'Failed to process image.' };
+//       }
+//     );
+//   }
+// }
+
+
   processImage(event:any): void {
     event.preventDefault()
     
@@ -50,41 +74,41 @@ ngOnInit(): void {
   }
 
   
- transposeArray(array: any[][]): any[][] {
-  return array[0].map((_, colIndex) => array.map(row => row[colIndex]));
-}
-  listOfParamVal: string[][] = [];
+//  transposeArray(array: any[][]): any[][] {
+//   return array[0].map((_, colIndex) => array.map(row => row[colIndex]));
+// }
+//   listOfParamVal: string[][] = [];
 
-  transponseList:any;
-  extractData(resultData: any): void {
-    const pData = resultData["regions"];
+//   transponseList:any;
+//   extractData(resultData: any): void {
+//     const pData = resultData["regions"];
 
-    for (const each of pData) {
-        const list: string[] = [];
+//     for (const each of pData) {
+//         const list: string[] = [];
 
-        for (const eachLine of each["lines"]) {
-            const wordArr = eachLine["words"];
-            let word = "";
+//         for (const eachLine of each["lines"]) {
+//             const wordArr = eachLine["words"];
+//             let word = "";
 
-            for (const t of wordArr) {
-                word += t["text"];
-            }
+//             for (const t of wordArr) {
+//                 word += t["text"];
+//             }
 
-            list.push(word);
-        }
+//             list.push(word);
+//         }
 
-        this.listOfParamVal.push(list);
-    }
+//         this.listOfParamVal.push(list);
+//     }
 
     
-    console.log('listOfParamVal',this.listOfParamVal);
+//     console.log('listOfParamVal',this.listOfParamVal);
 
-    this.transponseList = this.transposeArray(this.listOfParamVal)
+//     this.transponseList = this.transposeArray(this.listOfParamVal)
 
-    console.log('transponse',this.transponseList);
+//     console.log('transponse',this.transponseList);
 
  
-}
+// }
 
 
 onLogout():void{
