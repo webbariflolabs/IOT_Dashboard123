@@ -131,6 +131,8 @@
   color: black;
  
 }
+
+
  
 .bg-container-content{
   display:flex;
@@ -146,7 +148,7 @@
   background-color: white;
   box-shadow: 0px 4px 4px 0px #00000040;
   border-radius: 10px;
-  z-index: -1;
+  /* z-index: -1; */
  
 }
  
@@ -181,6 +183,9 @@
    margin:5px;
  
  
+}
+.bg-maps{
+  z-index: 1;
 }
  
 .heading-live-weather{
@@ -323,8 +328,7 @@
 
 .custom-dropdown-menu {
   width: 250px; /* Adjust the width as needed */
-  z-index: 1;
-}
+} 
 
 .title{
   font-weight: bold;
