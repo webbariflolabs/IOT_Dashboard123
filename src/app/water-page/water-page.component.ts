@@ -487,7 +487,7 @@ isToggleOn:boolean=false;
                     y: {
                       title: {
                         display: true,
-                        text: 'rpm',
+                        text: name,
                         color: 'red',
                       },
                     },

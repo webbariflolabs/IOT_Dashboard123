@@ -5,6 +5,8 @@ import { MAT_DIALOG_DATA , MatDialog} from '@angular/material/dialog';
 import { AuthenticationService } from '../authentication.service';
 import { DataSharingService } from '../data-sharing.service';
 import { UserAcceptTwoComponent } from '../user-accept-two/user-accept-two.component';
+import { NoviewAccountComponent } from '../noview-account/noview-account.component';
+import { NoviewDeleteComponent } from '../noview-delete/noview-delete.component';
  
 @Component({
   selector: 'app-useraccept-create-pond',
@@ -107,6 +109,14 @@ export class UseracceptCreatePondComponent {
  
         console.log(response)
         this.accountId = response.accountid
+
+        if (response.message ==='Account created'){
+          const dialogRef = this.dialog.open(NoviewDeleteComponent, {
+                width: '350px'
+                
+              });
+         
+        }
     })
   }
  
