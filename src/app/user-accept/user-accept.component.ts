@@ -4,6 +4,7 @@ import { UserAcceptOneComponent } from '../user-accept-one/user-accept-one.compo
 import { AuthenticationService } from '../authentication.service';
 import { DataSharingService } from '../data-sharing.service';
 import { baseColors } from 'ng2-charts';
+import { UseracceptCreatePondComponent } from '../useraccept-create-pond/useraccept-create-pond.component';
 
 
 @Component({
@@ -30,8 +31,9 @@ export class UserAcceptComponent {
     (error:any)=> console.log(error)
   })
 
-    const dialogbox = this.dialog.open(UserAcceptOneComponent,{
-      width:'500px',
+    const dialogbox = this.dialog.open(UseracceptCreatePondComponent,{
+      width:'700px',
+      height:'800px',
     })
     this.dialogRef.close();
 

@@ -61,6 +61,8 @@ import { OcrCodeComponent } from './ocr-code/ocr-code.component';
 import { ThermalComponent } from './thermal/thermal.component';
 import { WaterPageComponent } from './water-page/water-page.component';
 import { WaterGraphComponent } from './water-graph/water-graph.component';
+import { AdminOcrComponent } from './admin-ocr/admin-ocr.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 
 
@@ -143,7 +145,9 @@ const routes: Routes = [
   {path:'ocr-code', component:OcrCodeComponent,canActivate:[AuthGuard]},
 {path:'thermal', component:ThermalComponent},
 {path:'water-page', component:WaterPageComponent},
-{path:'water-graph', component:WaterGraphComponent}
+{path:'water-graph', component:WaterGraphComponent},
+{path:'admin-ocr', component:AdminOcrComponent},
+{path:'nav', component:NavBarComponent}
 
 ]
 @NgModule({

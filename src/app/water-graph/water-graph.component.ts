@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { DataSharingService } from '../data-sharing.service';
 
-
+type InputObject = { [key: number]: string[] };
 @Component({
   selector: 'app-water-graph',
   templateUrl: './water-graph.component.html',
@@ -47,7 +47,10 @@ export class WaterGraphComponent implements OnInit, OnDestroy {
   charts: Chart[] = [];
   chartsInitialized = false;
 
+  graphHeadings:any; //[ph,orp,do]
+  sensorHeadings:any; //{ph:['ph12', 'ph13'],do:[]}
 
+  dataSetNames:any;
   constructor(private mqttServiceWrapper: MqttServiceWrapper, private el: ElementRef,private renderer: Renderer2,
     private mqttDataService: MqttDataService,public dialog: MatDialog,
     private router: Router, private auth : AuthenticationService, private dataSharingService:DataSharingService) {}
@@ -58,28 +61,43 @@ export class WaterGraphComponent implements OnInit, OnDestroy {
     const userDataObject = JSON.parse(this.userStoreData);
     this.userNameProfile=userDataObject.userName
    
-    this.graphDetails = localStorage.getItem('deviceType');
+    const savedmob =localStorage.getItem('logMob')
 
-    if (this.graphDetails){
-      const graphOptions = JSON.parse(this.graphDetails);
-      try{
-        this.deviceId = graphOptions[0]
-        const response = await this.auth.onAssignedControlsView(graphOptions[2], graphOptions[3]).toPromise()
-        this.controlDetails = response;
-        console.log(response);
-      this.filteredControls = this.controlDetails.filter((item:any)=> 'graph' in item );
-      }
-      catch(error){
-        console.log(error)
-      }
-    }
-    console.log('graph',this.filteredControls)
+    
+    try {
+  const response = await this.auth.onLoginGeneralDashboard(savedmob).toPromise();
+  
+  if (response) {
+    console.log(response);
+    const sensorsData= response;
+    const allValues = Object.values(sensorsData);
+    const flattened = allValues.reduce((acc, arr) => acc.concat(arr), []);
+    const uniqueElements = Array.from(new Set(flattened));
+    this.deviceIdList = Object.keys(sensorsData);
+    console.log('list', this.deviceIdList);
+    this.sensorHeadings = this.transformObject(sensorsData);
+    this.graphHeadings = uniqueElements;
+  } else {
+    console.error("Response is undefined");
+  }
+
+} catch (error) {
+  console.log(error)
+}
+
+    
+
+
+
 
  
     this.mqttServiceWrapper.connect(() => {
       console.log('Connected to MQTT broker.');
     });
  
+
+    
+
 
     this.sensorDataIn['dateTime'] = []
 
@@ -96,29 +114,67 @@ export class WaterGraphComponent implements OnInit, OnDestroy {
   }
 
 
+
+
+  transformObject(input: any): { [key: string]: string[] } {
+    const output: { [key: string]: string[] } = {};
+  
+    for (const key in input) {
+      const lastThreeDigits = key.toString().slice(-3);
+      const values = input[key];
+  
+      values.forEach((value:any) => {
+        const newKey = `${value}${lastThreeDigits}`;
+  
+        if (output[value]) {
+          output[value].push(newKey);
+        } else {
+          output[value] = [newKey];
+        }
+      });
+    }
+  
+    return output;
+  }
+  
+
+
+deviceIdList:any;
   subscribeToTopic() {
-    const subscribeTopic = this.deviceId+'/data'
-    this.subscription = this.mqttServiceWrapper.observe(`${subscribeTopic}`, (message) => {
-      this.receivedMessage = message.payload.toString();
-      // console.log('Received message:', this.receivedMessage);
-      const sensorDataIn = JSON.parse(message.payload.toString());
-      this.handlesensorDataIn(sensorDataIn);
-    });
+    this.deviceIdList.forEach((id:any)=>{
+
+      const subscribeTopic = id+'/data'
+      this.subscription = this.mqttServiceWrapper.observe(`${subscribeTopic}`, (message) => {
+        this.receivedMessage = message.payload.toString();
+        // console.log('Received message:', this.receivedMessage);
+        const sensorDataIn = JSON.parse(message.payload.toString());
+        this.handlesensorDataIn(sensorDataIn);
+      });
+
+    })
+   
   }
 
 
   handlesensorDataIn(sensorDataIn: any) { 
 
-    if (sensorDataIn.deviceId === `${this.deviceId}`) {
-      console.log(this.deviceId)
-      if (!this.sensorDataIn[sensorDataIn.paramType]) {
-        this.sensorDataIn[sensorDataIn.paramType] = [];  // Initialize the array if it doesn't exist
+    // console.log(sensorDataIn)
+    if (this.deviceIdList.includes(sensorDataIn.deviceId) ){
+      // console.log('checkId',sensorDataIn.deviceId)
+      const idLength = sensorDataIn.deviceId.length;
+      const idConcat = sensorDataIn.deviceId.slice(-3);
+
+      const paramName = sensorDataIn.paramType+idConcat;
+      // console.log('paramName', paramName)
+
+      if (!this.sensorDataIn[paramName]) {
+        this.sensorDataIn[paramName] = [];  // Initialize the array if it doesn't exist
       }
   
-      this.sensorDataIn[sensorDataIn.paramType].push(sensorDataIn.paramValue);
+      this.sensorDataIn[paramName].push(sensorDataIn.paramValue);
 
-      if (this.sensorDataIn[sensorDataIn.paramType].length > 60) {
-        this.sensorDataIn[sensorDataIn.paramType].shift();
+      if (this.sensorDataIn[paramName].length > 60) {
+        this.sensorDataIn[paramName].shift();
       }
   
       if (!this.sensorDataIn['dateTime'].includes(sensorDataIn.dataPoint.split(' ')[1])) {
@@ -129,6 +185,7 @@ export class WaterGraphComponent implements OnInit, OnDestroy {
       if (this.sensorDataIn['dateTime'].length > 60) {
         this.sensorDataIn['dateTime'].shift();
       }
+
      
       }
       
@@ -139,13 +196,20 @@ export class WaterGraphComponent implements OnInit, OnDestroy {
           // this.initializeChart();
     }
 
+
     
     initializeChart() {
+
+      
+//       console.log('unique', this.graphHeadings)
+
+//  console.log('arrayList',this.sensorHeadings)
+
       // Create a container div for the charts
       const chartContainer = this.chartContainer.nativeElement;
     
       // Iterate through filteredControls and create charts
-      this.filteredControls.forEach((control: any, index: number) => {
+      this.graphHeadings.forEach((name: any, index: number) => {
         // Create a new row for every two charts
         if (index % 2 === 0) {
           const rowDiv = document.createElement('div');
@@ -160,18 +224,25 @@ export class WaterGraphComponent implements OnInit, OnDestroy {
         chartContainer.lastChild?.appendChild(colDiv);
     
         // Create controls for each chart
-        this.createControls(colDiv, index, control.graph.display_name);
+        this.createControls(colDiv, index, name);
     
         // Create canvas for the chart
         const canvas = this.createCanvasElement(index);
         colDiv.appendChild(canvas);
-    
+
+      if(Object.keys(this.sensorHeadings).includes(name)){
+      
+        this.dataSetNames = this.sensorHeadings[name];
+      }
+      else{
+        this.dataSetNames =[];
+      }
         // Create the chart
         const newChart = new Chart(canvas, {
           type: 'line',
           data: {
             labels: [],  // Initial empty labels
-            datasets: this.createDatasets(control.graph.params),
+            datasets: this.createDatasets(this.dataSetNames),
           },
           options: {
             responsive: true,
@@ -179,21 +250,21 @@ export class WaterGraphComponent implements OnInit, OnDestroy {
               x: {
                 title: {
                   display: true,
-                  text: control.graph.x,
+                  text: 'time',
                   color: 'red',
                 },
               },
               y: {
                 title: {
                   display: true,
-                  text: control.graph.y,
+                  text: 'rpm',
                   color: 'red',
                 },
               },
             },
           },
         });
-    
+      
         // Push the new chart to the array
         this.charts.push(newChart);
       });
@@ -302,7 +373,7 @@ export class WaterGraphComponent implements OnInit, OnDestroy {
   
 private createDatasets(params: any[]): any[] {
   return params.map((param: any) => {
-    const labelName = param.graph_label;
+    const labelName = param;
 
     if (labelName in this.sensorDataIn) {
       
@@ -317,9 +388,9 @@ private createDatasets(params: any[]): any[] {
       };
 
       // Check if a valid color is provided
-      if (param.graph_color) {
-        dataset.borderColor = param.graph_color;
-      }
+      // if (param.graph_color) {
+      //   dataset.borderColor = param.graph_color;
+      // }
 
       return dataset;
     } else {
@@ -329,7 +400,7 @@ private createDatasets(params: any[]): any[] {
         label: labelName,
         data: [],
         borderWidth: 2,
-        borderColor: param.graph_color,
+        // borderColor: param.graph_color,
         fill: false,
         tension: 0.4,
         hidden: false,
@@ -355,8 +426,14 @@ updateChart() {
 
   const latestDateTime = this.sensorDataIn['dateTime'].slice(-60);
 
-  this.filteredControls.forEach((control: any, index: number) => {
-    const datasets = this.createDatasets(control.graph.params);
+  this.graphHeadings.forEach((name: any, index: number) => {
+
+    if(Object.keys(this.sensorHeadings).includes(name)){
+      
+      this.dataSetNames = this.sensorHeadings[name];
+    }
+
+    const datasets = this.createDatasets(this.dataSetNames);
     const updatedData = {
       labels: latestDateTime,
       datasets,
@@ -418,7 +495,6 @@ updateChart() {
     // Ensure to unsubscribe when the component is destroyed
     this.unsubscribeFromTopic();
   }
-
 
 
 

@@ -15,7 +15,7 @@ export class AuthenticationService {
     return this.http.post<any>('http://4.188.244.11/login/', body); 
   }
 
-  // 20.244.51.20
+  // 4.188.244.11
 
   onSubmitAddUser(userDetails:any){
     console.log(userDetails);
@@ -279,15 +279,45 @@ loggedIn(){
 
 onThermalImage(imageDetails:any){
   console.log(imageDetails);
-  return this.http.get<any>(`http://`);
+  return this.http.get<any>(`http://4.188.244.11/thermal_img/${imageDetails.mobileno}/${imageDetails.days}/`);
 }
 
 
 
 onOcrImage(imageData:any){
   console.log(imageData)
-return this.http.post<any>('http://20.244.51.20/ocr/', imageData)
+return this.http.post<any>('http://4.188.244.11/ocr/', imageData)
 }
 
 
+onOcrRequested(mobileno:any){
+  console.log(mobileno);
+  return this.http.get<any>(`http://4.188.244.11/admin_side_ocr_view/`)
 }
+
+onOcrAdminResponse(userMob:any){
+  const mobileno = {mobno: userMob[2], imgname:userMob[0]}
+  console.log(mobileno);
+  return this.http.post<any>(`http://4.188.244.11/ocr_process/`, mobileno)
+}
+
+
+onLoginGeneralDashboard(mobileno:any){
+  console.log(mobileno);
+  return this.http.get(`http://4.188.244.11/userside_graph_view/${mobileno}/`)
+}
+
+
+onAllDevicesDetails(mobileno:any){
+console.log(mobileno);
+return this.http.get<any>(`http://4.188.244.11/userside_device_view/${mobileno}/`)
+}
+
+
+onAdmincreateuserpond(pondDetails:any){
+  return this.http.post<any>('http://4.188.244.11/account/',pondDetails)
+}
+
+}
+
+

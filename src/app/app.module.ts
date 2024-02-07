@@ -140,7 +140,12 @@ import { OcrCodeComponent } from './ocr-code/ocr-code.component';
 import { ThermalComponent } from './thermal/thermal.component';
 import { WaterPageComponent } from './water-page/water-page.component';
 import { WaterGraphComponent } from './water-graph/water-graph.component';
-
+import { AdminOcrComponent } from './admin-ocr/admin-ocr.component';
+import { UploadSuccessComponent } from './upload-success/upload-success.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { UserOcrComponent } from './user-ocr/user-ocr.component';
+import { UseracceptCreatePondComponent } from './useraccept-create-pond/useraccept-create-pond.component';
 
 @NgModule({
   declarations: [
@@ -234,6 +239,11 @@ import { WaterGraphComponent } from './water-graph/water-graph.component';
     ThermalComponent,
      WaterPageComponent,
      WaterGraphComponent,
+     AdminOcrComponent,
+     UploadSuccessComponent,
+     NavBarComponent,
+     UserOcrComponent,
+     UseracceptCreatePondComponent,
 
     // DashboardComponent,
    
@@ -280,7 +290,8 @@ import { WaterGraphComponent } from './water-graph/water-graph.component';
     LoadingBarModule,
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    GoogleMapsModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

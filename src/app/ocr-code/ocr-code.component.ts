@@ -2,6 +2,8 @@ import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileService } from '../file.service';
 import { AuthenticationService } from '../authentication.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UploadSuccessComponent } from '../upload-success/upload-success.component';
 
 @Component({
   selector: 'app-ocr-code',
@@ -14,7 +16,7 @@ export class OcrCodeComponent implements OnInit{
   userStoreData:any;
   userNameProfile:any;
   selectedImage: string | ArrayBuffer | null = './assets/img/OIP.jpg';
-  constructor(private ocrService: FileService, private auth:AuthenticationService) {}
+  constructor(private ocrService: FileService, private auth:AuthenticationService, private dialog:MatDialog) {}
   file:any;
   translateData:any;
   adminMob:any;
@@ -37,8 +39,11 @@ handleFileSelect(event:any){
     
     this.auth.onOcrImage(formData).subscribe((response)=>{
       console.log(response);
-      this.translateData=[];
-      this.translateData = response.message;
+      if (response.message === 'Image Uploaded'){
+        const dialogRef = this.dialog.open(UploadSuccessComponent,{
+          width: '350px'
+        })
+      }
     }, error=>{
       console.log(error)
     })

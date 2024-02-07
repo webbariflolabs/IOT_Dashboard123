@@ -655,3 +655,7 @@
   color: white;
   font-size: 20px;
   }
+.image-sizing{
+  height: 500px;
+  width: 500px;
+}

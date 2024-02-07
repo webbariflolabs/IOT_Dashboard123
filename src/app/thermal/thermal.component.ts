@@ -25,7 +25,7 @@ adminMob:any;
 
   subMenuStates: { [key: string]: boolean } = {};
 
-
+thermalImages:any;
 onLogout():void{
     window.location.href = 'http://aqua.bariflorobotics.com/login'
     localStorage.removeItem('token')
@@ -42,7 +42,8 @@ onLogout():void{
 
     const imageDetails = {mobileno:parseInt(this.adminMob), days: parseInt(this.daysNumber)}
     this.auth.onThermalImage(imageDetails).subscribe((response)=>{
-      console.log(response)
+      console.log(response);
+    this.thermalImages = response.message;
     }, error=>{
       console.log(error)
     })

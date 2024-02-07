@@ -1,14 +1,320 @@
-<div class="sidebar">
-    <img class="logo-size" src="./assets/img/profiler.png">
-    <a  href="#home">Name</a>
- 
-    <a class="active" href="#home">Home</a>
-    <a href="#news">News</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+    </div>
   </div>
- 
-  <!-- Page content -->
-  <div class="content">
+</nav> -->
+
+<div class='container-bg'>
    
+    <nav class='nav-bar'>
+     <ul class='list-items-nav'>
+      <!-- <li class='eachlist nav-item dropdown'>
+        <a
+          class="nav-link dropdown-toggle hidden-arrow"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img src='./assets/img/chart-tree.png' alt="Dropdown Trigger"/>
+        </a>
+    
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+          <li>
+            <a class="dropdown-item" href="#">Some news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Another news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </li>
+        </ul>
+      </li> -->
+
+      <!-- <a class="dropdown-item" href="#">Action</a> -->
+
+
+      <!-- <li class="nav-item dropdown eachlist" (click)="onDevices()">
+        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src='./assets/img/chart-tree.png' alt="Dropdown Trigger"/>
+        </a>
+        <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="navbarDropdown">
+          <li *ngFor="let device of devicesNamesList">
+            <div class="device-flex">
+            <div class="name-styles"><p><span class="title">ID: </span>{{device[1]}}</p> 
+            <p><span class="title">Dev_Name: </span>{{device[0]}}</p></div>
+            <div>
+              <p>
+              <label class="switch">
+                <input type="checkbox" (change)="onToggleChange()">
+                <span class="slider round"></span>
+              </label></p>
+            </div>
+          </div>
+
+          </li>
+          
+        </ul>
+      </li> -->
+
+      <li class="nav-item dropdown eachlist" (click)="onDevices()">
+        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src='./assets/img/chart-tree.png' alt="Dropdown Trigger"/>
+        </a>
+        <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="navbarDropdown" (click)="onDropdownClick($event)">
+          <li *ngFor="let device of devicesNamesList">
+            <div class="device-flex">
+              <div class="name-styles">
+                <p><span class="title">ID: </span>{{device[1]}}</p> 
+                <p><span class="title">Dev_Name: </span>{{device[0]}}</p>
+              </div>
+              <div>
+                <p>
+                  <label class="switch">
+                    <input type="checkbox" [checked]="devicesStatus[device[1]]"  (change)="onToggleChange($event, device)">
+                    <span class="slider round"></span>
+                  </label>
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      
+      
+  
+      
+    <li class='eachlist'><img src='./assets/img/nightlight.png'/></li>
+    <button class="no-button" title="Calendar" ><li class='eachlist'><img src='./assets/img/Calendar.png'/></li></button>
+    
+    <button class="no-button" title="Notifications" ><li class='eachlist'><img src='./assets/img/notification.png'/></li></button>
+    
+    <button class="no-button" title="Help" ><li class='eachlist'><img src='./assets/img/help-circle.png'/></li></button>
+    
+    <button class="no-button" title="Logout" (click)="onLogout()"><li class='eachlist'><i class="fa-solid fa-arrow-right-from-bracket logout"></i>
+    </li></button>
+  
+     </ul>
+    </nav>
+    
+  <div class="sidebar-content-container">
+  <div class="sidebar">
+  
+  <div class='name-profile-container'>
+  <img class="logo-size" src="./assets/img/profiler1.png">
+  <a  class='name-anchor'>{{userNameProfile}}</a>
   </div>
+  <div class='each-main-item active-item each-list'>
+  <img src='./assets/img/Dashboard.png' />
+  <a class="active" href="">Dashboard</a>
+  </div>
+  
+  
+  
+  <div class='each-main-item each-list' (click)="accountsContainer()">
+    <img src='./assets/img/PersonLinesFill.png' />
+    <a class="active">Accounts</a>
+    <div *ngIf="accountdropup" class='dropup-element'>
+      <img src='./assets/img/dropup.png' />
+    </div>
+    <div *ngIf="accountShow" class='dropup-element'>
+      <img src='./assets/img/dropdown.png' />
+    </div>
+  </div>
+  
+  <!-- Loop through the tabs array to create dynamic content for each tab -->
+  <div *ngIf="accountShow">
+  <div *ngFor="let tab of accountsData.items; let i = index">
+    <div  class='each-main-item each-list inner' (click)="accountContainer(i)">
+      <img src='./assets/img/PersonLinesFill.png' />
+      <a class="active">Account {{i+1}}</a>
+      <div *ngIf="showAccountUp[i]" class='dropup-element'>
+        <img src='./assets/img/dropup.png' />
+      </div>
+      <div *ngIf="showDetails[i]" class='dropup-element'>
+        <img src='./assets/img/dropdown.png' />
+      </div>
+    </div>
+  
+    <div *ngIf="showDetails[i]" class='account-details'>
+      <!-- Your dynamic content for each tab goes here -->
+  
+      <div class="account-between">
+      <p class='details-names'>ID</p>
+      <p>:</p>
+      <p class='details-names color'> {{tab[1]}}</p>
+    </div>
+    <div class="account-between">
+      <p class='details-names'>Name</p>
+      <p>:</p>
+  
+      <p class='details-names color'>{{tab[0]}}</p>
+    </div>
+  
+    <div class="account-between">
+      <p class='details-names'>Address</p>
+      <p>:</p>
+  
+      <p class='details-names color'>{{tab[4]}}</p>
+    </div>
+    <div class="account-between">
+      <p class='details-names'>No.of Devices</p>
+      <p>:</p>
+  
+      <p class='details-names color'>{{tab[5]}}</p>
+    </div>
+      <p class='details-names'>Opex</p>
+      <p class='details-names'>Capex</p>
+    </div>
+  </div>
+  </div>
+  
+  
+  
+  
+  <div class='each-main-item each-list'>
+  <img src='./assets/img/recharge.png' />
+  <a class="active" href="">Recharge</a>
+  </div>
+  <div class='each-main-item each-list'>
+  <img src='./assets/img/Cart.png' />
+  <a class="active" href="">E-Commerce</a>
+  </div>
+  <div class='each-main-item each-list' (click)="togglesecondContainer()">
+  <img src='./assets/img/ClipboardMinus.png' />
+  <a class="active" >Diagnosis</a>
+  <div *ngIf="Diagnosisshowdropup" class='dropup-element'>
+    <img src='./assets/img/dropup.png' />
+  </div>
+  <div *ngIf="showDiagnosisContainer" class='dropup-element'>
+    <img src='./assets/img/dropdown.png' />
+  </div>
+  </div>
+  
+  <div *ngIf="showDiagnosisContainer" class='diagnosis-details' >
+  <div class='ocr-description' (click)="ocrcontainerclick()">
+  <p>OCR</p>
+  
+  <div *ngIf="fishwatershowdropup" class='dropup-ocr-element dropup-element'>
+    <img src='./assets/img/dropup.png' />
+  </div>
+  <div *ngIf="showfishwaterbody" class='dropup-element dropup-ocr-element'>
+    <img src='./assets/img/dropdown.png' />
+  </div>
+  </div>
+  <div *ngIf="showfishwaterbody">
+  <div class='description-shrimp'>
+  <p>Fish/Shrimp</p>
+  </div>
+  <button class="no-button" (click)="onOcrCode()"> <div  class='description-water'>
+   <p>Waterbody</p>
+  </div></button>
+  
+  </div>
+  <div class='description-consulting'>
+  <p>Consulting</p>
+  </div>
+  
+  <div class='description-Medicine'>
+  <p>Medicine</p>
+  </div>
+  </div>
+  
+  </div>
+  
+  <div class="content-box">
+  <div class="bg-container-content">
+  
+  <div class="bg-content-dashboard">
+   <!-- <google-map height="300px"
+   width="1250px"
+   [center]="location"
+   [zoom]="zoomin"
+   
+     ><map-marker   [position]="{ lat: location.lat, lng: location.lng }"></map-marker></google-map> -->
+  
+     <div class='bg-maps'>
+      <div id="map"  class='map-container' style="height: 400px; width:1250px;"></div>
+  </div>
+  
+    </div>
+  <div class='card-weather-live'>
+  <div class='each-item-weather'>
+  <div>
+  <h1 class='name-heading'>Temperature</h1>
+  <h1 class='heading-live-weather'>27<sup>o</sup>C</h1>
+  </div>
+  
+  <div class='bg-icon-image'>
+    <img src='../assets/img/humidityTemp.png' class='image-icon'/>
+  </div>
+  </div>
+  <div class='each-item-weather'>
+  <div>
+  <h1 class='name-heading'>Humidity</h1>
+  <h1 class='heading-live-weather'>65%</h1>
+  </div>
+  
+  <div class='bg-icon-image'>
+    <img src='../assets/img/dropwater.png' class='image-icon'/>
+  </div>
+  </div>
+  <div class='each-item-weather'>
+  <div>
+  <h1 class='name-heading'>Wind Speed</h1>
+  <h1 class='heading-live-weather'>4km/hr</h1>
+  </div>
+  
+  <div class='bg-icon-image'>
+    <img src='../assets/img/wind.png' class='image-icon'/>
+  </div>
+  </div>
+  
+  </div>
+  </div>
+  
+  
+  
+  <div  #chartContainer class="chart-container"></div>
+  
+  <div class="footer">
+    <p>Tech by Bariflolabs <span><img class="image-suffix" src="./assets/img/registered.png"></span></p>
+    <p>Copyright by Bariflolabs <span><img class="image-suffix" src="./assets/img/registered.png"></span></p>
+    
+  </div>
+    
+  </div>
+  
+  
+  </div>
+  </div>
+  
